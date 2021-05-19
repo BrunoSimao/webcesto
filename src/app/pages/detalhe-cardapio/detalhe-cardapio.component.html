@@ -1,0 +1,92 @@
+<div class="header py-4 py-lg-5" style="background-color: rgb(1, 143, 180)">
+  <div class="container">
+    <div class="header-body text-center mb-7">
+      <div class="text-muted text-center mt-2 mb-3"><h2 style="color: white;">Dados do Produto</h2></div>
+      <div class="row justify-content-center">
+        <div class="col-lg-5 col-md-6">
+          <!-- <h1 class="text-white">Bem Vindo!</h1>
+          <p class="text-lead text-light">Portal do parceiro. Gerencie sua loja de forma fácil e rápida.</p> -->
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="separator separator-bottom separator-skew zindex-100">
+    <svg x="0" y="0" viewBox="0 0 2560 100" preserveAspectRatio="none" version="1.1" xmlns="http://www.w3.org/2000/svg">
+      <polygon class="fill-default" points="2560 0 2560 100 0 100"></polygon>
+    </svg>
+  </div>
+</div>
+<!-- Page content -->
+<div class="container mt--8 pb-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-6 col-md-7">
+      <div class="card bg-secondary shadow border-0">
+        <div class="card-header bg-transparent pb-5">
+          <button type="button" (click)="goBack()" class="btn btn-secondary btn-sm">Voltar</button>
+          <!-- <div class="text-muted text-center mt-2 mb-3"><h2>Pedido #8</h2></div> -->
+        </div>
+
+        <input type="file" (change)="onFileChanged($event)">
+
+        <div class="card-body px-lg-5 py-lg-5">
+          <form role="form">
+            <div class="form-group mb-3">
+            
+              <label>Nome do prato</label> 
+              <div class="form-group mb-3">
+                <div class="input-group input-group-alternative">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="ni ni-credit-card"></i></span>
+                  </div>
+                  <input class="form-control" type="name" value="Barca Japonesa">
+                </div>
+              </div>
+            </div>
+            <div class="form-group mb-3">
+            
+              <label>Descrição</label> 
+              <div class="form-group mb-3">
+                <div class="input-group input-group-alternative">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="ni ni-credit-card"></i></span>
+                  </div>
+                  <input class="form-control" type="name" value="80 tipos">
+                </div>
+              </div>
+            </div>
+            <div class="form-group mb-3">
+            
+              <label>Categoria</label> 
+              <div class="form-group mb-3">
+                <div class="input-group input-group-alternative">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="ni ni-credit-card"></i></span>
+                  </div>
+                  <input class="form-control" type="name" value="Sushi">
+                </div>
+              </div>
+            </div>
+            <label>Desconto</label> 
+            <div class="btn-toolbar" role="toolbar" aria-label="Toolbar com grupos de botões">
+              <div class="btn-group mr-1" role="group" aria-label="Primeiro grupo">
+                <button onclick="mudaBotao()" id="botao" type="button" class="btn btn-secondary">3%</button>
+                <button type="button" class="btn btn-secondary">5%</button>
+                <button type="button" class="btn btn-secondary">10%</button>
+                <button type="button" class="btn btn-secondary">25%</button>
+                <button type="button" class="btn btn-secondary">30%</button>
+                <button type="button" class="btn btn-secondary">40%</button>
+              </div>
+              </div>
+              <br>
+              <div class="custom-control custom-switch">
+                <input type="checkbox" class="custom-control-input" id="customSwitches">
+                <label class="custom-control-label" style="font-size:15px;" for="customSwitches">Produto disponível</label>
+               </div>
+            <button style="margin-right:200px;" type="button" class="btn btn-success my-4">Salvar</button>
+            <button type="button" class="btn btn-danger">Exluir Produto</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

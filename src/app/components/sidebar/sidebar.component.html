@@ -9,7 +9,7 @@
     <a class="navbar-brand pt-0" routerLinkActive="active" [routerLink]="['/dashboard']">
       <!-- <img src="./assets/img/brand/red.png" class="navbar-brand-img" alt="..."> -->
       <!-- <img src="https://static.wixstatic.com/media/29d8bb_465742e685cb489e805d5e04faf1cf26~mv2.png/v1/fill/w_92,h_80,al_c,q_85,usm_0.66_1.00_0.01/logo%20sem%20fundo%20cesto.webp"> -->
-      <img src="assets\img\theme\sketch.jpg">
+      <img src="assets\img\brand\cestologo.PNG" class="navbar-brand-img" alt="...">
     </a>
     <!-- User -->
     <ul class="nav align-items-center d-md-none">
@@ -34,26 +34,38 @@
         </a>
         <div class="dropdown-menu-arrow dropdown-menu-right" ngbDropdownMenu>
           <div class=" dropdown-header noti-title">
-            <h6 class="text-overflow m-0">Welcome!</h6>
+            <h6 class="text-overflow m-0">Menu</h6>
           </div>
-          <a routerLinkActive="active" [routerLink]="['/user-profile']" class="dropdown-item">
+          <a routerLinkActive="active" [routerLink]="['/cadastro-parceiro']" class="dropdown-item">
             <i class="ni ni-single-02"></i>
-            <span>My profile</span>
+            <span>Meus Dados</span>
           </a>
-          <a routerLinkActive="active" [routerLink]="['/user-profile']" class="dropdown-item">
-            <i class="ni ni-settings-gear-65"></i>
-            <span>Settings</span>
+          <a routerLinkActive="active" [routerLink]="['/cadastro-estabelecimento']" class="dropdown-item">
+            <i class="ni ni-box-2"></i>
+            <span>Dados do Restaurante</span>
           </a>
-          <a routerLinkActive="active" [routerLink]="['/user-profile']" class="dropdown-item">
-            <i class="ni ni-calendar-grid-58"></i>
-            <span>Activity</span>
+          <a routerLinkActive="active" [routerLink]="['/endereco-estabelecimento']" class="dropdown-item">
+            <i class="ni ni-square-pin"></i>
+            <span>Dados do Endereço</span>
           </a>
-          <a routerLinkActive="active" [routerLink]="['/user-profile']" class="dropdown-item">
+          <a routerLinkActive="active" [routerLink]="['/cadastro-conta']" class="dropdown-item">
+            <i class="ni ni-money-coins"></i>
+            <span>Dados Bancários</span>
+          </a>
+          <a routerLinkActive="active" [routerLink]="['/dashboard']" class="dropdown-item">
+            <i class="ni ni-bullet-list-67"></i>
+            <span>Relatório</span>
+          </a>
+          <a routerLinkActive="active" [routerLink]="['/dashboard']" class="dropdown-item">
+            <i class="ni ni-circle-08"></i>
+            <span>Operadores</span>
+          </a>
+          <!-- <a routerLinkActive="active" [routerLink]="['/dashboard']" class="dropdown-item">
             <i class="ni ni-support-16"></i>
-            <span>Support</span>
-          </a>
+            <span>Sair</span>
+          </a> -->
           <div class="dropdown-divider"></div>
-          <a href="#!" class="dropdown-item">
+          <a href="#/login" class="dropdown-item">
             <i class="ni ni-user-run"></i>
             <span>Logout</span>
           </a>
