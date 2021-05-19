@@ -16,6 +16,7 @@ import { ValidaResetSenhaComponent } from './pages/valida-reset-senha/valida-res
 import { ModalDetalhePedidoComponent } from './pages/modal/modal-detalhe-pedido.component';
 import { PoliticaPrivacidadeComponent } from './pages/politica-privacidade/politica-privacidade.component';
 import { CardapioComponent } from './pages/cardapio/cardapio.component';
+import { DetalheCardapioComponent } from './pages/detalhe-cardapio/detalhe-cardapio.component';
 
 const routes: Routes =[
   {
@@ -75,6 +76,9 @@ const routes: Routes =[
   }, {
     path: 'cardapio',
     component: CardapioComponent,
+  },  {
+    path: 'detalhe-cardapio',
+    component: DetalheCardapioComponent,
   }
 ];
 
