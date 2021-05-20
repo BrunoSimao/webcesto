@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
+import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
@@ -36,6 +37,7 @@ import { ProductService } from './pages/producer.service';
   imports: [
     BrowserAnimationsModule,
     FormsModule,
+    BrowserModule,
     HttpClientModule,
     ComponentsModule,
     NgbModule,

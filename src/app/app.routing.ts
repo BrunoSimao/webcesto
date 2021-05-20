@@ -5,7 +5,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
-import {LoginComponent} from './pages/login/login.component';
+import {LoginComponent} from './pages/login/component/login.component';
 import { CadastroParceiroComponent } from './pages/cadastro-parceiro/cadastro-parceiro.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { CadastroEstabelecimentoComponent } from './pages/cadastro-estabelecimento/cadastro-estabelecimento.component';
