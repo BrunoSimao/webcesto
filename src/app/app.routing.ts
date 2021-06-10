@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { CommonModule, } from '@angular/common';
 import { BrowserModule  } from '@angular/platform-browser';
 import { Routes, RouterModule } from '@angular/router';
@@ -6,11 +7,11 @@ import { Routes, RouterModule } from '@angular/router';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
 import {LoginComponent} from './pages/login/component/login.component';
-import { CadastroParceiroComponent } from './pages/cadastro-parceiro/cadastro-parceiro.component';
+import { CadastroParceiroComponent } from './pages/cadastro-parceiro/component/cadastro-parceiro.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
-import { CadastroEstabelecimentoComponent } from './pages/cadastro-estabelecimento/cadastro-estabelecimento.component';
+import { CadastroEstabelecimentoComponent } from './pages/cadastro-estabelecimento/component/cadastro-estabelecimento.component';
 import { EnderecoEstabelecimentoComponent } from './pages/endereco-estabelecimento/endereco-estabelecimento.component';
-import { CadastroContaComponent } from './pages/cadastro-conta/cadastro-conta.component';
+import { CadastroContaComponent } from './pages/cadastro-conta/component/cadastro-conta.component';
 import { ResetSenhaComponent } from './pages/reset-senha/reset-senha.component';
 import { ValidaResetSenhaComponent } from './pages/valida-reset-senha/valida-reset-senha.component';
 import { ModalDetalhePedidoComponent } from './pages/modal/modal-detalhe-pedido.component';
@@ -84,6 +85,7 @@ const routes: Routes =[
 
 @NgModule({
   imports: [
+    FormsModule,
     CommonModule,
     BrowserModule,
     RouterModule.forRoot(routes,{

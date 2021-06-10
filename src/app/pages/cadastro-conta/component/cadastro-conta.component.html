@@ -50,7 +50,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text"><i class="ni ni-single-02"></i></span>
                 </div>
-                <input class="form-control" placeholder="Titular" type="name">
+                <input class="form-control" [(ngModel)]="accountOwnerName" name="accountOwnerName" placeholder="Titular" type="text">
               </div>
             </div>
             <div class="form-group">
@@ -58,7 +58,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text"><i class="ni ni-box-2"></i></span>
                 </div>
-                <input class="form-control" placeholder="Agência" type="name">
+                <input class="form-control" [(ngModel)]="agency" name="agency"  placeholder="Agência" type="text">
               </div>
             </div>
             <div class="form-group">
@@ -66,8 +66,8 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text"><i class="ni ni-key-25"></i></span>
                 </div>
-                <input class="form-control" placeholder="Conta" style="margin: 15px;" type="number">
-                <input class="form-control" placeholder="Digíto" style="margin: 15px;" type="number">
+                <input class="form-control" [(ngModel)]="accountNumber" name="accountNumber" placeholder="Conta" style="margin: 15px;" type="number">
+                <input class="form-control" [(ngModel)]="dv" name="dv" placeholder="Digíto" style="margin: 15px;" type="number">
               </div>
             </div>
            
@@ -88,23 +88,11 @@
             </div>
             <div class="text-center">
               <button style="margin-right:170px;" type="button" (click)="goBack()" class="btn btn-danger">Voltar</button>
-              <button type="button" (click)="showToaster()" class="btn btn-primary my-4">Salvar</button>
+              <button type="button" (click)="confirmaDadosBancario()" class="btn btn-primary my-4">Salvar</button>
             </div>
           </form>
         </div>
       </div>
-        <!-- <button (click)="showToaster()">
-          Show Toaster
-        </button> -->
-      
-      <!-- <div class="row mt-3">
-        <div class="col-6">
-          <a href="javascript:void(0)" class="text-light"><small>Ja é registrado?</small></a>
-        </div>
-        <div class="col-6 text-right">
-          <a href="javascript:void(0)" class="text-light"><small>Cadastre sua loja</small></a>
-        </div>
-      </div> -->
     </div>
   </div>
 </div>

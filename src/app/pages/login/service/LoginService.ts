@@ -71,7 +71,9 @@ export class LoginService {
     } else {
       // Erro ocorreu no lado do servidor
       errorMessage = `Código do erro: ${error.status}, ` + `menssagem: ${error.message}`;
+      
     }
+    window.alert(errorMessage);
     console.log(errorMessage);
     return throwError(errorMessage);
   };

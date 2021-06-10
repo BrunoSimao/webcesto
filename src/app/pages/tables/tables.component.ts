@@ -2,7 +2,6 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Product } from 'src/app/layouts/auth-layout/product';
-import { ProductService } from '../producer.service';
 
 @Component({
   selector: 'app-tables',
