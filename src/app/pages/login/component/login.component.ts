@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { AuthOwner } from '../model/AuthOwner';
 import { FormBuilder, FormGroup, NgForm } from '@angular/forms';
 import { LoginService } from '../service/LoginService';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
+import { threadId } from 'worker_threads';
 
 @Component({
   selector: 'app-login',
@@ -35,10 +37,12 @@ export class LoginComponent {
   }
 
   CadastroParceiro(){
+
     this.router.navigate(['/cadastro-parceiro']);
   }
 
   ResetSenha() {
     this.router.navigate(['/reset-senha']);
+   
   }
 }

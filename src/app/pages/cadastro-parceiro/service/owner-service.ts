@@ -13,7 +13,6 @@ export class OwnerService {
 
   // injetando o HttpClient
   constructor(private httpClient: HttpClient) { }
-
   // Headers
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })

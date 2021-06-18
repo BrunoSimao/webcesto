@@ -19,7 +19,7 @@
 <!-- Page content -->
 <div class="container mt--8 pb-5">
   <div class="row justify-content-center">
-    <div class="col-lg-5 col-md-7">
+    <div class="col-lg-6 col-md-7">
       <div class="card bg-secondary shadow border-0">
         <div class="card-header bg-transparent pb-5">
           <div class="text-muted text-center mt-2 mb-3"><h2>Cadastro Conta Bancária</h2></div>
@@ -29,20 +29,13 @@
             <small>Dados Bancários.</small>
           </div>
           <form role="form">
-            
             <div class="form-group mb-3">
               <div class="input-group input-group-alternative">
                 <div class="input-group-prepend">
                   <span class="input-group-text"><i class="ni ni-istanbul"></i></span>
+                  <p-dropdown [style]="{'width': '405px'}" [options]="banks" [(ngModel)]="selectedBank" placeholder="Selecione Banco" optionLabel="bankName" [showClear]="true" [ngModelOptions]="{standalone: true}"></p-dropdown>
                 </div>
-                <select class="browser-default custom-select">
-                  <option selected>Banco</option>
-                  <option value="1">Itaú</option>
-                  <option value="2">Santander</option>
-                  <option value="3">Banco do Brasil</option>
-                  <option value="4">Caixa</option>
-                  <option value="5">Deutsche Bank</option>
-                </select>
+                
               </div>
             </div>
             <div class="form-group">
@@ -74,15 +67,18 @@
 
             <div style="width:max-content;" class="form-group">
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                <p-radioButton name="groupname" value="1" [(ngModel)]="selectedValue"></p-radioButton>
+                <!-- <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"> -->
                 <label class="form-check-label" for="inlineRadio1">Conta Corrente</label>
               </div>
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                <p-radioButton name="groupname" value="2" [(ngModel)]="selectedValue"></p-radioButton>
+                <!-- <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"> -->
                 <label class="form-check-label" for="inlineRadio2">Conta Poupança</label>
               </div>
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3">
+                <p-radioButton name="groupname" value="3" [(ngModel)]="selectedValue"></p-radioButton>
+                <!-- <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3"> -->
                 <label class="form-check-label" for="inlineRadio3">Salário</label>
               </div>
             </div>

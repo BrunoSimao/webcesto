@@ -34,7 +34,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text"><i class="ni ni-key-25"></i></span>
                 </div>
-                <input class="form-control" placeholder="Código de verificação" type="number">
+                <input  id="code" class="form-control" [(ngModel)]="code" name="code" placeholder="Código de verificação" type="number">
               </div>
             </div>
             <div class="form-group">
@@ -42,7 +42,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
                 </div>
-                <input class="form-control" placeholder="Nova Senha" type="password">
+                <input id="password" class="form-control" [(ngModel)]="password" name="password" placeholder="Nova Senha" type="password">
               </div>
             </div>
             <div class="form-group">
@@ -50,15 +50,15 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
                 </div>
-                <input class="form-control" placeholder="Confirmação de Senha" type="password">
+                <input id="password" class="form-control" [(ngModel)]="password" name="password" placeholder="Confirmação de Senha" type="password">
               </div>
             </div>
             <div class="text-center">
-              <button  type="button" (click)="goBack()" class="btn btn-primary my-4">Enviar código novamente</button>
+              <button  type="button" (click)="enviarCodigoNovamente()" class="btn btn-primary my-4">Enviar código novamente</button>
             </div>
             <div class="text-center">
               <button style="margin-right:115px;"  type="button" (click)="goBack()" class="btn btn-danger">Voltar</button>
-              <button  type="button" class="btn btn-primary my-4">Resetar senha</button>
+              <button  type="button" (click)="resetarSenha()" class="btn btn-primary my-4">Resetar senha</button>
             </div>
           </form>
         </div>

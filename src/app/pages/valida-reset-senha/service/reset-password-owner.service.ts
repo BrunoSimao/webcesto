@@ -2,40 +2,37 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
-import { BankData } from '../model/dado-bancario';
-import { Bank } from '../model/bank';
+import { ResetPasswordOwner } from '../model/reset-password-owner';
 
 @Injectable({
   providedIn: 'root'
 })
-export class BankDataService {
+export class ResetPasswordOwnerService {
 
-  url = 'https://cesto.azurewebsites.net/api/BankData';
-  urlBankAll = 'https://cesto.azurewebsites.net/api/Bank/FindAll';
+  url = 'ttps://cesto.azurewebsites.net/api/AppAuth/ResetPasswordOwner';
+
   // injetando o HttpClient
   constructor(private httpClient: HttpClient) { }
 
-  token = window.sessionStorage.getItem('token');
-
   // Headers
   httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json',
-   'Authorization': 'bearer  ' + this.token })
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   }
 
-  createBankData(bankData: BankData): Observable<BankData> {
-    return this.httpClient.post<BankData>(this.url, JSON.stringify(bankData), this.httpOptions)
+  resetOwner(resetPassword: ResetPasswordOwner): Observable<ResetPasswordOwner> {
+    return this.httpClient.post<ResetPasswordOwner>(this.url, JSON.stringify(resetPassword), this.httpOptions)
       .pipe(
         retry(2),
         catchError(this.handleError)
       )
   }
 
-    getBanco(): Observable<Bank[]> {
-    return this.httpClient.get<Bank[]>(this.urlBankAll)
+  enviarCodigo(resetOwnerEmail: ResetPasswordOwner): Observable<ResetPasswordOwner> {
+    return this.httpClient.post<ResetPasswordOwner>(this.url, JSON.stringify(resetOwnerEmail), this.httpOptions)
       .pipe(
         retry(2),
-        catchError(this.handleError))
+        catchError(this.handleError)
+      )
   }
 
   // Manipulação de erros
@@ -46,12 +43,11 @@ export class BankDataService {
       errorMessage = error.error.message;
     } else {
       // Erro ocorreu no lado do servidor
-      errorMessage = `Código do erro: ${error.status}, ` + `menssagem: ${'Ocorreu um erro ao acessar o servidor!'}`;
+      errorMessage = `Código do erro: ${error.status}, ` + `menssagem: ${error.message}`;
       
     }
     window.alert(errorMessage);
     console.log(errorMessage);
     return throwError(errorMessage);
   };
-
 }

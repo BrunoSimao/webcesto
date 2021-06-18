@@ -10,8 +10,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   imports: [
-    FormsModule,
     CommonModule,
+    FormsModule,
     RouterModule,
     NgbModule,
     

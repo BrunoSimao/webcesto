@@ -1,6 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router'; 
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { NotificationService } from 'src/app/utility/notification-service';
+import { Bank } from '../model/bank';
 import { BankData } from '../model/dado-bancario';
 import { BankDataService } from '../service/dado-bancario.service';
 
@@ -12,38 +14,58 @@ import { BankDataService } from '../service/dado-bancario.service';
 })
 export class CadastroContaComponent implements OnInit, OnDestroy {
     
-    bank = new BankData();
+    bankData = new BankData();
+    banks: Bank[];
+    bank: Bank;
+    selectedBank: Bank;
     bankCode: string;
     bankName: string;
     accountOwnerName: string;
+    selectedValue: string;
     agency: string;
     accountNumber: string;
     dv: string;
     createdAt: string;
     bankAccountTypeID: number;
-  constructor(private router: Router, private notifyService : NotificationService, private bankDataService: BankDataService){
+
+  constructor(private router: Router, private notifyService : NotificationService, private bankDataService: BankDataService, 
+    private ngxLoader: NgxUiLoaderService){
   }
 
   confirmaDadosBancario(){
 
-    this.bank.bankCode = "341";
-    this.bank.bankName = "Itaú";
-    this.bank.agency = "Itaú";
-    this.bank.accountNumber = "32435343";
-    this.bank.dv = "7";
-    this.bank.bankAccountTypeID = 1;
+    this.bankData.bankCode = this.selectedBank.code;
+    this.bankData.bankName = this.selectedBank.bankName;
+    this.accountOwnerName = this.accountOwnerName;
+    this.bankData.agency =this.agency;
+    this.bankData.accountNumber = this.accountNumber;
+    this.bankData.dv = this.dv;
+    this.bankData.bankAccountTypeID = parseInt(this.selectedValue);
 
-    console.log(this.bank);
 
-    this.bankDataService.createBankData(this.bank).subscribe(() => {
+    console.log(this.bankData);
+    this.ngxLoader.start();
+    this.bankDataService.createBankData(this.bankData).subscribe(res => {
+      console.log(res);
       this.notifyService.showSuccess("Seu cadastro está em análise, entraremos em contato assim que estiver tudo pronto.", "Sucesso!!!");
       this.router.navigate(['/login']);
+     this.ngxLoader.stop();
+  }, err => {
+    this.ngxLoader.stop();
+  });
+    this.bankData = new BankData();
+  }
+
+  getBanco() {
+    this.bankDataService.getBanco().subscribe((banks: Bank[]) => {
+      this.banks = banks;
     });
-    this.bank = new BankData();
   }
 
   ngOnInit() {
-    this.bank = new BankData();
+    this.getBanco();
+    console.log(this.banks);
+    this.bankData = new BankData();
   }
   ngOnDestroy() {
   }

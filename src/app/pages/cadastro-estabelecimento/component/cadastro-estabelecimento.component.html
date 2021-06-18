@@ -10,6 +10,7 @@
       </div>
     </div>
   </div>
+  <p-toast></p-toast>
   <div class="separator separator-bottom separator-skew zindex-100">
     <svg x="0" y="0" viewBox="0 0 2560 100" preserveAspectRatio="none" version="1.1" xmlns="http://www.w3.org/2000/svg">
       <polygon class="fill-default" points="2560 0 2560 100 0 100"></polygon>
@@ -24,6 +25,18 @@
         <div class="card-header bg-transparent pb-5">
           <div class="text-muted text-center mt-2 mb-3"><h2>Cadastro do Estabelecimento</h2></div>
         </div>
+        <div class="text-center text-muted mb-4">
+          <small>Clique para inserir ou alterar o banner.</small>
+        </div>
+        <p-fileUpload previewWidth="80"[showUploadButton]="false" chooseLabel="Escolher Arquivo"
+        [showCancelButton]="false"  name="demo[]" url="./upload.php" (onSelect)="onUpload($event)"
+         accept="image/*" maxFileSize="1000000">
+        <ng-template pTemplate="content">
+            <ul *ngIf="uploadedFiles.length">
+                <li *ngFor="let file of uploadedFiles"></li>
+            </ul>
+        </ng-template>
+       </p-fileUpload>
         <div class="card-body px-lg-5 py-lg-5">
           <div class="text-center text-muted mb-4">
             <small>Dados do estabelecimento.</small>
@@ -36,14 +49,6 @@
                 </div>
                 <input class="form-control" [(ngModel)]="companyName" name="companyName" placeholder="Nome do Estabelecimento" type="text">
               </div>
-            </div>
-            <div class="form-group">
-                <div class="input-group input-group-alternative">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text"><i class="ni ni-mobile-button"></i></span>
-                  </div>
-                  <input class="form-control" [(ngModel)]="phoneNumber" name="phoneNumber"  placeholder="Telefone" type="text">
-                </div>
             </div>
             <div class="form-group">
               <div class="input-group input-group-alternative">
@@ -61,15 +66,9 @@
                 <input class="form-control" [(ngModel)]="phoneNumber" name="phoneNumber" placeholder="Celular" type="text">
               </div>
             </div>
-
-            <select class="browser-default custom-select">
-              <option selected>Tipo de Cozinha</option>
-              <option value="1">Armenia</option>
-              <option value="2">Brasileira</option>
-              <option value="3">Fast Food</option>
-            </select>
-            <br>
-            <br>
+            <div class="form-group">
+            <p-dropdown [style]="{'width': '350px'}" [options]="restaurantCategories" [(ngModel)]="selectedRestaurantCategory" placeholder="Tipo de Cozinha" optionLabel="categoryDescription" [showClear]="true" [ngModelOptions]="{standalone: true}"></p-dropdown>
+          </div>
             <!-- Default switch -->
             <div class="custom-control custom-switch">
              <input type="checkbox" class="custom-control-input" id="customSwitches">
@@ -80,6 +79,7 @@
               <button style="margin-right:170px;" type="button" (click)="goBack()" class="btn btn-danger">Voltar</button>
               <button type="button" (click)="CadastroDadosBancario()" class="btn btn-primary my-4">Salvar</button>
             </div>
+            <ngx-ui-loader></ngx-ui-loader>
           </form>
         </div>
       </div>
