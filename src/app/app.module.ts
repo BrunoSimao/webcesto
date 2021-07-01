@@ -1,5 +1,5 @@
 import { FormsModule } from '@angular/forms';
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
@@ -32,6 +32,22 @@ import {FileUploadModule} from 'primeng/fileupload';
 import {ToastModule} from 'primeng/toast';
 import {DropdownModule} from 'primeng/dropdown';
 import {RadioButtonModule} from 'primeng/radiobutton';
+import {InputSwitchModule} from 'primeng/inputswitch';
+
+import {TableModule} from 'primeng/table';
+import {ButtonModule} from 'primeng/button';
+import {RatingModule} from 'primeng/rating';
+import { EnderecoEstabelecimentoComponent } from './pages/endereco-estabelecimento/component/endereco-estabelecimento.component';
+import { PedidosComponent } from './pages/pedidos/component/pedidos.component';
+import {SelectButtonModule} from 'primeng/selectbutton';
+import { DetalheCardapioComponent } from './pages/detalhe-cardapio/component/detalhe-cardapio.component';
+import { AuthGuard } from './AuthGuard';
+import { InputNumberModule } from 'primeng/inputnumber';
+
+import {InputTextModule} from 'primeng/inputtext';
+import {CheckboxModule} from 'primeng/checkbox';
+import {InputTextareaModule} from 'primeng/inputtextarea';
+
 
 @NgModule({
   imports: [
@@ -48,8 +64,16 @@ import {RadioButtonModule} from 'primeng/radiobutton';
     DropdownModule,
     ToastModule,
     RadioButtonModule,
+    ButtonModule,
+    RatingModule,
+    TableModule,
+    SelectButtonModule,
+    InputSwitchModule,
+    InputNumberModule,
+    InputTextModule,
+    CheckboxModule,
+    InputTextareaModule,
     AppRoutingModule,
-   
     ToastrModule.forRoot()
   ],
   declarations: [
@@ -59,13 +83,19 @@ import {RadioButtonModule} from 'primeng/radiobutton';
     CadastroContaComponent,
     ResetSenhaComponent,
     ValidaResetSenhaComponent,
+    EnderecoEstabelecimentoComponent,
+    PedidosComponent,
     AppComponent,
+    DetalheCardapioComponent,
     AdminLayoutComponent,
     AuthLayoutComponent,
    
   ],
     
-    providers: [UserService],
-  bootstrap: [AppComponent]
+    providers: [AuthGuard],
+  bootstrap: [AppComponent],
+  schemas: [
+    CUSTOM_ELEMENTS_SCHEMA
+  ],
 })
 export class AppModule { }

@@ -94,9 +94,12 @@ export class CadastroEstabelecimentoComponent implements OnInit, OnDestroy {
    
     console.log(this.restaurant);
     this.ngxLoader.start();
-    this.restaurantService.createRestaurant(this.restaurant).subscribe(res => {
-      console.log(res);
-      this.router.navigate(['/cadastro-conta']);
+    this.restaurantService.createRestaurant(this.restaurant).subscribe(response => {
+
+     // window.sessionStorage.setItem("responseRestaurant", JSON.stringify(response));
+      window.sessionStorage.setItem('restaurantID', response.restaurantID.toString())
+      
+      this.router.navigate(['/endereco-estabelecimento']);
       this.ngxLoader.stop();
   }, err => {
     this.ngxLoader.stop();
@@ -110,8 +113,7 @@ export class CadastroEstabelecimentoComponent implements OnInit, OnDestroy {
   if (file) {
     const reader = new FileReader();
     reader.onload = this.handleReaderLoaded.bind(this);
-    reader.readAsBinaryString(file);
-    //this.messageService.add({severity: 'info', summary: 'File Uploaded', detail: ''});
+    reader.readAsArrayBuffer(file);
   }
 }
 

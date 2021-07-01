@@ -31,7 +31,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text"><i class="ni ni-square-pin"></i></span>
                 </div>
-                <input class="form-control" placeholder="CEP" type="cep">
+                <input id="zipCode" [(ngModel)]="zipCode" name="zipCode"  class="form-control" placeholder="CEP" type="number">
               </div>
             </div>
             <div class="form-group">
@@ -39,7 +39,7 @@
                   <div class="input-group-prepend">
                     <span class="input-group-text"><i class="ni ni-square-pin"></i></span>
                   </div>
-                  <input class="form-control" placeholder="Estado" type="estado">
+                  <input id="state" [(ngModel)]="state" name="state" class="form-control" placeholder="Estado" type="text">
                 </div>
             </div>
             <div class="form-group">
@@ -47,7 +47,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text"><i class="ni ni-square-pin"></i></span>
                 </div>
-                <input class="form-control" placeholder="Cidade" type="cidade">
+                <input id="city" [(ngModel)]="city" name="city" class="form-control" placeholder="Cidade" type="text">
               </div>
             </div>
             <div class="form-group">
@@ -55,16 +55,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text"><i class="ni ni-square-pin"></i></span>
                 </div>
-                <input class="form-control" placeholder="Bairro" type="bairro">
-              </div>
-            </div>
-
-            <div class="form-group">
-              <div class="input-group input-group-alternative">
-                <div class="input-group-prepend">
-                  <span class="input-group-text"><i class="ni ni-square-pin"></i></span>
-                </div>
-                <input class="form-control" placeholder="Logradouro" type="logradouro">
+                <input id="sublocality" [(ngModel)]="sublocality" name="sublocality" class="form-control" placeholder="Bairro" type="text">
               </div>
             </div>
 
@@ -73,7 +64,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text"><i class="ni ni-square-pin"></i></span>
                 </div>
-                <input class="form-control" placeholder="Número" type="numero">
+                <input id="street" [(ngModel)]="street" name="street" class="form-control" placeholder="Logradouro" type="text">
               </div>
             </div>
 
@@ -82,12 +73,21 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text"><i class="ni ni-square-pin"></i></span>
                 </div>
-                <input class="form-control" placeholder="Complemento" type="complemento">
+                <input id="number" [(ngModel)]="number" name="number" class="form-control" placeholder="Número" type="number">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="input-group input-group-alternative">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="ni ni-square-pin"></i></span>
+                </div>
+                <input id="observations" [(ngModel)]="observations" name="observations" class="form-control" placeholder="Complemento" type="text">
               </div>
             </div>      
             <div class="text-center">
               <button style="margin-right:170px;" type="button" (click)="goBack()" class="btn btn-danger">Voltar</button>
-              <button type="button" class="btn btn-primary my-4">Salvar</button>
+              <button (click)="salvarEnderecoEstabelecimento()" type="button" class="btn btn-primary my-4">Salvar</button>
             </div>
           </form>
         </div>

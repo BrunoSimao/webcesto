@@ -82,7 +82,7 @@ export class CadastroParceiroComponent implements OnInit, OnDestroy {
         console.log(token);
         window.sessionStorage.setItem('ownerID', idOwner);
         window.sessionStorage.setItem('token', token);
-    
+       
          this.router.navigate(['/cadastro-estabelecimento']);
          this.ngxLoader.stop();
         }, err => {

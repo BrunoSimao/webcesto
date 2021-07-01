@@ -2,19 +2,21 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
-import { BankData } from '../model/dado-bancario';
-import { Bank } from '../model/bank';
+import { MessageService } from 'primeng/api';
+import { NotificationService } from 'src/app/utility/notification-service';
+import { EnderecoEstabelecimento } from '../model/endereco-estabelecimento';
+import { Restaurant } from '../../cadastro-estabelecimento/model/restaurant';
 
 @Injectable({
   providedIn: 'root'
 })
-export class BankDataService {
+export class EndrecoEstabelecimentoService {
+ 
+  url = 'https://cesto.azurewebsites.net/api/Address/CreateRestaurantAddress';
 
-  url = 'https://cesto.azurewebsites.net/api/BankData';
-  urlBankAll = 'https://cesto.azurewebsites.net/api/Bank/FindAll';
   // injetando o HttpClient
-  constructor(private httpClient: HttpClient) { }
-
+  constructor(private httpClient: HttpClient, private notifyService : NotificationService,) { }
+  
   token = window.sessionStorage.getItem('token');
 
   // Headers
@@ -23,32 +25,28 @@ export class BankDataService {
    'Authorization': 'bearer  ' + this.token })
   }
 
-  createBankData(bankData: BankData): Observable<BankData> {
-    return this.httpClient.post<BankData>(this.url, JSON.stringify(bankData), this.httpOptions)
+  salvarEnderecoEstabelecimento(enderecoEstabelecimento: Restaurant): Observable<Restaurant> {
+    console.log(this.token);
+    return this.httpClient.post<Restaurant>(this.url, JSON.stringify(enderecoEstabelecimento), this.httpOptions)
       .pipe(
         retry(2),
         catchError(this.handleError)
       )
   }
 
-    getBanco(): Observable<Bank[]> {
-    return this.httpClient.get<Bank[]>(this.urlBankAll)
-      .pipe(
-        retry(2),
-        catchError(this.handleError))
-  }
-
   // Manipulação de erros
   handleError(error: HttpErrorResponse) {
     let errorMessage = '';
+   
     if (error.error instanceof ErrorEvent) {
       // Erro ocorreu no lado do client
       errorMessage = error.error.message;
     } else {
       // Erro ocorreu no lado do servidor
-      errorMessage = `Código do erro: ${error.status}, ` + `menssagem: ${error.error.detail}`;
-      
+      errorMessage = `Código do erro: ${error.status}, ` + `menssagem:${error.error.detail}`;
+    
     }
+    //this.notifyService.showError(errorMessage, "Erro!!!");
     window.alert(errorMessage);
     console.log(errorMessage);
     return throwError(errorMessage);

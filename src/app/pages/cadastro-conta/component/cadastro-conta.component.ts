@@ -32,17 +32,18 @@ export class CadastroContaComponent implements OnInit, OnDestroy {
     private ngxLoader: NgxUiLoaderService){
   }
 
-  confirmaDadosBancario(){
+  confirmaDadosBancario() {
 
+    var idOwner =  window.sessionStorage.getItem('ownerID');
+    this.bankData.ownerID = parseInt(idOwner);
     this.bankData.bankCode = this.selectedBank.code;
     this.bankData.bankName = this.selectedBank.bankName;
-    this.accountOwnerName = this.accountOwnerName;
     this.bankData.agency =this.agency;
-    this.bankData.accountNumber = this.accountNumber;
-    this.bankData.dv = this.dv;
+    this.bankData.accountNumber = this.accountNumber.toString();
+    this.bankData.dv = this.dv.toString();
+    this.bankData.accountOwnerName = this.accountOwnerName;
     this.bankData.bankAccountTypeID = parseInt(this.selectedValue);
-
-
+   
     console.log(this.bankData);
     this.ngxLoader.start();
     this.bankDataService.createBankData(this.bankData).subscribe(res => {

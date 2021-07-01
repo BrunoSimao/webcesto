@@ -1,44 +1,33 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { retry, catchError } from 'rxjs/operators';import { Restaurant } from '../model/restaurant';
-import { RestaurantCategories } from '../model/restaurantcategories';
-import { MessageService } from 'primeng/api';
+import { retry, catchError, map } from 'rxjs/operators';
 import { NotificationService } from 'src/app/utility/notification-service';
+import { Product } from '../../pedidos/component/model/product';
 
 @Injectable({
   providedIn: 'root'
 })
-export class RestaurantService {
+export class CardapioService {
  
-  url = 'https://cesto.azurewebsites.net/api/Restaurant';
-  urlRestaurantAll = 'https://cesto.azurewebsites.net/api/RestaurantCategory/FindAllByName';
-
+  url = 'https://cesto.azurewebsites.net/api/Product?restaurantID=';
+  
   // injetando o HttpClient
   constructor(private httpClient: HttpClient, private notifyService : NotificationService,) { }
   
   token = window.sessionStorage.getItem('token');
+
   // Headers
-  
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json',
-   'Authorization': 'bearer  ' + this.token })
+   'Authorization': 'bearer  ' + this.token})
   }
 
-  createRestaurant(restaurant: Restaurant): Observable<Restaurant> {
-    console.log(this.token);
-    return this.httpClient.post<Restaurant>(this.url, JSON.stringify(restaurant), this.httpOptions)
-      .pipe(
-        retry(2),
-        catchError(this.handleError)
-      )
-  }
-
-  getRestaurantCategory(): Observable<RestaurantCategories[]> {
-    return this.httpClient.get<RestaurantCategories[]>(this.urlRestaurantAll, this.httpOptions)
-      .pipe(
-        retry(2),
-        catchError(this.handleError))
+  getProdutos(restaurantID: string): Observable<Product[]> {
+    return this.httpClient.get<Product[]>(this.url + restaurantID +'&limit=10&offset=0', this.httpOptions)
+    .pipe(map(res => res));
+        // retry(2),
+        // catchError(this.handleError))
   }
 
   // Manipulação de erros

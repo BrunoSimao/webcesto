@@ -10,9 +10,12 @@ import { DashboardComponent } from '../../pages/dashboard/dashboard.component';
 import { IconsComponent } from '../../pages/icons/icons.component';
 import { MapsComponent } from '../../pages/maps/maps.component';
 import { UserProfileComponent } from '../../pages/user-profile/user-profile.component';
-import { TablesComponent } from '../../pages/tables/tables.component';
-import {CardapioComponent} from '../../pages/cardapio/cardapio.component';
+import {CardapioComponent} from '../../pages/cardapio/component/cardapio.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { TableModule } from 'primeng/table';
+import {ButtonModule} from 'primeng/button';
+import {RatingModule} from 'primeng/rating';
+import { NgxUiLoaderModule } from 'ngx-ui-loader';
 // import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
@@ -22,12 +25,15 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     FormsModule,
     HttpClientModule,
     NgbModule,
+    TableModule,
+    ButtonModule,
+    NgxUiLoaderModule,
+    RatingModule,
     ClipboardModule
   ],
   declarations: [
     DashboardComponent,
     UserProfileComponent,
-    TablesComponent,
     IconsComponent,
     MapsComponent,
     CardapioComponent

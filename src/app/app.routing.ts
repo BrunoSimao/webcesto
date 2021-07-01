@@ -10,14 +10,15 @@ import {LoginComponent} from './pages/login/component/login.component';
 import { CadastroParceiroComponent } from './pages/cadastro-parceiro/component/cadastro-parceiro.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { CadastroEstabelecimentoComponent } from './pages/cadastro-estabelecimento/component/cadastro-estabelecimento.component';
-import { EnderecoEstabelecimentoComponent } from './pages/endereco-estabelecimento/endereco-estabelecimento.component';
+import { EnderecoEstabelecimentoComponent } from './pages/endereco-estabelecimento/component/endereco-estabelecimento.component';
 import { CadastroContaComponent } from './pages/cadastro-conta/component/cadastro-conta.component';
 import { ResetSenhaComponent } from './pages/reset-senha/component/reset-senha.component';
 import { ValidaResetSenhaComponent } from './pages/valida-reset-senha/component/valida-reset-senha.component';
 import { ModalDetalhePedidoComponent } from './pages/modal/modal-detalhe-pedido.component';
 import { PoliticaPrivacidadeComponent } from './pages/politica-privacidade/politica-privacidade.component';
-import { CardapioComponent } from './pages/cardapio/cardapio.component';
-import { DetalheCardapioComponent } from './pages/detalhe-cardapio/detalhe-cardapio.component';
+import { CardapioComponent } from './pages/cardapio/component/cardapio.component';
+import { DetalheCardapioComponent } from './pages/detalhe-cardapio/component/detalhe-cardapio.component';
+import { AuthGuard } from './AuthGuard';
 
 const routes: Routes =[
   {
@@ -45,41 +46,52 @@ const routes: Routes =[
   }, {
     path: 'dashboard',
     component: DashboardComponent,
+    canActivate: [AuthGuard]
   },{
     path: 'cadastro-parceiro',
     component: CadastroParceiroComponent,
+    canActivate: [AuthGuard]
    // pathMatch: 'full',
   }, {
     path: 'cadastro-estabelecimento',
     component: CadastroEstabelecimentoComponent,
+    canActivate: [AuthGuard]
    // pathMatch: 'full',
   },{
     path: 'endereco-estabelecimento',
     component: EnderecoEstabelecimentoComponent,
+    canActivate: [AuthGuard]
    // pathMatch: 'full',
   },{
     path: 'cadastro-conta',
     component: CadastroContaComponent,
+    canActivate: [AuthGuard]
    // pathMatch: 'full',
   },{
     path: 'reset-senha',
     component: ResetSenhaComponent,
+    canActivate: [AuthGuard]
   }, {
     path: 'valida-reset-senha',
     component: ValidaResetSenhaComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'modal-detalhe-pedido',
     component: ModalDetalhePedidoComponent,
+    canActivate: [AuthGuard]
   }, {
     path: 'politica-privacidade',
     component: PoliticaPrivacidadeComponent,
+    canActivate: [AuthGuard]
   }, {
     path: 'cardapio',
     component: CardapioComponent,
+    canActivate: [AuthGuard]
   },  {
     path: 'detalhe-cardapio',
     component: DetalheCardapioComponent,
+    canActivate: [AuthGuard]
   }
 ];
 
@@ -89,7 +101,6 @@ const routes: Routes =[
     CommonModule,
     BrowserModule,
     RouterModule.forRoot(routes,{
-      useHash: true
     })
   ],
   exports: [

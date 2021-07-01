@@ -1,0 +1,41 @@
+<div class="header bg-gradient pb-8 pt-5 pt-md-8"  style="background-color: rgb(1, 143, 180)">
+  <div class="container-fluid">
+    <div class="header-body">
+      <a href="/detalhe-cardapio" class="btn btn-info">Cadastrar</a>
+      <!-- Card stats -->
+      <div class="row">
+        <div class="card-group col-12">
+        <div class="col-xl-4 col-lg-6" *ngFor="let product of products">
+          <h1 style="color: white;">{{product.productCategory}}</h1>
+          <div class="card card-stats mb-4 mb-xl-0">
+            <div class="card-body">
+              <div class="row">
+                <div class="col">
+                  <div class="form-group mb-3">
+                      <div class="text-muted text-center mt-2 mb-3"><label><strong>{{product.name}}</strong></label></div> 
+                    <label>{{product.description}}</label> 
+                    <div class="input-group input-group-alternative">
+                      <h4>{{product.finalPrice | currency : 'R$'}}</h4> <s><p style="margin-left: 50px; font-size:15px;">{{product.price | currency : 'R$'}}</p></s>
+                     </div>
+                  </div>
+                </div>
+                <div class="col-auto">
+                  <span class="avatar avatar rounded-circle">
+                    <img src="{{product.imageURL}}" [style.display]="displayNone">
+                    <!-- <img alt="Image placeholder" src="data:image/jpeg;base64,{{product.imageURL}}"> -->
+                  </span>
+                </div>
+                <button style="width: -webkit-fill-available;" type="button" (click)="onClick(product)" class="btn btn-secondary btn-sm">Editar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+

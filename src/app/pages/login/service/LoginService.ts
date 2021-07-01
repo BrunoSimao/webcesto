@@ -3,6 +3,8 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 import { Observable, throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
 import { AuthOwner } from '../model/AuthOwner';
+import { Owner } from '../model/owner';
+
 
 @Injectable({
   providedIn: 'root'
@@ -19,39 +21,15 @@ export class LoginService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   }
 
-  // Obtem todos os carros
-//   getCars(): Observable<Car[]> {
-//     return this.httpClient.get<Car[]>(this.url)
-//       .pipe(
-//         retry(2),
-//         catchError(this.handleError))
-//   }
-
-  // Obtem um carro pelo id
-//   getCarById(id: number): Observable<Car> {
-//     return this.httpClient.get<Car>(this.url + '/' + id)
-//       .pipe(
-//         retry(2),
-//         catchError(this.handleError)
-//       )
-//   }
-
-  loginOwner(authOwner: AuthOwner): Observable<AuthOwner> {
-    return this.httpClient.post<AuthOwner>(this.url, JSON.stringify(authOwner), this.httpOptions)
+  loginOwner(authOwner: AuthOwner){
+    return this.httpClient.post(this.url, JSON.stringify(authOwner), this.httpOptions)
       .pipe(
         retry(2),
         catchError(this.handleError)
       )
   }
 
-  // utualiza um carro
-//   updateCar(car: Car): Observable<Car> {
-//     return this.httpClient.put<Car>(this.url + '/' + car.id, JSON.stringify(car), this.httpOptions)
-//       .pipe(
-//         retry(1),
-//         catchError(this.handleError)
-//       )
-//   }
+
 
   // deleta um carro
 //   deleteCar(car: Car) {

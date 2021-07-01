@@ -14,8 +14,8 @@ export const ROUTES: RouteInfo[] = [
     { path: '/cardapio', title: 'Cardápio',  icon:'ni-bullet-list-67 text-primary', class: '' },
     // { path: '/icons', title: 'Icons',  icon:'ni-planet text-blue', class: '' },
     // { path: '/maps', title: 'Maps',  icon:'ni-pin-3 text-orange', class: '' },
-    { path: '/user-profile', title: 'Perfil de usuário',  icon:'ni-single-02 text-yellow', class: '' },
-    { path: '/login', title: 'Login',  icon:'ni-key-25 text-info', class: '' }
+    { path: '/user-profile', title: 'Perfil de usuário',  icon:'ni-single-02 text-yellow', class: '' }
+    // { path: '/login', title: 'Login',  icon:'ni-key-25 text-info', class: '' }
 ];
 
 @Component({
