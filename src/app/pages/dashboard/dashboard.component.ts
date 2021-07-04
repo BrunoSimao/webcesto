@@ -8,6 +8,8 @@ import {
   chartExample1,
   chartExample2
 } from "../../variables/charts";
+import { Report } from './model/relatorio';
+import { OrderReportService } from './service/report.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -21,6 +23,10 @@ export class DashboardComponent implements OnInit {
   public salesChart;
   public clicked: boolean = true;
   public clicked1: boolean = false;
+
+  report: Report[];
+
+  constructor(private orderReportService: OrderReportService){}
 
   ngOnInit() {
 
@@ -49,6 +55,15 @@ export class DashboardComponent implements OnInit {
 			options: chartExample1.options,
 			data: chartExample1.data
 		});
+
+    var restaurantID = window.sessionStorage.getItem('restaurantID');
+
+    this.orderReportService.getOrderReport(parseInt(restaurantID)).subscribe((report: Report[]) => {
+      this.report = report;
+
+  
+    });
+
   }
 
 

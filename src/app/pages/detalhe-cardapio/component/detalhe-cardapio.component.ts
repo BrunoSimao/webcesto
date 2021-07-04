@@ -86,12 +86,18 @@ export class DetalheCardapioComponent implements OnInit, OnDestroy {
     } else {
       this.produto.stockLevel = 0;
     }
-
-    this.produto.imageURL = this.imageBase64;
+    
+    this.produto.imageURL = this.imageBase64 === undefined ? this.produto.imageURL : this.imageBase64;
   
     this.ngxLoader.start();
     console.log(this.value);
-    this.produto.discount = ((this.value * this.produto.price / 100));
+
+    if (this.value === undefined){
+      this.produto.discount = 0;
+    } else {
+      this.produto.discount = ((this.value * this.produto.price / 100));
+    }
+   
     this.detalheCardapioService.alterarProduto(this.produto).subscribe(response => {
        console.log(response);
        this.notifyService.showSuccess('Produto alterado!', 'Sucesso!');

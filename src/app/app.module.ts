@@ -43,10 +43,12 @@ import {SelectButtonModule} from 'primeng/selectbutton';
 import { DetalheCardapioComponent } from './pages/detalhe-cardapio/component/detalhe-cardapio.component';
 import { AuthGuard } from './AuthGuard';
 import { InputNumberModule } from 'primeng/inputnumber';
+import { CurrencyMaskModule } from "ng2-currency-mask";
 
 import {InputTextModule} from 'primeng/inputtext';
 import {CheckboxModule} from 'primeng/checkbox';
 import {InputTextareaModule} from 'primeng/inputtextarea';
+import { CadastroCardapioComponent } from './pages/cadastro-cardapio/component/cadastro-cardapio.component';
 
 
 @NgModule({
@@ -73,6 +75,7 @@ import {InputTextareaModule} from 'primeng/inputtextarea';
     InputTextModule,
     CheckboxModule,
     InputTextareaModule,
+    CurrencyMaskModule,
     AppRoutingModule,
     ToastrModule.forRoot()
   ],
@@ -87,6 +90,7 @@ import {InputTextareaModule} from 'primeng/inputtextarea';
     PedidosComponent,
     AppComponent,
     DetalheCardapioComponent,
+    CadastroCardapioComponent,
     AdminLayoutComponent,
     AuthLayoutComponent,
    

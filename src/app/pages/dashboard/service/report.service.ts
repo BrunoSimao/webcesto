@@ -1,30 +1,31 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { retry, catchError, map } from 'rxjs/operators';
 import { NotificationService } from 'src/app/utility/notification-service';
-import { Product } from '../../pedidos/component/model/product';
+import { Report } from '../model/relatorio';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
-export class CardapioService {
+export class OrderReportService {
  
-  url = 'https://cesto.azurewebsites.net/api/Product?restaurantID=';
+  url = 'https://cesto.azurewebsites.net/api/OrderReport?'
   
   // injetando o HttpClient
   constructor(private httpClient: HttpClient, private notifyService : NotificationService,) { }
   
   token = window.sessionStorage.getItem('token');
-
   // Headers
+  
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json',
    'Authorization': 'bearer  ' + this.token})
   }
 
-  getProdutos(restaurantID: string): Observable<Product[]> {
-    return this.httpClient.get<Product[]>(this.url + restaurantID +'&limit=50&offset=0', this.httpOptions)
+
+  getOrderReport(restaurantID: number): Observable<Report[]> {
+    return this.httpClient.get<Report[]>(this.url + "restaurantID=" + restaurantID + "&interval=20", this.httpOptions)
     .pipe(map(res => res));
         // retry(2),
         // catchError(this.handleError))

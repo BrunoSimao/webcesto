@@ -14,19 +14,21 @@ export class CardapioComponent implements OnInit {
   productCategory: string;
   products: Product[];
   imagemPath: string;
+  restaurantID: string;
  
   constructor(private router: Router, 
     private cardapioService: CardapioService,
     private ngxLoader: NgxUiLoaderService) { }
 
   ngOnInit() {
+    this.restaurantID = window.sessionStorage.getItem('restaurantID');
     this.ngxLoader.start();
     this.getProdutos();
     this.ngxLoader.stop();
   }
 
   getProdutos() {
-    this.cardapioService.getProdutos('1').subscribe(products => {
+    this.cardapioService.getProdutos(this.restaurantID).subscribe(products => {
       console.log(products);
       this.products = products;  
   }, err => {

@@ -5,7 +5,7 @@
       <div class="text-muted text-center mt-2 mb-3"></div>
       <div class="row justify-content-center">
         <div class="col-lg-5 col-md-6">
-           <h1 class="text-white">Alterar Produto</h1>    
+           <h1 class="text-white">Cadastro Produto</h1>    
         </div>
       </div>
     </div>
@@ -16,6 +16,7 @@
     </svg>
   </div>
 </div>
+<ngx-ui-loader></ngx-ui-loader>
 <!-- Page content -->
 <div class="container mt--8 pb-5">
   <div class="row justify-content-center">
@@ -25,7 +26,6 @@
           <i class="ni ni-bold-left"></i>
           <button type="button" (click)="goBack()" class="btn btn-secondary btn-sm">Voltar</button>
            <div class="text-muted text-center mt-2 mb-3"><label>Imagem do Produto</label></div>
-           <img style="margin-left: 235px;" src= "data:image/png;charset=utf-8;base64,{{produto.imageURL}}" [style.display]="displayNone">
         </div>
         <p-fileUpload previewWidth="80"[showUploadButton]="false" chooseLabel="Escolher Imagem"
         [showCancelButton]="false"  name="demo[]" url="./upload.php" (onSelect)="onUpload($event)"
@@ -46,7 +46,7 @@
                   <div class="input-group-prepend">
                     <span class="input-group-text"><i class="ni ni-ungroup"></i></span>
                   </div>
-                  <input class="form-control" [(ngModel)]="produto.name" name="produto.name" type="text">
+                  <input class="form-control" [(ngModel)]="name" name="name" type="text">
                 </div>
               </div>
             </div>
@@ -57,7 +57,7 @@
                   <div class="input-group-prepend">
                     <span class="input-group-text"><i class="ni ni-bullet-list-67"></i></span>
                   </div>
-                  <textarea  class="form-control" [(ngModel)]="produto.description" name="produto.description" type="text" id="exampleFormControlTextarea1" rows="3"></textarea>
+                  <textarea  class="form-control" [(ngModel)]="description" name="description" type="text" id="exampleFormControlTextarea1" rows="3"></textarea>
                 </div>
               </div>
             </div>
@@ -66,18 +66,18 @@
               <div class="form-group mb-3">
                 <div class="input-group-prepend">
                   <span class="input-group-text"><i class="ni ni-single-copy-04"></i></span>
-                  <p-dropdown [style]="{'width': '405px'}" [options]="productsCategories" [(ngModel)]="selectedProductCategory" [placeholder]="produto.productCategory" optionLabel="categoryDescription" [showClear]="true" [ngModelOptions]="{standalone: true}"></p-dropdown>
+                  <p-dropdown [style]="{'width': '405px'}" [options]="productsCategories" [(ngModel)]="selectedProductCategory" placeholder="Selecione a categoria"  optionLabel="categoryDescription" [showClear]="true" [ngModelOptions]="{standalone: true}"></p-dropdown>
                 </div>
               </div>
             </div>
             <div class="form-group mb-3">
-              <label>Valor</label> 
+              <label>Preço</label> 
               <div class="form-group mb-3">
                 <div class="input-group input-group-alternative">
                   <div class="input-group-prepend">
                     <span class="input-group-text"><i class="ni ni-money-coins"></i></span>
                   </div>
-                  <input class="form-control" [(ngModel)]="produto.price" name="produto.price" type="number">
+                  <input class="form-control" [(ngModel)]="price" name="price" type="number">
                 </div>
               </div>
             </div>
@@ -86,7 +86,7 @@
               <div class="form-group mb-3">
                 <div class="input-group input-group-alternative">
                   <div class="input-group-prepend">
-              <p-selectButton [options]="discountOptions" [(ngModel)]="value" optionLabel="name" optionValue="value" [ngModelOptions]="{standalone: true}"></p-selectButton>
+              <p-selectButton  [options]="discountOptions" [(ngModel)]="value" optionLabel="name" optionValue="value" [ngModelOptions]="{standalone: true}"></p-selectButton>
             </div>
           </div>
         </div>
@@ -96,8 +96,7 @@
                 <label style="font-size:15px; margin-left: 15px;">Produto disponível</label>
             <div class="row">
               <div class="col-sm-12 text-center">
-                <button style="margin-right:153px; width: 143px; background-color: rgb(1, 143, 180);" (click)="salvarCardapio(produto)" type="button" class="btn btn-success my-4">Salvar</button>
-                <button type="button" class="btn btn-danger" (click)="ExcluirCardapio(produto)" >Exluir Produto</button>
+                <button style="width: 143px; background-color: rgb(1, 143, 180);" (click)="salvarCardapio(produto)" type="button" class="btn btn-success my-4">Salvar</button>
                </div>
           </div>
          </form>

@@ -44,42 +44,27 @@ export class PedidosComponent implements OnInit {
     var restaurantID = window.sessionStorage.getItem('restaurantID');
     this.pedidosService.getPedidos(restaurantID).subscribe((pedidos: Order[]) => {
 
-      var orderitens = pedidos.map(function(item, indice){
-        if (Array.isArray(item.orderItems) != null) {
-          return item.orderItems;
+      console.log(pedidos);
+      var orderStatus = pedidos.map(function(item, indice){
+        if (Array.isArray(item.orderStatus) != null) {
+          return item.orderStatus;
         }
        
      });
-     console.log(orderitens);
+     console.log(orderStatus);
 
-  //    var produtos = orderitens.map(function(itemProduto, indice){
-  //      if (orderitens.length === 0 && orderitens.length === undefined){
-  //       console.log(itemProduto);
-  //      }else{
-  //         return itemProduto.product;
-  //      }
-  //  });
-  //  console.log(produtos);
+     orderStatus.forEach(element => {
+        if (element.statusDescription === 'ordered') {
+          element.statusDescription = 'Aguardando Confirmação';
+        } else if (element.statusDescription === 'prepared' || element.statusDescription === 'preparing') {
+          element.statusDescription = 'Preparando';
+        } else if (element.statusDescription === 'done') {
+          element.statusDescription = 'Finalizado com Sucesso';
+        } else if (element.statusDescription === 'rejected' || element.statusDescription === 'canceled') {
+          element.statusDescription = 'Pedido Cancelado';
+        }
+     });
 
-      this.pedidos = pedidos;
-     
-
-       console.log(this.pedidos);
-       pedidos.forEach(element => {
-         this.pedido.customerName = element.customerName;
-         this.pedido.orderID = element.orderID;
-        
-        //  this.pedido.orderItems = new OrderItem();
-        //  this.pedido.orderItems.product = new Product();
-        //  this.pedido.orderItems.product.finalPrice = element.orderItems.product.finalPrice;
-      
-        //  this.pedido.orderItems.product.productCategory = element.orderItems.product.productCategory;
-        //  this.pedido.orderItems.product.finalPrice = element.orderItems.product.finalPrice;
-         //this.pedidos.push(this.pedido);
-       });
-
-       //console.log(this.pedidos);
-       console.log(this.pedido);
     });
    
   }

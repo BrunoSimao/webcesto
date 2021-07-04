@@ -19,6 +19,7 @@ import { PoliticaPrivacidadeComponent } from './pages/politica-privacidade/polit
 import { CardapioComponent } from './pages/cardapio/component/cardapio.component';
 import { DetalheCardapioComponent } from './pages/detalhe-cardapio/component/detalhe-cardapio.component';
 import { AuthGuard } from './AuthGuard';
+import { CadastroCardapioComponent } from './pages/cadastro-cardapio/component/cadastro-cardapio.component';
 
 const routes: Routes =[
   {
@@ -91,6 +92,11 @@ const routes: Routes =[
   },  {
     path: 'detalhe-cardapio',
     component: DetalheCardapioComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'cadastro-cardapio',
+    component: CadastroCardapioComponent,
     canActivate: [AuthGuard]
   }
 ];
