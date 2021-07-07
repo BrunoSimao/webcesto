@@ -8,8 +8,8 @@
             <div class="card-body">
               <div class="row">
                 <div class="col">
-                  <h6 class="card-title text-uppercase text-muted mb-0">Solicitado</h6>
-                  <span class="h2 font-weight-bold mb-0">1</span>
+                  <h6 class="card-title text-uppercase text-muted mb-0">Aguardando Confirmação</h6>
+                  <span class="h2 font-weight-bold mb-0">{{aguardandoConfirmacaoCount}}</span>
                 </div>
                 <div class="col-auto">
                   <div class="icon icon-shape bg-dark text-white rounded-circle shadow">
@@ -30,7 +30,7 @@
               <div class="row">
                 <div class="col">
                   <h6 class="card-title text-uppercase text-muted mb-0">Em Andamento</h6>
-                  <span class="h2 font-weight-bold mb-0">1</span>
+                  <span class="h2 font-weight-bold mb-0">{{emAndamentoCount}}</span>
                 </div>
                 <div class="col-auto">
                   <div class="icon icon-shape bg-yellow text-white rounded-circle shadow">
@@ -50,8 +50,8 @@
             <div class="card-body">
               <div class="row">
                 <div class="col">
-                  <h6 class="card-title text-uppercase text-muted mb-0">Conluído</h6>
-                  <span class="h2 font-weight-bold mb-0">2</span>
+                  <h6 class="card-title text-uppercase text-muted mb-0">Finalizado com sucesso</h6>
+                  <span class="h2 font-weight-bold mb-0">{{finalizadoSucesso}}</span>
                 </div>
                 <div class="col-auto">
                   <div class="icon icon-shape bg-green text-white rounded-circle shadow">
@@ -72,7 +72,7 @@
               <div class="row">
                 <div class="col">
                   <h6 class="card-title text-uppercase text-muted mb-0">Cancelado</h6>
-                  <span class="h2 font-weight-bold mb-0">2</span>
+                  <span class="h2 font-weight-bold mb-0">{{canceladoCount}}</span>
                 </div>
                 <div class="col-auto">
                   <div class="icon icon-shape bg-red text-white rounded-circle shadow">
@@ -105,11 +105,10 @@
             <thead class="thead-light">
               <tr>
                 <th scope="col">Usuário</th>
-                <!-- <th scope="col">ID</th> -->
                 <th scope="col">ID/Mesa</th>
                 <th scope="col">Valor</th>
                 <th scope="col">Horário</th>
-                <th scope="col">Status</th>
+                <th style="padding-left: 90px;" scope="col">Status</th>
                 <th scope="col"></th>
               </tr>
             </thead>
@@ -127,16 +126,7 @@
                       <span class="mb-0 text-sm">{{ped.customerName}}</span>
                     </div>
                   </div>
-                </th>
-                <!-- <p *ngFor= "let character of ped.orderItems">{{character.quantity}}</p> -->
-                <!-- <p *ngFor="character in ped.orderItems">
-                  <p *ngFor="v in character.product">      
-                     {{v.finalPrice}
-                  </p> -->
-                <!-- <p *ngFor= "let char of character.product">{{character.finalPrice}}</p> -->
-                <!-- <td>
-                  #8
-                </td> -->
+                </th>        
                 <td>
                   #{{ped.orderID}}   Balcão
                 </td>
@@ -158,7 +148,7 @@
                 </td>
                 <td>
                   <span class="badge badge-dot mr-4">
-                    <i style="width: 35px;" class="bg-dark"></i> {{ped.orderStatus.statusDescription}}
+                    <i style="width: 35px;" [ngModelOptions]="{standalone: true}"  class="form-control"  id="statusColorID" [ngClass]="{'bg-success': ped.orderStatus.statusDescription === 'Finalizado com Sucesso', 'bg-danger' : ped.orderStatus.statusDescription === 'Pedido Cancelado', 'bg-yellow' : ped.orderStatus.statusDescription === 'Preparando', 'bg-dark' : ped.orderStatus.statusDescription === 'Aguardando Confirmação' }" ></i>{{ped.orderStatus.statusDescription}}
                   </span>
                 </td>
                 <td class="text-right">
@@ -167,7 +157,7 @@
                       <i class="fas fa-ellipsis-v"></i>
                     </a>
                     <div ngbDropdownMenu class=" dropdown-menu-right dropdown-menu-arrow">
-                      <a class="dropdown-item" [routerLink]="" (click)="selectUsers($event, u);">Detalhe do Pedido</a>
+                      <a class="dropdown-item" [routerLink]="" (click)="showResponsiveDialog(ped);">Detalhe do Pedido</a>
                       <!-- <a class="dropdown-item" href="javascript:void(0)">Another action</a>
                       <a class="dropdown-item" href="javascript:void(0)">Something else here</a> -->
                     </div>
@@ -177,8 +167,87 @@
              
             </tbody>
           </table>
+    <p-dialog header="Detalhes do Pedido" [(visible)]="displayResponsive" [breakpoints]="{'960px': '75vw'}" [style]="{width: '50vw'}" [baseZIndex]="10000" 
+    [draggable]="false" [resizable]="false">
+    <form role="form">
+      <div class="form-group mb-3">
+        <label>Pedido #{{orderID}}</label> 
+        <div class="form-group mb-3">
+          <div class="input-group input-group-alternative">
+            <div class="input-group-prepend">
+              <!-- <span class="input-group-text"><i class="ni ni-ungroup"></i></span> -->
+            </div>
+            <label style="padding-left: 10px;" [(ngModel)]="name" #ctrl="ngModel">{{name}}</label> 
+          </div>
         </div>
-        <div class="card-footer py-4">
+      </div>
+      <div class="form-group mb-3">
+        <label>Adicionais</label> 
+        <div class="form-group mb-3 ">
+          <div class="input-group input-group-alternative">
+            <div class="input-group-prepend">
+              <!-- <span class="input-group-text"><i class="ni ni-bullet-list-67"></i></span> -->
+            </div>
+            <label style="padding-left: 10px;">{{quantity}} x limão</label> 
+            <label style="margin-left: auto; padding-right: 10px;">R$ {{amount}}</label>
+          </div>
+        </div>
+      </div>
+      <div class="form-group mb-3">
+        <label>Total</label> 
+        <div class="form-group mb-3">
+          <div class="input-group input-group-alternative">
+            <div class="input-group-prepend">
+              <!-- <span class="input-group-text"><i class="ni ni-money-coins"></i></span> -->
+            </div>
+            <label style="padding-left: 10px;">R${{amount}}</label> 
+          </div>
+        </div>
+      </div>
+      <div class="form-group mb-3">
+        <label>Retirada</label> 
+        <div class="form-group mb-3">
+          <div class="input-group input-group-alternative">
+            <div class="input-group-prepend">
+              <!-- <span class="input-group-text"><i class="ni ni-money-coins"></i></span> -->
+            </div>
+            <label style="padding-left: 10px;">Balcão</label> 
+          </div>
+        </div>
+      </div>
+      <div *ngIf="isShowCancelado" class="form-group mb-3">
+        <label>Motivo</label> 
+        <div class="form-group mb-3">
+          <div class="input-group input-group-alternative">
+            <div class="input-group-prepend">
+              <!-- <span class="input-group-text"><i class="ni ni-money-coins"></i></span> -->
+            </div>
+            <label style="padding-left: 10px;">{{motivoCancelamento}}</label> 
+          </div>
+        </div>
+      </div>
+      <h3>{{descricaoStatus}}</h3>
+   </form>
+
+        <ng-template pTemplate="footer">
+        <!-- <p-button style="background-color: rgb(212, 6, 6);" (click)="displayResponsive=false" label="Recusar Pedido" styleClass="p-button-text"></p-button>
+        <p-button style="background-color: rgb(1, 143, 180);"  (click)="displayResponsive=false" label="Aceitar Pedido" styleClass="p-button-text"></p-button> -->
+        <button *ngIf="isShowAceitarPedido" style="margin-right:339px; width: 143px; background-color: rgb(1, 143, 180);" (click)="aceitarPedido()" type="button" class="btn btn-success my-4">Aceitar Pedido</button>
+        <button *ngIf="isShowRecusarPedido" type="button" class="btn btn-danger" (click)="recusarPedido()" >Recusar Pedido</button>
+        <button *ngIf="isShowPedidoPronto" style="margin-right:339px; width: 143px; background-color: rgb(1, 143, 180);" (click)="pedidoPronto()" type="button" class="btn btn-success my-4">Pedido Pronto</button>
+        <button *ngIf="isShowColocarSenha" style="margin-right:339px; width: 143px; background-color: rgb(1, 143, 180);" (click)="colocarSenha()" type="button" class="btn btn-success my-4">Colocar Senha</button>
+        </ng-template>
+     </p-dialog>
+        </div>
+        <div
+        class="text-right">
+        <pagination-controls
+        (pageChange)="paginaAtual 
+        = $event" 
+        previousLabel="Anterior"
+        nextLabel="Próximo"></pagination-controls>
+        </div>
+        <!-- <div class="card-footer py-4">
           <nav aria-label="...">
             <ul class="pagination justify-content-end mb-0">
               <li class="page-item disabled">
@@ -202,10 +271,8 @@
               </li>
             </ul>
           </nav>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>
-<div>
-</div>
 </div>

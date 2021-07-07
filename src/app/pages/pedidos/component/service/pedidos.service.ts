@@ -4,6 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import { retry, catchError, map } from 'rxjs/operators';
 import { NotificationService } from 'src/app/utility/notification-service';
 import { Order } from '../model/order';
+import { Product } from '../model/product';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +12,7 @@ import { Order } from '../model/order';
 export class PedidosService {
  
   url = 'https://cesto.azurewebsites.net/api/Order?restaurantID=';
+  urlOrder = 'https://cesto.azurewebsites.net/api/Order';
   
   // injetando o HttpClient
   constructor(private httpClient: HttpClient, private notifyService : NotificationService,) { }
@@ -30,6 +32,39 @@ export class PedidosService {
         // catchError(this.handleError))
   }
 
+  aceitarPedido(produto: Product): Observable<Product> {
+    return this.httpClient.put<Product>(this.urlOrder, JSON.stringify(produto), this.httpOptions)
+      .pipe(
+        retry(2),
+        catchError(this.handleError)
+      )
+  }
+
+  recusarPedido(produto: Product): Observable<Product> {
+    return this.httpClient.put<Product>(this.urlOrder, JSON.stringify(produto), this.httpOptions)
+      .pipe(
+        retry(2),
+        catchError(this.handleError)
+      )
+  }
+
+  pedidoPronto(produto: Product): Observable<Product> {
+    return this.httpClient.put<Product>(this.urlOrder, JSON.stringify(produto), this.httpOptions)
+      .pipe(
+        retry(2),
+        catchError(this.handleError)
+      )
+  }
+
+  colocarSenha(produto: Product): Observable<Product> {
+    return this.httpClient.put<Product>(this.urlOrder, JSON.stringify(produto), this.httpOptions)
+      .pipe(
+        retry(2),
+        catchError(this.handleError)
+      )
+  }
+
+
   // Manipulação de erros
   handleError(error: HttpErrorResponse) {
     let errorMessage = '';
@@ -40,7 +75,6 @@ export class PedidosService {
     } else {
       // Erro ocorreu no lado do servidor
       errorMessage = `Código do erro: ${error.status}, ` + `menssagem:${error.error.detail}`;
-    
     }
     //this.notifyService.showError(errorMessage, "Erro!!!");
     window.alert(errorMessage);

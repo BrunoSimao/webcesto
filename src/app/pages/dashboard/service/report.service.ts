@@ -4,6 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import { NotificationService } from 'src/app/utility/notification-service';
 import { Report } from '../model/relatorio';
 import { map } from 'rxjs/operators';
+import { Transaction } from '../model/transaction';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +12,7 @@ import { map } from 'rxjs/operators';
 export class OrderReportService {
  
   url = 'https://cesto.azurewebsites.net/api/OrderReport?'
+  urlTransaction = 'https://cesto.azurewebsites.net/api/Transaction?'
   
   // injetando o HttpClient
   constructor(private httpClient: HttpClient, private notifyService : NotificationService,) { }
@@ -24,11 +26,16 @@ export class OrderReportService {
   }
 
 
-  getOrderReport(restaurantID: number): Observable<Report[]> {
-    return this.httpClient.get<Report[]>(this.url + "restaurantID=" + restaurantID + "&interval=20", this.httpOptions)
+  getOrderReport(restaurantID: number): Observable<Report> {
+    return this.httpClient.get<Report>(this.url + "restaurantID=" + restaurantID + "&interval=20", this.httpOptions)
     .pipe(map(res => res));
         // retry(2),
         // catchError(this.handleError))
+  }
+
+  getTransacao(restaurantID: number): Observable<Transaction[]>{
+    return this.httpClient.get<Transaction[]>(this.urlTransaction + "restaurantID=" + restaurantID + "&limit=10&offset=0", this.httpOptions)
+    .pipe(map(res => res));
   }
 
   // Manipulação de erros

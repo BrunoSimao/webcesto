@@ -17,6 +17,7 @@ import {ButtonModule} from 'primeng/button';
 import {RatingModule} from 'primeng/rating';
 import { NgxUiLoaderModule } from 'ngx-ui-loader';
 // import { ToastrModule } from 'ngx-toastr';
+import {ChartModule} from 'primeng/chart';
 
 @NgModule({
   imports: [
@@ -28,6 +29,7 @@ import { NgxUiLoaderModule } from 'ngx-ui-loader';
     TableModule,
     ButtonModule,
     NgxUiLoaderModule,
+    ChartModule,
     RatingModule,
     ClipboardModule
   ],

@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthLayoutRoutes } from './auth-layout.routing';
 
+
 import { RegisterComponent } from '../../pages/register/register.component';
 import {TableModule} from 'primeng/table';
 import {ButtonModule} from 'primeng/button';

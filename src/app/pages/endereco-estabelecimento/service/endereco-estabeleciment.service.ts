@@ -26,7 +26,6 @@ export class EndrecoEstabelecimentoService {
   }
 
   salvarEnderecoEstabelecimento(enderecoEstabelecimento: Restaurant): Observable<Restaurant> {
-    console.log(this.token);
     return this.httpClient.post<Restaurant>(this.url, JSON.stringify(enderecoEstabelecimento), this.httpOptions)
       .pipe(
         retry(2),

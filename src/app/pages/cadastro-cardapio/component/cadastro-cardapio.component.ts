@@ -114,7 +114,7 @@ export class CadastroCardapioComponent implements OnInit, OnDestroy {
       this.produto.imageURL = this.imageBase64;
     }
 
-    this.produto.createdAt = Date.now().toString();
+    //this.produto.createdAt = Date.now().toString();
   
     this.ngxLoader.start();
     console.log(this.value);
