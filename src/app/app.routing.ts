@@ -22,10 +22,10 @@ import { AuthGuard } from './AuthGuard';
 import { CadastroCardapioComponent } from './pages/cadastro-cardapio/component/cadastro-cardapio.component';
 
 const routes: Routes =[
+  { path: '', pathMatch: 'full', redirectTo: 'login'},
   {
     path: 'login',
-    component: LoginComponent,
-    pathMatch: 'full',
+    component: LoginComponent
   }, {
     path: '',
     component: AdminLayoutComponent,

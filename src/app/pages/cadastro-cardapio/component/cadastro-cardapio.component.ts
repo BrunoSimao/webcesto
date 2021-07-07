@@ -119,6 +119,7 @@ export class CadastroCardapioComponent implements OnInit, OnDestroy {
     this.ngxLoader.start();
     console.log(this.value);
     this.produto.discount = ((this.value * this.produto.price / 100));
+    console.log(this.produto)
     this.cadastroCardapioService.cadastrarProduto(this.produto).subscribe(response => {
        console.log(response);
        this.notifyService.showSuccess('Produto Cadastrado!', 'Sucesso!');
