@@ -6,6 +6,8 @@ import { MessageService } from 'primeng/api';
 import { NotificationService } from 'src/app/utility/notification-service';
 import { EnderecoEstabelecimento } from '../model/endereco-estabelecimento';
 import { Restaurant } from '../../cadastro-estabelecimento/model/restaurant';
+import { AddressModel } from '../../user-profile/model/adress.model';
+import { Address } from '../../cadastro-estabelecimento/model/address';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +15,7 @@ import { Restaurant } from '../../cadastro-estabelecimento/model/restaurant';
 export class EndrecoEstabelecimentoService {
  
   url = 'https://cesto.azurewebsites.net/api/Address/CreateRestaurantAddress';
+  urlAlterarEndereco = 'https://cesto.azurewebsites.net/api/Address';
 
   // injetando o HttpClient
   constructor(private httpClient: HttpClient, private notifyService : NotificationService,) { }
@@ -27,6 +30,14 @@ export class EndrecoEstabelecimentoService {
 
   salvarEnderecoEstabelecimento(enderecoEstabelecimento: Restaurant): Observable<Restaurant> {
     return this.httpClient.post<Restaurant>(this.url, JSON.stringify(enderecoEstabelecimento), this.httpOptions)
+      .pipe(
+        retry(2),
+        catchError(this.handleError)
+      )
+  }
+
+  alterarEnderecoEstabelecimento(enderecoEstabelecimento: AddressModel) {
+    return this.httpClient.put<any>(this.urlAlterarEndereco, JSON.stringify(enderecoEstabelecimento), this.httpOptions)
       .pipe(
         retry(2),
         catchError(this.handleError)

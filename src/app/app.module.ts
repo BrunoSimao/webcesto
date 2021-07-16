@@ -51,6 +51,7 @@ import {InputTextModule} from 'primeng/inputtext';
 import {CheckboxModule} from 'primeng/checkbox';
 import {InputTextareaModule} from 'primeng/inputtextarea';
 import { CadastroCardapioComponent } from './pages/cadastro-cardapio/component/cadastro-cardapio.component';
+import { AlterarEnderecoEstComponent } from './pages/alterar-endereco-estabelecimento/component/alterar-endereco-estabelecimento.component';
 
 
 @NgModule({
@@ -80,6 +81,7 @@ import { CadastroCardapioComponent } from './pages/cadastro-cardapio/component/c
     CurrencyMaskModule,
     DialogModule,
     NgxPaginationModule,
+    
     AppRoutingModule,
     ToastrModule.forRoot()
   ],
@@ -95,6 +97,7 @@ import { CadastroCardapioComponent } from './pages/cadastro-cardapio/component/c
     AppComponent,
     DetalheCardapioComponent,
     CadastroCardapioComponent,
+    AlterarEnderecoEstComponent,
     AdminLayoutComponent,
     AuthLayoutComponent,
    

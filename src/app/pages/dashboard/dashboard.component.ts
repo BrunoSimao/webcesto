@@ -40,21 +40,21 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
 
-    this.basicData = {
-      labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
-      datasets: [
-          {
-              label: 'My First dataset',
-              backgroundColor: '#42A5F5',
-              data: [65, 59, 80, 81, 56, 55, 40]
-          }
-          // {
-          //     label: 'My Second dataset',
-          //     backgroundColor: '#FFA726',
-          //     data: [28, 48, 40, 19, 86, 27, 90]
-          // }
-      ]
-  };
+  //   this.basicData = {
+  //     labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+  //     datasets: [
+  //         {
+  //             label: 'My First dataset',
+  //             backgroundColor: '#42A5F5',
+  //             data: [65, 59, 80, 81, 56, 55, 40]
+  //         }
+  //         // {
+  //         //     label: 'My Second dataset',
+  //         //     backgroundColor: '#FFA726',
+  //         //     data: [28, 48, 40, 19, 86, 27, 90]
+  //         // }
+  //     ]
+  // };
 
    this.datasets = [
       [0, 20, 10, 30, 15, 40, 20, 60, 60]//,
@@ -86,10 +86,10 @@ export class DashboardComponent implements OnInit {
 
      if (month === 6) {
               element.amount += element.amount;
-             // this.datasets[6] = element.amount;
+              this.datasets[0] = element.amount;
             } if (month === 7) {
               element.amount += element.amount;
-             // this.datasets[7] = element.amount;
+              this.datasets[1] = element.amount;
             }
     });
 });

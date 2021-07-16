@@ -20,6 +20,10 @@ import { CardapioComponent } from './pages/cardapio/component/cardapio.component
 import { DetalheCardapioComponent } from './pages/detalhe-cardapio/component/detalhe-cardapio.component';
 import { AuthGuard } from './AuthGuard';
 import { CadastroCardapioComponent } from './pages/cadastro-cardapio/component/cadastro-cardapio.component';
+import { MeusDadosComponent } from './pages/meus-dados/meus-dados.component';
+import { AlterarCadastroEstComponent } from './pages/alterar-dados-restaurante/component/alterar-cadastro-estabelecimento.component';
+import { AlterarEnderecoEstComponent } from './pages/alterar-endereco-estabelecimento/component/alterar-endereco-estabelecimento.component';
+import { AlterarDadosBancarioComponent } from './pages/alterar-dados-bancario/component/alterar-dados-bancario.component';
 
 const routes: Routes =[
   { path: '', pathMatch: 'full', redirectTo: 'login'},
@@ -97,6 +101,23 @@ const routes: Routes =[
   {
     path: 'cadastro-cardapio',
     component: CadastroCardapioComponent,
+    canActivate: [AuthGuard]
+  }, {
+    path: 'meus-dados',
+    component: MeusDadosComponent,
+    canActivate: [AuthGuard]
+  },  {
+    path: 'alterar-cadastro-estabelecimento',
+    component: AlterarCadastroEstComponent,
+    canActivate: [AuthGuard]
+  },  {
+    path: 'alterar-endereco-estabelecimento',
+    component: AlterarEnderecoEstComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'alterar-dados-bancario',
+    component: AlterarDadosBancarioComponent,
     canActivate: [AuthGuard]
   }
 ];

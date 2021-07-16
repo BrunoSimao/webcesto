@@ -12,6 +12,8 @@ export class BankDataService {
 
   url = 'https://cesto.azurewebsites.net/api/BankData';
   urlBankAll = 'https://cesto.azurewebsites.net/api/Bank/FindAll';
+  urlDadoBancario = 'https://cesto.azurewebsites.net/api/BankData?ownerID='
+
   // injetando o HttpClient
   constructor(private httpClient: HttpClient) { }
 
@@ -36,6 +38,22 @@ export class BankDataService {
       .pipe(
         retry(2),
         catchError(this.handleError))
+  }
+
+  getDadoBancario(ownerID: number, bankDataID: number) : Observable<BankData> {
+      return this.httpClient.get<BankData>(this.urlDadoBancario + ownerID + '&bankDataID=' + bankDataID, this.httpOptions)
+  .pipe(
+    retry(2),
+    catchError(this.handleError)
+  )
+  }
+
+  alterarDadoBancario(bankData: BankData): Observable<BankData> {
+    return this.httpClient.put<BankData>(this.url, JSON.stringify(bankData), this.httpOptions)
+      .pipe(
+        retry(2),
+        catchError(this.handleError)
+      )
   }
 
   // Manipulação de erros

@@ -27,7 +27,7 @@ export class OrderReportService {
 
 
   getOrderReport(restaurantID: number): Observable<Report> {
-    return this.httpClient.get<Report>(this.url + "restaurantID=" + restaurantID + "&interval=20", this.httpOptions)
+    return this.httpClient.get<Report>(this.url + "restaurantID=" + restaurantID + "&interval=30", this.httpOptions)
     .pipe(map(res => res));
         // retry(2),
         // catchError(this.handleError))

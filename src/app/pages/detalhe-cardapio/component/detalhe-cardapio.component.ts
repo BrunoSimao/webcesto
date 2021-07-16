@@ -100,7 +100,7 @@ export class DetalheCardapioComponent implements OnInit, OnDestroy {
    
     this.detalheCardapioService.alterarProduto(this.produto).subscribe(response => {
        console.log(response);
-       this.notifyService.showSuccess('Produto alterado!', 'Sucesso!');
+      this.notifyService.showSuccess('Produto alterado!', 'Sucesso!');
        this.router.navigate(['/cardapio']);
        this.ngxLoader.stop();
    }, err => {

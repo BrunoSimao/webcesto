@@ -49,6 +49,9 @@ export class LoginComponent {
       window.sessionStorage.setItem('imagemRestaurantURL', this.data.restaurant.imageURL);
       window.sessionStorage.setItem('nomeRestaurante', this.data.restaurant.companyName);
       window.sessionStorage.setItem('restaurantID', this.data.restaurant.restaurantID);
+      window.sessionStorage.setItem('addressID', this.data.restaurant.addressID);
+      window.sessionStorage.setItem('bankDataID', this.data.bankData.bankDataID);
+      window.sessionStorage.setItem("restaurant", JSON.stringify(this.data.restaurant));
      
       this.ngxLoader.stop();
       this.router.navigate(['/dashboard']);
