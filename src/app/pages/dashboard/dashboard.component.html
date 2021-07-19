@@ -29,7 +29,7 @@
             <div class="card-body">
               <div class="row">
                 <div class="col">
-                  <h6 class="card-title text-uppercase text-muted mb-0">Quantidade Usuários</h6>
+                  <h6 class="card-title text-uppercase text-muted mb-0">Usuários</h6>
                   <span class="h2 font-weight-bold mb-0">{{qtdUsuarios}}</span>
                 </div>
                 <div class="col-auto">
@@ -93,15 +93,44 @@
 </div>
 <div class="container-fluid mt--7">
   <div class="row">
-    <div class="col-xl-8 mb-5 mb-xl-0">
+    <div class="col-xl-8 mb-95 mb-xl-0">
       <div class="card bg-gradient-default shadow">
-        <div class="card-header bg-transparent">
-          <div class="row align-items-center">
-            <div class="col">
+        <p-table  styleClass="p-datatable-striped">
+          <ng-template pTemplate="header">
+              <tr>
+                  <th>Venda Total</th>
+                  <th>Total Pedidos</th>
+                  <!-- <th>Tempo Atendimento</th>
+                  <th>Valor</th> -->
+              </tr>
+          </ng-template>
+          <!-- <ng-template pTemplate="summary">
+              <tr>
+                  <td>{{report.amount}}</td>
+                  <td>{{report.ordersCount}}</td>
+                
+              </tr> -->
+          <!-- </ng-template> -->
+          <ng-template pTemplate="summary">
+            R${{report.amount}}   &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            {{report.ordersCount}}
+        </ng-template>
+      </p-table>
+        
+        <!-- <div class="card-header bg-transparent"> -->
+          <!-- <p-chart type="pie" [data]="data"></p-chart> -->
+
+          <!-- <div class="row align-items-center"> -->
+             <!-- <div class="card">
+    <h5>Horizontal</h5>
+    <p-chart type="horizontalBar" [data]="basicData" [options]="basicOptions"></p-chart>
+</div> -->
+
+            <!-- <div class="col">
               <h6 class="text-uppercase text-light ls-1 mb-1">Visão Geral</h6>
               <h2 class="text-white mb-0">Valores das Vendas</h2>
             </div>
-            <div class="col">
+             <div class="col">
               <ul class="nav nav-pills justify-content-end">
                 <li class="nav-item mr-2 mr-md-0" data-toggle="chart" data-target="#chart-sales"  (click)="data=datasets[0];updateOptions()">
                   <a href="javascript:void(0)" class="nav-link py-2 px-3" [ngClass]="{'active':clicked===true}" data-toggle="tab" (click)="clicked=true;clicked1=false">
@@ -119,10 +148,10 @@
             </div>
           </div>
         </div>
-        <div class="card-body">
-          <!-- Chart -->
+         <div class="card-body">
+        
           <div class="chart">
-            <!-- Chart wrapper -->
+         
             <canvas id="chart-sales" class="chart-canvas"></canvas>
           </div>
         </div>
@@ -131,24 +160,21 @@
     <div class="col-xl-4">
       <div class="card shadow">
         <div class="card-header bg-transparent">
-          <div class="row align-items-center">
+           <div class="row align-items-center">
             <div class="col">
               <h6 class="text-uppercase text-muted ls-1 mb-1">Performance</h6>
               <h2 class="mb-0">Total Pedidos</h2>
             </div>
-          </div>
+          </div> 
         </div>
-        <div class="card-body">
-          <!-- Chart -->
+         <div class="card-body">
+        
           <div class="chart">
             <canvas id="chart-orders" class="chart-canvas"></canvas>
-          </div>
-        </div>
+          </div> -->
+        <!-- </div>  -->
       </div>
     </div>
   </div>
-  <!-- <div class="card">
-    <h5>Horizontal</h5>
-    <p-chart type="horizontalBar" [data]="basicData" [options]="basicOptions"></p-chart>
-</div> -->
+ 
 </div>

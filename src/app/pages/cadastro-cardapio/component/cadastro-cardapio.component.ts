@@ -51,11 +51,11 @@ export class CadastroCardapioComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-   var prod = window.sessionStorage.getItem('produto');
-   console.log(prod);
+   //var prod = window.sessionStorage.getItem('produto');
+   //console.log(prod);
 
-   this.produto = JSON.parse(prod);
-   console.log( this.produto);
+   //this.produto = JSON.parse(prod);
+   //console.log( this.produto);
 
    this.getProductCategory();
   }
@@ -71,10 +71,9 @@ export class CadastroCardapioComponent implements OnInit, OnDestroy {
       this.notifyService.showAlerta('Por favor selecione a categoria!', 'Alerta!');
       return;
     }else {
-      this.produto.productCategories[0].categoryDescription = this.selectedProductCategory.categoryDescription;
+      this.produto.productCategories[0].prodCategoryID = this.selectedProductCategory.prodCategoryID;
       this.produto.productCategories[0].prodCategoryID = 0;
     }
-
     
     if (this.produtoDisponivel) {
       this.produto.stockLevel = 1;
@@ -114,7 +113,7 @@ export class CadastroCardapioComponent implements OnInit, OnDestroy {
       this.produto.imageURL = this.imageBase64;
     }
 
-    //this.produto.createdAt = Date.now().toString();
+    //this.produto.createdAt = "2021-07-16T19:07:16.807Z"
   
     this.ngxLoader.start();
     console.log(this.value);

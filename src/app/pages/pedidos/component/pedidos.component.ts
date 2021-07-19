@@ -74,6 +74,22 @@ export class PedidosComponent implements OnInit {
      });
      console.log(orderStatus);
 
+     var orderItems = pedidos.map(function(item, indice){
+      if (Array.isArray(item.orderStatus) != null) {
+        return item.orderItems;
+      }
+     
+   });
+   console.log(orderItems);
+
+   var produt = orderItems.map(function(item, indice){
+    if (Array.isArray(item.product) != null) {
+      return item.product;
+    }
+   
+ });
+ console.log(produt);
+
      orderStatus.forEach(element => {
         if (element.statusDescription === 'ordered') {
            this.aguardandoConfirmacaoCount +=1;

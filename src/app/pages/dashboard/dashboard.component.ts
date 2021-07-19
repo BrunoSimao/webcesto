@@ -33,96 +33,85 @@ export class DashboardComponent implements OnInit {
   basicOptions: any;
   arrayValoresVenda: any[];
   dataNumber: number[];
-
- report: Report;
+  datapr: any;
+  valoresGrafico: number[] = [];
+  
+  
+  report: Report;
 
   constructor(private orderReportService: OrderReportService){}
 
   ngOnInit() {
 
-  //   this.basicData = {
-  //     labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
-  //     datasets: [
-  //         {
-  //             label: 'My First dataset',
-  //             backgroundColor: '#42A5F5',
-  //             data: [65, 59, 80, 81, 56, 55, 40]
-  //         }
-  //         // {
-  //         //     label: 'My Second dataset',
-  //         //     backgroundColor: '#FFA726',
-  //         //     data: [28, 48, 40, 19, 86, 27, 90]
-  //         // }
-  //     ]
-  // };
-
-   this.datasets = [
-      [0, 20, 10, 30, 15, 40, 20, 60, 60]//,
-     // [0, 20, 5, 25, 10, 30, 15, 40, 40]
-    ];
+  //  this.datasets = [
+  //     [0, 20, 10, 30, 15, 40, 20, 60, 60],
+  //     [0, 20, 5, 25, 10, 30, 15, 40, 40]
+  //   ];
 
   var restaurantID = window.sessionStorage.getItem('restaurantID');
 
-  this.orderReportService.getOrderReport(parseInt(restaurantID)).subscribe((report: Report) => {
+  this.orderReportService.getOrderReport(parseInt(restaurantID)).subscribe(report => {
       this.percentualVendas = report.amount / 100;
       this.amount = report.amount;
       this.ordersCount = report.ordersCount;
 
-      report.orderReports.forEach(element => {
-       var teste =  report.orderReports.filter(x => x.name);
-       this.qtdUsuarios = teste.length;
-      })
+      
+      this.report = report;
+
+      this.qtdUsuarios = report.orderReports.filter(x => x.name === x.name).length;
+
+      // report.orderReports.forEach(element => {
+      //  var teste =  report.orderReports.filter(x => x.name);
+      //  this.qtdUsuarios = teste.length;
+      // })
+
   });
 
-  this.orderReportService.getTransacao(parseInt(restaurantID)).subscribe((response: Transaction[]) => {
-    console.log(response);
-    this.datasets = [] = [];
+  // this.orderReportService.getTransacao(parseInt(restaurantID)).subscribe((response: Transaction[]) => {
+  //   console.log(response);
+  //   this.datasets = [] = [];
 
-    response.forEach(element => {
-     var Xmas95 = new Date(element.createdAt);
-     var month = Xmas95.getMonth();
-     month +=1;
-     console.log(month); 
+  //   response.forEach(element => {
+  //    var Xmas95 = new Date(element.createdAt);
+  //    var month = Xmas95.getMonth();
+  //    month +=1;
+  //    console.log(month); 
 
-     if (month === 6) {
-              element.amount += element.amount;
-              this.datasets[0] = element.amount;
-            } if (month === 7) {
-              element.amount += element.amount;
-              this.datasets[1] = element.amount;
-            }
-    });
-});
-
-// for (let i = 0; i < 12; i++) {
-//  this.datasets.push(i);
-// }
+  //    if (month === 6) {
+  //             element.amount += element.amount;
+  //             this.datasets[0] = element.amount;
+  //           } if (month === 7) {
+  //             element.amount += element.amount;
+  //             this.datasets[1] = element.amount;
+  //           }
+  //   });
+//});
 
     // this.datasets = [
-    //   [0, 20, 10, 30, 15, 40, 20, 60, 60]//,
-    //  // [0, 20, 5, 25, 10, 30, 15, 40, 40]
+    //   [0, 20, 10, 30, 15, 40, 20, 60, 60],
+    //   [0, 20, 5, 25, 10, 30, 15, 40, 40]
     // ];
-    this.data = this.datasets[0];
+   // this.data = this.datasets[0];
 
 
-    var chartOrders = document.getElementById('chart-orders');
+    // var chartOrders = document.getElementById('chart-orders');
 
-    parseOptions(Chart, chartOptions());
+    // parseOptions(Chart, chartOptions());
 
 
-    var ordersChart = new Chart(chartOrders, {
-      type: 'bar',
-      options: chartExample2.options,
-      data: chartExample2.data
-    });
+    // var ordersChart = new Chart(chartOrders, {
+    //   type: 'bar',
+    //   options: chartExample2.options,
+    //   data: chartExample2.data
+    // });
 
-    var chartSales = document.getElementById('chart-sales');
+    // var chartSales = document.getElementById('chart-sales');
 
-    this.salesChart = new Chart(chartSales, {
-			type: 'line',
-			options: chartExample1.options,
-			data: chartExample1.data
-		});
+    // this.salesChart = new Chart(chartSales, {
+		// 	type: 'line',
+		// 	options: chartExample1.options,
+		// 	data: chartExample1.data
+		// });
 
    
 
@@ -149,9 +138,9 @@ export class DashboardComponent implements OnInit {
   }
 
 
-  public updateOptions() {
-    this.salesChart.data.datasets[0].data = this.data;
-    this.salesChart.update();
-  }
+  // public updateOptions() {
+  //   this.salesChart.data.datasets[0].data = this.data;
+  //   this.salesChart.update();
+  // }
 
 }

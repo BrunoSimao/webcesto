@@ -15,7 +15,7 @@ export class CadastroCardapioService {
   url = 'https://cesto.azurewebsites.net/api/Product'
   
   // injetando o HttpClient
-  constructor(private httpClient: HttpClient, private notifyService : NotificationService,) { }
+  constructor(private httpClient: HttpClient, private notifyService : NotificationService) { }
   
   token = window.sessionStorage.getItem('token');
   // Headers
@@ -25,8 +25,8 @@ export class CadastroCardapioService {
    'Authorization': 'bearer  ' + this.token})
   }
 
-  cadastrarProduto(produto: ProdutoModel){
-    return this.httpClient.post<any>(this.url, JSON.stringify(produto), this.httpOptions)
+  cadastrarProduto(produto: ProdutoModel) : Observable<Product>{
+    return this.httpClient.post<Product>(this.url, JSON.stringify(produto), this.httpOptions)
       .pipe(
         retry(2),
         catchError(this.handleError)

@@ -18,6 +18,7 @@ import {RatingModule} from 'primeng/rating';
 import { NgxUiLoaderModule } from 'ngx-ui-loader';
 // import { ToastrModule } from 'ngx-toastr';
 
+import {AvatarModule} from 'primeng/avatar';
 import {PasswordModule} from 'primeng/password';
 import {DialogModule} from 'primeng/dialog';
 import {ToolbarModule} from 'primeng/toolbar';
@@ -53,6 +54,7 @@ import { AlterarDadosBancarioComponent } from 'src/app/pages/alterar-dados-banca
     InputMaskModule,
     ToolbarModule,
     DialogModule,
+    AvatarModule,
     PasswordModule,
     ClipboardModule
   ],
