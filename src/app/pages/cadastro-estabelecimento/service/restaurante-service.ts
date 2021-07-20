@@ -26,7 +26,6 @@ export class RestaurantService {
   }
 
   createRestaurant(restaurant: Restaurant): Observable<Restaurant> {
-    console.log(this.token);
     return this.httpClient.post<Restaurant>(this.url, JSON.stringify(restaurant), this.httpOptions)
       .pipe(
         retry(2),

@@ -51,11 +51,11 @@ export class CadastroCardapioComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-   //var prod = window.sessionStorage.getItem('produto');
-   //console.log(prod);
-
-   //this.produto = JSON.parse(prod);
-   //console.log( this.produto);
+   var prod = window.sessionStorage.getItem('produto');
+   console.log(prod);
+  
+   this.produto = JSON.parse(prod);
+   console.log( this.produto);
 
    this.getProductCategory();
   }
@@ -114,6 +114,8 @@ export class CadastroCardapioComponent implements OnInit, OnDestroy {
     }
 
     //this.produto.createdAt = "2021-07-16T19:07:16.807Z"
+
+    this.produto.prodID = 0;
   
     this.ngxLoader.start();
     console.log(this.value);
