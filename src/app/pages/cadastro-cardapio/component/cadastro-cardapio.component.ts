@@ -12,7 +12,7 @@ import { CadastroCardapioService } from '../service/cadastro-cardapio.service';
 
 
 @Component({
-  selector: 'app-CadastroCardapio',
+  selector: 'app-cadastro-cardapio',
   templateUrl: './cadastro-cardapio.component.html',
   styleUrls: ['./cadastro-cardapio.component.scss']
 })

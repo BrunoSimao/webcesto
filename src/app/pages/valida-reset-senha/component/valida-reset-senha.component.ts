@@ -26,15 +26,15 @@ export class ValidaResetSenhaComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
   }
 
-  // enviarCodigoNovamente() {
-  //   this.resetPasswordOwner.email = this.email;
+  enviarCodigoNovamente() {
+    // this.resetPasswordOwner.email = this.email;
   
-  //   console.log(this.resetPasswordOwner);
-  //   this.resetPasswordService.enviarCodigo(this.resetPasswordOwner).subscribe(() => {
-  //     this.router.navigate(['/valida-reset-senha']);
-  //   });
+    // console.log(this.resetPasswordOwner);
+    // this.resetPasswordService.enviarCodigo(this.resetPasswordOwner).subscribe(() => {
+    //   this.router.navigate(['/valida-reset-senha']);
+    // });
     
-  // }
+  }
 
   resetarSenha() {
     this.resetPasswordOwner.code = this.code;
