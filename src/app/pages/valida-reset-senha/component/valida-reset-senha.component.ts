@@ -14,6 +14,7 @@ export class ValidaResetSenhaComponent implements OnInit, OnDestroy {
   email: string;
   password: string;
   code: string;
+  confirmaPassword: string;
 
 
   constructor(private router: Router, private resetPasswordService: ResetRequestOwnerService){
