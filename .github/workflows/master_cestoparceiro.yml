@@ -52,5 +52,5 @@ jobs:
       with:
         app-name: 'cestoparceiro'
         slot-name: 'production'
-        publish-profile: ${{ secrets.AzureAppService_PublishProfile_cbca2a2c691744fb93e8adc4a24d087e }}
+        publish-profile: ${{ secrets.AzureAppService_PublishProfile_18174164ae8040e4877b99145984d992 }}
         package: .
