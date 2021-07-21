@@ -25,7 +25,7 @@
           <i class="ni ni-bold-left"></i>
           <button type="button" (click)="goBack()" class="btn btn-secondary btn-sm">Voltar</button>
            <div class="text-muted text-center mt-2 mb-3"><label>Imagem do Produto</label></div>
-           <img style="margin-left: 235px;" src= "data:image/png;charset=utf-8;base64,{{produto.imageURL}}" [style.display]="displayNone">
+           <!-- <img style="margin-left: 235px;" src= "data:image/png;charset=utf-8;base64,{{produto.imageURL}}"> -->
         </div>
         <p-fileUpload previewWidth="80"[showUploadButton]="false" chooseLabel="Escolher Imagem"
         [showCancelButton]="false"  name="demo[]" url="./upload.php" (onSelect)="onUpload($event)"

@@ -7,7 +7,7 @@ import { ProductCategory } from '../../pedidos/component/model/product-category'
 import { DetalheCardapioService } from '../service/detalhe-cardapio.service';
 
 @Component({
-  selector: 'app-DetalheCardapio',
+  selector: 'app-detalhe-cardapio',
   templateUrl: './detalhe-cardapio.component.html',
   styleUrls: ['./detalhe-cardapio.component.scss']
 })
