@@ -81,7 +81,7 @@ export class PedidosComponent implements OnInit {
      
    });
    console.log(orderItems);
-
+   
    var produt = orderItems.map(function(item, indice){
     if (Array.isArray(item.product) != null) {
       return item.product;
@@ -130,9 +130,6 @@ export class PedidosComponent implements OnInit {
      this.isShowCancelado = true;
    } else if (event.orderStatus.statusDescription == 'Finalizado com Sucesso') {
     this.descricaoStatus = event.orderStatus.statusDescription;
-    //Retirar usado somente para teste para habilitar botões
-    //this.isShowAceitarPedido = true;
-    //this.isShowRecusarPedido = true;
    } else if (event.orderStatus.statusDescription == 'Aguardando Confirmação') {
     this.descricaoStatus = event.orderStatus.statusDescription;
     this.isShowAceitarPedido = true;

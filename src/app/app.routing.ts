@@ -54,32 +54,32 @@ const routes: Routes =[
     canActivate: [AuthGuard]
   },{
     path: 'cadastro-parceiro',
-    component: CadastroParceiroComponent,
-    canActivate: [AuthGuard]
+    component: CadastroParceiroComponent
+   
    // pathMatch: 'full',
   }, {
     path: 'cadastro-estabelecimento',
-    component: CadastroEstabelecimentoComponent,
-    canActivate: [AuthGuard]
+    component: CadastroEstabelecimentoComponent
+   
    // pathMatch: 'full',
   },{
     path: 'endereco-estabelecimento',
-    component: EnderecoEstabelecimentoComponent,
-    canActivate: [AuthGuard]
+    component: EnderecoEstabelecimentoComponent
+   
    // pathMatch: 'full',
   },{
     path: 'cadastro-conta',
-    component: CadastroContaComponent,
-    canActivate: [AuthGuard]
+    component: CadastroContaComponent
+   
    // pathMatch: 'full',
   },{
     path: 'reset-senha',
-    component: ResetSenhaComponent,
-    canActivate: [AuthGuard]
+    component: ResetSenhaComponent
+    
   }, {
     path: 'valida-reset-senha',
-    component: ValidaResetSenhaComponent,
-    canActivate: [AuthGuard]
+    component: ValidaResetSenhaComponent
+  
   },
   {
     path: 'modal-detalhe-pedido',
@@ -87,8 +87,8 @@ const routes: Routes =[
     canActivate: [AuthGuard]
   }, {
     path: 'politica-privacidade',
-    component: PoliticaPrivacidadeComponent,
-    canActivate: [AuthGuard]
+    component: PoliticaPrivacidadeComponent
+   
   }, {
     path: 'cardapio',
     component: CardapioComponent,

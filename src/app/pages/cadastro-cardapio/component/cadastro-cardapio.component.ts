@@ -72,7 +72,6 @@ export class CadastroCardapioComponent implements OnInit, OnDestroy {
       return;
     }else {
       this.produto.productCategories[0].prodCategoryID = this.selectedProductCategory.prodCategoryID;
-      this.produto.productCategories[0].prodCategoryID = 0;
     }
     
     if (this.produtoDisponivel) {
