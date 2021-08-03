@@ -15,12 +15,15 @@ export class CardapioComponent implements OnInit {
   products: Product[];
   imagemPath: string;
   restaurantID: string;
+  filterTerm: string;
+  isButtonVisible = false;
  
   constructor(private router: Router, 
     private cardapioService: CardapioService,
     private ngxLoader: NgxUiLoaderService) { }
 
   ngOnInit() {
+    this.isButtonVisible = true;
     this.restaurantID = window.sessionStorage.getItem('restaurantID');
     this.ngxLoader.start();
     this.getProdutos();
@@ -31,6 +34,13 @@ export class CardapioComponent implements OnInit {
     this.cardapioService.getProdutos(this.restaurantID).subscribe(products => {
       console.log(products);
       this.products = products;  
+
+      
+      this.products.sort((a, b) => { 
+        if (a.productCategory < b.productCategory) {
+          return -1;
+        }
+  }); 
   }, err => {
     
   });

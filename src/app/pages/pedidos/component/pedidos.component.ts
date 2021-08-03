@@ -111,6 +111,7 @@ export class PedidosComponent implements OnInit {
     });
   }
 
+
   showResponsiveDialog(event: any) {
     console.log(event);
     this.produto = event;

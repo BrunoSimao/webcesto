@@ -1,11 +1,25 @@
 <div class="header bg-gradient pb-8 pt-5 pt-md-8"  style="background-color: rgb(1, 143, 180)">
   <div class="container-fluid">
+    
     <div class="header-body">
-      <a href="/cadastro-cardapio" class="btn btn-info">Cadastrar</a>
+      <div class="row">
+      <a style="margin-left: 30px;" href="/cadastro-cardapio" class="btn btn-info">Cadastrar</a>
+      <form class="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex ml-lg-auto">
+        <div class="form-group mb-0" [ngClass]="{ 'focused': focus === true }">
+          <div class="input-group input-group-alternative">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fas fa-search"></i></span>
+            </div>
+            <input class="form-control" placeholder="Pesquisar"  [ngModelOptions]="{standalone: true}" [(ngModel)]="filterTerm" type="text" (focus)="focus = true"
+            (blur)="focus = false">
+          </div>
+        </div>
+      </form>
+    </div>
       <!-- Card stats -->
       <div class="row">
         <div class="card-group col-12">
-        <div class="col-xl-4 col-lg-6" *ngFor="let product of products">
+        <div class="col-xl-4 col-lg-6"  *ngFor="let product of products | filter:filterTerm">
           <h1 style="color: white;">{{product.productCategory}}</h1>
           <div class="card card-stats mb-4 mb-xl-0">
             <div class="card-body">

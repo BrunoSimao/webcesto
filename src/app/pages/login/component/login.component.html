@@ -47,15 +47,18 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text"><i class="ni ni-shop"></i></span>
                 </div>
-                <input  id="cnpj" [(ngModel)]="cnpj" name="cnpj" class="form-control" placeholder="CNPJ" type="text">
+                <p-inputMask  [style]="{'width': '312px'}"  id="cnpj" mask="99.999.999/9999-99" name="cnpj" [(ngModel)]="cnpj" placeholder="CNPJ" [ngModelOptions]="{standalone: true}"></p-inputMask>
+                <!-- <input  id="cnpj" [(ngModel)]="cnpj" name="cnpj" class="form-control" placeholder="CNPJ" type="text"> -->
               </div>
             </div>
-            <div class="form-group">
+            <div class="form-group mb-3">
               <div class="input-group input-group-alternative">
+              
                 <div class="input-group-prepend">
                   <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
                 </div>
-                <input  id="password" [(ngModel)]="pass" name="pass" class="form-control" placeholder="Password" type="password">
+                <p-password id="password" [feedback]="false" [(ngModel)]="pass" name="pass" placeholder="Senha" [toggleMask]="true" [ngModelOptions]="{standalone: true}"></p-password>
+                <!-- <input  id="password" [(ngModel)]="pass" name="pass" class="form-control" placeholder="Password" type="password"> -->
               </div>
             </div>
             <div class="custom-control custom-control-alternative custom-checkbox">

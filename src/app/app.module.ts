@@ -44,14 +44,20 @@ import { DetalheCardapioComponent } from './pages/detalhe-cardapio/component/det
 import { AuthGuard } from './AuthGuard';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { CurrencyMaskModule } from "ng2-currency-mask";
+import {InputMaskModule} from 'primeng/inputmask';
+import {PasswordModule} from 'primeng/password';
+import {AvatarModule} from 'primeng/avatar';
 
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { NgxPaginationModule } from 'ngx-pagination';
 import {DialogModule} from 'primeng/dialog';
 import {InputTextModule} from 'primeng/inputtext';
 import {CheckboxModule} from 'primeng/checkbox';
 import {InputTextareaModule} from 'primeng/inputtextarea';
-import { CadastroCardapioComponent } from './pages/cadastro-cardapio/component/cadastro-cardapio.component';
+
 import { AlterarEnderecoEstComponent } from './pages/alterar-endereco-estabelecimento/component/alterar-endereco-estabelecimento.component';
+import { CadastroCardapioComponent } from './pages/cadastro-cardapio/component/cadastro-cardapio.component';
+import { CardapioComponent } from './pages/cardapio/component/cardapio.component';
 
 
 @NgModule({
@@ -80,8 +86,11 @@ import { AlterarEnderecoEstComponent } from './pages/alterar-endereco-estabeleci
     InputTextareaModule,
     CurrencyMaskModule,
     DialogModule,
+    InputMaskModule,
+    PasswordModule,
+    AvatarModule,
     NgxPaginationModule,
-    
+    Ng2SearchPipeModule,
     AppRoutingModule,
     ToastrModule.forRoot()
   ],
@@ -98,6 +107,7 @@ import { AlterarEnderecoEstComponent } from './pages/alterar-endereco-estabeleci
     DetalheCardapioComponent,
     CadastroCardapioComponent,
     AlterarEnderecoEstComponent,
+    CardapioComponent,
     AdminLayoutComponent,
     AuthLayoutComponent,
    

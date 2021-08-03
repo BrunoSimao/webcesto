@@ -49,10 +49,28 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
                 </div>
-                <p-password [style]="{'width': '395px'}" [(ngModel)]="operador.password" name="operador.password" [toggleMask]="true"></p-password>
-                <!-- <input class="form-control" [(ngModel)]="operador.password" name="operador.password" type="password"> -->
+
+                <p-password [style]="{'width': '395px'}" [(ngModel)]="operador.password" name="operador.password" [toggleMask]="true">
+                  <ng-template pTemplate="header">
+                      <h6>Pick a password</h6>
+                  </ng-template>
+                  <ng-template pTemplate="footer">
+                      <p-divider></p-divider>
+                      <p class="p-mt-2">Suggestions</p>
+                      <ul class="p-pl-2 p-ml-2 p-mt-0" style="line-height: 1.5">
+                          <li>At least one lowercase</li>
+                          <li>At least one uppercase</li>
+                          <li>At least one numeric</li>
+                          <li>Minimum 8 characters</li>
+                      </ul>
+                  </ng-template>
+              </p-password>
+
+                <!-- <p-password [feedback]="false" [style]="{'width': '395px'}" [(ngModel)]="operador.password" name="operador.password" [toggleMask]="true"></p-password> -->
+                <!-- <input class="form-control" maxlength="8" [(ngModel)]="operador.password" name="operador.password" type="password"> -->
+                
               </div>
-            </div>
+            </div>  
           </form>
         </ng-template>
         

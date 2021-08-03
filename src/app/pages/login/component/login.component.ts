@@ -35,6 +35,8 @@ export class LoginComponent {
     this.owner.password = this.pass;
     this.owner.username = "";
 
+    this.owner.cnpj = this.owner.cnpj.replace('.', '').replace('.', '').replace('/', '').replace('-', '');
+
     console.log(this.owner);
     this.ngxLoader.start();
     this.ownerService.loginOwner(this.owner).subscribe(res => {

@@ -10,7 +10,6 @@ import { DashboardComponent } from '../../pages/dashboard/dashboard.component';
 import { IconsComponent } from '../../pages/icons/icons.component';
 import { MapsComponent } from '../../pages/maps/maps.component';
 import { UserProfileComponent } from '../../pages/user-profile/component/user-profile.component';
-import {CardapioComponent} from '../../pages/cardapio/component/cardapio.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TableModule } from 'primeng/table';
 import {ButtonModule} from 'primeng/button';
@@ -31,6 +30,7 @@ import { AlterarCadastroEstComponent } from 'src/app/pages/alterar-dados-restaur
 import { FileUploadModule } from 'primeng/fileupload';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputSwitchModule } from 'primeng/inputswitch';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { AlterarDadosBancarioComponent } from 'src/app/pages/alterar-dados-bancario/component/alterar-dados-bancario.component';
 
 
@@ -56,6 +56,7 @@ import { AlterarDadosBancarioComponent } from 'src/app/pages/alterar-dados-banca
     DialogModule,
     AvatarModule,
     PasswordModule,
+    Ng2SearchPipeModule,
     ClipboardModule
   ],
   declarations: [
@@ -65,8 +66,8 @@ import { AlterarDadosBancarioComponent } from 'src/app/pages/alterar-dados-banca
     AlterarDadosBancarioComponent,
     MeusDadosComponent,
     IconsComponent,
-    MapsComponent,
-    CardapioComponent
+    MapsComponent
+    
   ]
 })
 

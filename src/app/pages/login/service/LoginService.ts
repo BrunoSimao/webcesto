@@ -11,7 +11,7 @@ import { Owner } from '../model/owner';
 })
 export class LoginService {
 
-  url = 'https://cesto.azurewebsites.net/api/AppAuth/AuthOwner'; // api rest fake
+  url = 'https://cesto.azurewebsites.net/api/AppAuth/AuthOwner';
 
   // injetando o HttpClient
   constructor(private httpClient: HttpClient) { }
@@ -29,20 +29,9 @@ export class LoginService {
       )
   }
 
-
-
-  // deleta um carro
-//   deleteCar(car: Car) {
-//     return this.httpClient.delete<Car>(this.url + '/' + car.id, this.httpOptions)
-//       .pipe(
-//         retry(1),
-//         catchError(this.handleError)
-//       )
-//   }
-
   // Manipulação de erros
   handleError(error: HttpErrorResponse) {
-    let errorMessage = '';
+    let errorMessage =  '';
     if (error.error instanceof ErrorEvent) {
       // Erro ocorreu no lado do client
       errorMessage = error.error.message;

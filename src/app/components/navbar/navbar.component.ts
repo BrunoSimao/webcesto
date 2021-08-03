@@ -13,12 +13,14 @@ export class NavbarComponent implements OnInit {
   public listTitles: any[];
   public location: Location;
   public nomeRestaurante: string;
+  private isButtonVisible = false;
   
   constructor(location: Location,  private element: ElementRef, private router: Router) {
     this.location = location;
   }
 
   ngOnInit() {
+    this.isButtonVisible = false;
     this.listTitles = ROUTES.filter(listTitle => listTitle);
     this.nomeRestaurante = window.sessionStorage.getItem('nomeRestaurante');
   }
