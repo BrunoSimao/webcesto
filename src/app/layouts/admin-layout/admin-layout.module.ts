@@ -33,7 +33,7 @@ import { InputSwitchModule } from 'primeng/inputswitch';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { AlterarDadosBancarioComponent } from 'src/app/pages/alterar-dados-bancario/component/alterar-dados-bancario.component';
 import { CadastroCardapioComponent } from 'src/app/pages/cadastro-cardapio/component/cadastro-cardapio.component';
-
+import {SelectButtonModule} from 'primeng/selectbutton';
 
 @NgModule({
   imports: [
@@ -58,6 +58,7 @@ import { CadastroCardapioComponent } from 'src/app/pages/cadastro-cardapio/compo
     AvatarModule,
     PasswordModule,
     Ng2SearchPipeModule,
+    SelectButtonModule,
     ClipboardModule
   ],
   declarations: [
