@@ -56,7 +56,6 @@ import {CheckboxModule} from 'primeng/checkbox';
 import {InputTextareaModule} from 'primeng/inputtextarea';
 
 import { AlterarEnderecoEstComponent } from './pages/alterar-endereco-estabelecimento/component/alterar-endereco-estabelecimento.component';
-import { CadastroCardapioComponent } from './pages/cadastro-cardapio/component/cadastro-cardapio.component';
 import { CardapioComponent } from './pages/cardapio/component/cardapio.component';
 
 
@@ -105,7 +104,6 @@ import { CardapioComponent } from './pages/cardapio/component/cardapio.component
     PedidosComponent,
     AppComponent,
     DetalheCardapioComponent,
-    CadastroCardapioComponent,
     AlterarEnderecoEstComponent,
     CardapioComponent,
     AdminLayoutComponent,
