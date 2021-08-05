@@ -30,6 +30,10 @@ export class CardapioComponent implements OnInit {
     this.ngxLoader.stop();
   }
 
+  cadastroCardapio() {
+    this.router.navigate(['/cadastro-cardapio']);
+  }
+
   getProdutos() {
     this.cardapioService.getProdutos(this.restaurantID).subscribe(products => {
       console.log(products);
