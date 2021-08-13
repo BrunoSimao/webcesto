@@ -6,6 +6,8 @@ import { LoginService } from '../service/LoginService';
 import { Owner } from '../model/owner';
 import { Product } from '../../pedidos/component/model/product';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
+import { PedidosService } from '../../pedidos/component/service/pedidos.service';
+import { Order } from '../../pedidos/component/model/order';
 
 @Component({
   selector: 'app-login',
@@ -23,7 +25,8 @@ export class LoginComponent {
 
   constructor(private router: Router, 
               private ownerService: LoginService,
-              private ngxLoader: NgxUiLoaderService){
+              private ngxLoader: NgxUiLoaderService,
+              private pedidosService: PedidosService){
   }
 
   ngOnInit() {
@@ -54,6 +57,8 @@ export class LoginComponent {
       window.sessionStorage.setItem('addressID', this.data.restaurant.addressID);
       window.sessionStorage.setItem('bankDataID', this.data.bankData.bankDataID);
       window.sessionStorage.setItem("restaurant", JSON.stringify(this.data.restaurant));
+
+      this.pedidos(this.data.restaurant.restaurantID);
      
       this.ngxLoader.stop();
       this.router.navigate(['/dashboard']);
@@ -63,6 +68,21 @@ export class LoginComponent {
   });
     
     this.owner = new AuthOwner();
+  }
+
+  pedidos(restaurantID) {
+    this.pedidosService.getPedidos(restaurantID).subscribe((pedidos: Order[]) => {   
+   console.log(pedidos.length);
+
+   //Função para verificar se há pedidos novos na hora de logar.
+    // if (pedidos.filter(x => x.orderStatus.statusDescription === 'ordered')) {
+    //   var audio = new Audio('./assets/img/ding-dong-pedido.mp3');
+    //   audio.play();
+    // }
+
+   window.sessionStorage.setItem('quantidadeAtualPedido', pedidos.length.toString());
+   
+ });
   }
 
   CadastroParceiro(){

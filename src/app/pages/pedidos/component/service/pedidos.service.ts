@@ -13,6 +13,7 @@ export class PedidosService {
  
   url = 'https://cesto.azurewebsites.net/api/Order?restaurantID=';
   urlOrder = 'https://cesto.azurewebsites.net/api/Order';
+  urlVerificaPedidos = 'https://cesto.azurewebsites.net/api/Order/GetNewOrderCount?'
   
   // injetando o HttpClient
   constructor(private httpClient: HttpClient, private notifyService : NotificationService,) { }
@@ -32,32 +33,39 @@ export class PedidosService {
         // catchError(this.handleError))
   }
 
-  aceitarPedido(produto: Product): Observable<Product> {
-    return this.httpClient.put<Product>(this.urlOrder, JSON.stringify(produto), this.httpOptions)
+  aceitarPedido(produto: Order): Observable<Order> {
+    return this.httpClient.put<Order>(this.urlOrder, JSON.stringify(produto), this.httpOptions)
       .pipe(
         retry(2),
         catchError(this.handleError)
       )
   }
 
-  recusarPedido(produto: Product): Observable<Product> {
-    return this.httpClient.put<Product>(this.urlOrder, JSON.stringify(produto), this.httpOptions)
+  verificaPedidos(restaurantID: number, lastReadID: number): Observable<any> {
+    return this.httpClient.get<any>(this.urlVerificaPedidos + 'restaurantID=' + restaurantID + '&lastReadID=' + lastReadID, this.httpOptions)
+    .pipe(map(res => res));
+    // retry(2),
+    // catchError(this.handleError))
+  }
+
+  recusarPedido(produto: Order): Observable<Order> {
+    return this.httpClient.put<Order>(this.urlOrder, JSON.stringify(produto), this.httpOptions)
       .pipe(
         retry(2),
         catchError(this.handleError)
       )
   }
 
-  pedidoPronto(produto: Product): Observable<Product> {
-    return this.httpClient.put<Product>(this.urlOrder, JSON.stringify(produto), this.httpOptions)
+  pedidoPronto(produto: Order): Observable<Order> {
+    return this.httpClient.put<Order>(this.urlOrder, JSON.stringify(produto), this.httpOptions)
       .pipe(
         retry(2),
         catchError(this.handleError)
       )
   }
 
-  colocarSenha(produto: Product): Observable<Product> {
-    return this.httpClient.put<Product>(this.urlOrder, JSON.stringify(produto), this.httpOptions)
+  colocarSenha(produto: Order): Observable<Order> {
+    return this.httpClient.put<Order>(this.urlOrder, JSON.stringify(produto), this.httpOptions)
       .pipe(
         retry(2),
         catchError(this.handleError)

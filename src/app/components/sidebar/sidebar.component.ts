@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { PedidosService } from 'src/app/pages/pedidos/component/service/pedidos.service';
 
 declare interface RouteInfo {
     path: string;
@@ -28,12 +29,41 @@ export class SidebarComponent implements OnInit {
   public menuItems: any[];
   public isCollapsed = true;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router,
+              private pedidosService: PedidosService) { }
 
   ngOnInit() {
+
+    setInterval(() => {
+      this.getPedidos(); 
+      }, 5000);
+
     this.menuItems = ROUTES.filter(menuItem => menuItem);
     this.router.events.subscribe((event) => {
       this.isCollapsed = true;
    });
   }
-}
+
+  getPedidos() {
+      var restaurantID = parseInt(window.sessionStorage.getItem('restaurantID'));
+      var primeiroParametro = 0
+      
+      this.pedidosService.verificaPedidos(restaurantID, primeiroParametro).subscribe(res => {
+      console.log(res);
+      
+      var valorAtualPedido = parseInt(window.sessionStorage.getItem('quantidadeAtualPedido'));
+      console.log(valorAtualPedido);
+
+      if (res !== valorAtualPedido) {
+        var audio = new Audio('./assets/img/ding-dong-pedido.mp3');
+        audio.play();
+      }
+      
+    }, err => {
+      console.log(err);
+    });
+  
+    console.log('Chamada verifica pedido novo');
+    
+    }
+ }

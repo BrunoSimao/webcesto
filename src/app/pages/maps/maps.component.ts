@@ -44,6 +44,11 @@ export class MapsComponent implements OnInit {
 
   salvarOperador() {
    
+   // var strongRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})");
+
+    //var teste = strongRegex.test(this.operador.password);
+   // console.log(teste);
+
     // this.operador.username = this.username;
     // this.operador.password = this.password;
     this.operador.restaurantID = this.restaurantID;
