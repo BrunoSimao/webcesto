@@ -34,6 +34,7 @@ export class LoginComponent {
   }
 
   LogIn() {
+
     this.owner.cnpj = this.cnpj;
     this.owner.password = this.pass;
     this.owner.username = "";
@@ -58,7 +59,7 @@ export class LoginComponent {
       window.sessionStorage.setItem('bankDataID', this.data.bankData.bankDataID);
       window.sessionStorage.setItem("restaurant", JSON.stringify(this.data.restaurant));
 
-      this.pedidos(this.data.restaurant.restaurantID);
+     //this.pedidos(this.data.restaurant.restaurantID);
      
       this.ngxLoader.stop();
       this.router.navigate(['/dashboard']);
@@ -70,20 +71,7 @@ export class LoginComponent {
     this.owner = new AuthOwner();
   }
 
-  pedidos(restaurantID) {
-    this.pedidosService.getPedidos(restaurantID).subscribe((pedidos: Order[]) => {   
-   console.log(pedidos.length);
-
-   //Função para verificar se há pedidos novos na hora de logar.
-    // if (pedidos.filter(x => x.orderStatus.statusDescription === 'ordered')) {
-    //   var audio = new Audio('./assets/img/ding-dong-pedido.mp3');
-    //   audio.play();
-    // }
-
-   window.sessionStorage.setItem('quantidadeAtualPedido', pedidos.length.toString());
-   
- });
-  }
+  
 
   CadastroParceiro(){
 
