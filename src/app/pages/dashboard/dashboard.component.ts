@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import Chart from 'chart.js';
 import { element } from 'protractor';
+import { delay } from 'rxjs/operators';
+import { threadId } from 'worker_threads';
 
 // core components
 import {
@@ -9,6 +11,8 @@ import {
   chartExample1,
   chartExample2
 } from "../../variables/charts";
+import { Order } from '../pedidos/component/model/order';
+import { PedidosService } from '../pedidos/component/service/pedidos.service';
 import { Report } from './model/relatorio';
 import { Transaction } from './model/transaction';
 import { OrderReportService } from './service/report.service';
@@ -39,17 +43,22 @@ export class DashboardComponent implements OnInit {
   
   report: Report;
 
-  constructor(private orderReportService: OrderReportService){}
+  constructor(private orderReportService: OrderReportService,
+              private pedidosService: PedidosService){}
 
   ngOnInit() {
 
+    var restaurantID = window.sessionStorage.getItem('restaurantID');
+
+    
+    //this.verificaUltimoPedido(restaurantID);
+  
   //  this.datasets = [
   //     [0, 20, 10, 30, 15, 40, 20, 60, 60],
   //     [0, 20, 5, 25, 10, 30, 15, 40, 40]
   //   ];
 
-  var restaurantID = window.sessionStorage.getItem('restaurantID');
-
+  
   this.orderReportService.getOrderReport(parseInt(restaurantID)).subscribe(report => {
       this.percentualVendas = report.amount / 100;
       this.amount = report.amount;
@@ -112,6 +121,7 @@ export class DashboardComponent implements OnInit {
 		// 	options: chartExample1.options,
 		// 	data: chartExample1.data
 		// });
+    
 
    
 
@@ -136,6 +146,22 @@ export class DashboardComponent implements OnInit {
     // });
 
   }
+
+  verificaUltimoPedido(restaurantID) {
+    this.pedidosService.getPedidos(restaurantID).subscribe((pedidos: Order[]) => {
+      console.log(pedidos);
+
+      console.log(pedidos.length);
+
+   //Função para verificar se há pedidos novos na hora de logar.
+    // if (pedidos.filter(x => x.orderStatus.statusDescription === 'ordered')) {
+    //   var audio = new Audio('./assets/img/ding-dong-pedido.mp3');
+    //   audio.play();
+    // }
+
+   window.sessionStorage.setItem('quantidadeAtualPedido', pedidos.length.toString());
+  });
+}
 
 
   // public updateOptions() {

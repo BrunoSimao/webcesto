@@ -74,14 +74,23 @@ export class PedidosComponent implements OnInit {
     var restaurantID = window.sessionStorage.getItem('restaurantID');
    
     this.pedidosService.getPedidos(restaurantID).subscribe((pedidos: Order[]) => {
-
       console.log(pedidos);
+
+   //Função para verificar se há pedidos novos na hora de logar.
+    // if (pedidos.filter(x => x.orderStatus.statusDescription === 'ordered')) {
+    //   var audio = new Audio('./assets/img/ding-dong-pedido.mp3');
+    //   audio.play();
+    // }
+
+
+
       var orderStatus = pedidos.map(function(item, indice){
         if (Array.isArray(item.orderStatus) != null) {
           return item.orderStatus;
         }
        
      });
+
      console.log(orderStatus);
 
      var orderItems = pedidos.map(function(item, indice){
@@ -118,6 +127,7 @@ export class PedidosComponent implements OnInit {
           element.statusDescription = 'Pedido Pronto';
         }
      });
+
 
      this.pedidos = pedidos;
      this.pedidosAll = pedidos;

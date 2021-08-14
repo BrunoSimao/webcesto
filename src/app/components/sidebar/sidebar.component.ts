@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { delay } from 'rxjs/operators';
+import { Order } from 'src/app/pages/pedidos/component/model/order';
 import { PedidosService } from 'src/app/pages/pedidos/component/service/pedidos.service';
 
 declare interface RouteInfo {
@@ -33,9 +35,12 @@ export class SidebarComponent implements OnInit {
               private pedidosService: PedidosService) { }
 
   ngOnInit() {
+    
+  
+    
 
     setInterval(() => {
-      this.getPedidos(); 
+      this.getVerificaPedidos(); 
       }, 5000);
 
     this.menuItems = ROUTES.filter(menuItem => menuItem);
@@ -44,26 +49,41 @@ export class SidebarComponent implements OnInit {
    });
   }
 
-  getPedidos() {
-      var restaurantID = parseInt(window.sessionStorage.getItem('restaurantID'));
-      var primeiroParametro = 0
-      
-      this.pedidosService.verificaPedidos(restaurantID, primeiroParametro).subscribe(res => {
-      console.log(res);
-      
-      var valorAtualPedido = parseInt(window.sessionStorage.getItem('quantidadeAtualPedido'));
-      console.log(valorAtualPedido);
+  getVerificaPedidos() {
+    var restaurantID = parseInt(window.sessionStorage.getItem('restaurantID'));
+    var primeiroParametro = 0
 
-      if (res !== valorAtualPedido) {
-        var audio = new Audio('./assets/img/ding-dong-pedido.mp3');
-        audio.play();
-      }
-      
-    }, err => {
-      console.log(err);
-    });
-  
-    console.log('Chamada verifica pedido novo');
+    this.pedidosService.getPedidos(restaurantID.toString()).subscribe((pedidos: Order[]) => {
+      console.log(pedidos);
+
+      console.log(pedidos.length);
+
+   //Função para verificar se há pedidos novos na hora de logar.
+    // if (pedidos.filter(x => x.orderStatus.statusDescription === 'ordered')) {
+    //   var audio = new Audio('./assets/img/ding-dong-pedido.mp3');
+    //   audio.play();
+    // }
+
+   window.sessionStorage.setItem('quantidadeAtualPedido', pedidos.length.toString());
+  });
+
     
+    this.pedidosService.verificaPedidos(restaurantID, primeiroParametro).subscribe(res => {
+    console.log(res);
+
+    var valorAtualPedido = parseInt(window.sessionStorage.getItem('quantidadeAtualPedido'));
+    console.log(valorAtualPedido);
+
+    if (res !== valorAtualPedido) {
+      var audio = new Audio('./assets/img/ding-dong-pedido.mp3');
+      audio.play();
     }
+    
+  }, err => {
+    console.log(err);
+  });
+
+  console.log('Chamada verifica pedido novo');
+  
+  }
  }

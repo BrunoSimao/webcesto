@@ -13,10 +13,10 @@ export class PedidosService {
  
   url = 'https://cesto.azurewebsites.net/api/Order?restaurantID=';
   urlOrder = 'https://cesto.azurewebsites.net/api/Order';
-  urlVerificaPedidos = 'https://cesto.azurewebsites.net/api/Order/GetNewOrderCount?'
+  urlVerificaPedidos = 'https://cesto.azurewebsites.net/api/Order/GetNewOrderCount?';
   
   // injetando o HttpClient
-  constructor(private httpClient: HttpClient, private notifyService : NotificationService,) { }
+  constructor(private httpClient: HttpClient, private notifyService : NotificationService) { }
   
   token = window.sessionStorage.getItem('token');
   // Headers
@@ -27,6 +27,12 @@ export class PedidosService {
   }
 
   getPedidos(restaurantID: string): Observable<Order[]> {
+    var token = window.sessionStorage.getItem('token');
+
+    this.httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json',
+     'Authorization': 'bearer  ' + token})
+    }
     return this.httpClient.get<Order[]>(this.url + restaurantID +'&limit=10&offset=0', this.httpOptions)
     .pipe(map(res => res));
         // retry(2),
@@ -42,6 +48,14 @@ export class PedidosService {
   }
 
   verificaPedidos(restaurantID: number, lastReadID: number): Observable<any> {
+    var token = window.sessionStorage.getItem('token');
+
+    this.httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json',
+     'Authorization': 'bearer  ' + token})
+    }
+
+    console.log(token);
     return this.httpClient.get<any>(this.urlVerificaPedidos + 'restaurantID=' + restaurantID + '&lastReadID=' + lastReadID, this.httpOptions)
     .pipe(map(res => res));
     // retry(2),
