@@ -141,7 +141,7 @@
                     <!-- <a href="javascript:void(0)" class="avatar rounded-circle mr-3">
                       <img alt="Image placeholder" src="../assets/img/theme/bootstrap.jpg">
                     </a> -->
-                    <p-avatar (click)="showResponsiveDialog(ped);" icon="pi pi-user" styleClass="p-mr-2" shape="circle"></p-avatar>
+                    <p-avatar style="cursor:pointer" (click)="showResponsiveDialog(ped);" icon="pi pi-user" styleClass="p-mr-2" shape="circle"></p-avatar>
                     <!-- <a (click)="showResponsiveDialog(ped);" class="avatar avatar-sm" data-toggle="tooltip" data-original-title="Ryan Tompson">
                       <img  class="rounded-circle">
                     </a> -->
@@ -154,7 +154,7 @@
                   #{{ped.orderID}}   Balcão
                 </td>
                 <td>
-                  R$ {{ped.amount}}
+                  {{ped.amount | currency : 'BRL'}}
                 </td>
                 <td>
                   <div class="d-flex align-items-center">
@@ -206,24 +206,19 @@
         </div>
       </div>
       <div class="form-group mb-3">
-         <label>Adicionais</label> 
         <div class="form-group mb-3 ">
           <div class="input-group input-group-alternative">
             <div class="input-group-prepend">
             </div>
-          
-            <label style="padding-left: 10px;">0 x limão</label> 
-            <label style="margin-left: auto; padding-right: 10px;">R$ {{amount}}</label>
+            <table>
+              <ng-container *ngFor="let produto of products">
+                  <tr><td><label>{{produto.productCategory}}</label></td></tr>
+                  <tr><td><label>{{produto.quantity}} x {{produto.name}}</label> </td></tr> <td><label>{{produto.price  | currency : 'BRL'}}</label></td>
+              </ng-container>
+         </table>
           </div>
         </div> 
-        <!-- <table>
-          <ng-container *ngFor="let group of pedidos">
-            <p *ngFor= "let character of group.ordemItems">{{character.product.productCategory}}</p>
-            <p *ngFor= "let product of character.product"></p>
-              <tr><td><h2>{{group.createdAtFormatted}}</h2></td></tr>
-              <tr *ngFor="let product of character.product"><td>{{product.product.productCategory}}</td></tr>
-          </ng-container>
-     </table> -->
+       
       </div>
       <div class="form-group mb-3">
         <label>Total</label> 
@@ -232,7 +227,7 @@
             <div class="input-group-prepend">
               <!-- <span class="input-group-text"><i class="ni ni-money-coins"></i></span> -->
             </div>
-            <label style="padding-left: 10px;">R${{amount}}</label> 
+            <label style="padding-left: 10px;">{{amount  | currency : 'BRL'}}</label> 
           </div>
         </div>
       </div>

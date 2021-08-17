@@ -26,16 +26,6 @@
       <div class="card bg-secondary shadow border-0">
         <div class="card-header bg-transparent pb-5">
           <div class="text-muted text-center mt-2 mb-3"><h2>Login</h2></div>
-          <!-- <div class="btn-wrapper text-center">
-            <a href="javascript:void(0)" class="btn btn-neutral btn-icon">
-              <span class="btn-inner--icon"><img src="../assets/img/brand/facebook.png"></span>
-              <span class="btn-inner--text">Facebook</span>
-            </a>
-            <a href="javascript:void(0)" class="btn btn-neutral btn-icon">
-              <span class="btn-inner--icon"><img src="../assets/img/icons/common/google.svg"></span>
-              <span class="btn-inner--text">Google</span>
-            </a>
-          </div> -->
         </div>
         <div class="card-body px-lg-5 py-lg-5">
           <div class="text-center text-muted mb-4">
@@ -48,7 +38,6 @@
                   <span class="input-group-text"><i class="ni ni-shop"></i></span>
                 </div>
                 <p-inputMask  [style]="{'width': '312px'}"  id="cnpj" mask="99.999.999/9999-99" name="cnpj" [(ngModel)]="cnpj" placeholder="CNPJ" [ngModelOptions]="{standalone: true}"></p-inputMask>
-                <!-- <input  id="cnpj" [(ngModel)]="cnpj" name="cnpj" class="form-control" placeholder="CNPJ" type="text"> -->
               </div>
             </div>
             <div class="form-group mb-3">
@@ -58,7 +47,6 @@
                   <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
                 </div>
                 <p-password id="password" [feedback]="false" [(ngModel)]="pass" name="pass" placeholder="Senha" [toggleMask]="true" [ngModelOptions]="{standalone: true}"></p-password>
-                <!-- <input  id="password" [(ngModel)]="pass" name="pass" class="form-control" placeholder="Password" type="password"> -->
               </div>
             </div>
             <div class="custom-control custom-control-alternative custom-checkbox">
@@ -75,10 +63,10 @@
       </div>
       <div class="row mt-3">
         <div class="col-6">
-          <a [routerLink]="" (click)="ResetSenha()" class="text-light"><small>Esqueceu sua senha?</small></a>
+          <a style="cursor: pointer;"  (click)="ResetSenha()" class="text-light"><small>Esqueceu sua senha?</small></a>
         </div>
         <div class="col-6 text-right">
-          <a  [routerLink]="" (click)="CadastroParceiro()" class="text-light"><small>Cadastre sua loja</small></a>
+          <a style="cursor: pointer;"  (click)="CadastroParceiro()" class="text-light"><small>Cadastre sua loja</small></a>
         </div>
       </div>
     </div>

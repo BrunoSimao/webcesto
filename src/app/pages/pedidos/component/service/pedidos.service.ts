@@ -54,8 +54,6 @@ export class PedidosService {
       headers: new HttpHeaders({ 'Content-Type': 'application/json',
      'Authorization': 'bearer  ' + token})
     }
-
-    console.log(token);
     return this.httpClient.get<any>(this.urlVerificaPedidos + 'restaurantID=' + restaurantID + '&lastReadID=' + lastReadID, this.httpOptions)
     .pipe(map(res => res));
     // retry(2),

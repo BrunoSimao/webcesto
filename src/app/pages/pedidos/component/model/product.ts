@@ -15,4 +15,5 @@ export class Product {
     discount: number;
     imageURL: string;
     createdAt: string;
+    quantity: number;
 }   

@@ -36,9 +36,6 @@ export class SidebarComponent implements OnInit {
 
   ngOnInit() {
     
-  
-    
-
     setInterval(() => {
       this.getVerificaPedidos(); 
       }, 5000);
@@ -73,11 +70,16 @@ export class SidebarComponent implements OnInit {
 
     var valorAtualPedido = parseInt(window.sessionStorage.getItem('quantidadeAtualPedido'));
     console.log(valorAtualPedido);
-
-    if (res !== valorAtualPedido) {
-      var audio = new Audio('./assets/img/ding-dong-pedido.mp3');
-      audio.play();
+  
+    if (!isNaN(res)) {
+      if (res !== valorAtualPedido) {
+        var audio = new Audio('./assets/img/ding-dong-pedido.mp3');
+        audio.play();
+        this.pedidosService.getPedidos(restaurantID.toString()).subscribe(response => {
+        });
+      }
     }
+   
     
   }, err => {
     console.log(err);

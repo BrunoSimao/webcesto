@@ -186,10 +186,15 @@ export class PedidosComponent implements OnInit {
     this.isShowPedidoPronto = false;
     this.isShowColocarSenha = false;
 
+    this.products = new Array<Product>();
+    
     event.orderItems.forEach(element => {
       this.productCategory = element.product.productCategory;
-      console.log(element.product.name)
-    }); 
+      console.log(element.product.name);
+      element.product.quantity = element.quantity;
+      this.products.push(element.product);
+      console.log(this.products);
+    });  
 
    if (event.orderStatus.statusDescription == 'Pedido Cancelado') {
      this.descricaoStatus = event.orderStatus.statusDescription;
