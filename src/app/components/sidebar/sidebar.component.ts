@@ -75,8 +75,7 @@ export class SidebarComponent implements OnInit {
       if (res !== valorAtualPedido) {
         var audio = new Audio('./assets/img/ding-dong-pedido.mp3');
         audio.play();
-        this.pedidosService.getPedidos(restaurantID.toString()).subscribe(response => {
-        });
+        this.router.navigate(['/tables']);
       }
     }
    

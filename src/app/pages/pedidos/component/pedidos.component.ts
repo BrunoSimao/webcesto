@@ -69,6 +69,12 @@ export class PedidosComponent implements OnInit {
   
   ngOnInit() {
 
+    this.finalizadoSucesso = 0;
+    this.emAndamentoCount = 0;
+    this.canceladoCount = 0;
+    this.pedidoProntoCount = 0;
+    this.aguardandoConfirmacaoCount = 0;
+
     this.pedido = new Order();
     this.isShowCancelado = false;
     var restaurantID = window.sessionStorage.getItem('restaurantID');
@@ -226,11 +232,13 @@ export class PedidosComponent implements OnInit {
     this.pedido.orderStatus.statusDescription = 'preparing';
     this.pedidosService.aceitarPedido(this.pedido).subscribe(res => {
       console.log(res);
-      location.reload();
+      this.ngOnInit();
+      this.displayResponsive = false;
       this.ngxLoader.stop();
   }, err => {
     this.ngxLoader.stop();
   });
+
   }
 
   recusarPedido() {
@@ -240,7 +248,8 @@ export class PedidosComponent implements OnInit {
     this.ngxLoader.start();
     this.pedidosService.recusarPedido(this.pedido).subscribe(res => {
       console.log(res);
-      location.reload();
+      this.ngOnInit();
+      this.displayResponsive = false;
       this.ngxLoader.stop();
   }, err => {
     this.ngxLoader.stop();
@@ -254,7 +263,8 @@ export class PedidosComponent implements OnInit {
     this.ngxLoader.start();
     this.pedidosService.pedidoPronto(this.pedido).subscribe(res => {
       console.log(res);
-      location.reload();
+      this.ngOnInit();
+      this.displayResponsive = false;
       this.ngxLoader.stop();
   }, err => {
     this.ngxLoader.stop();
@@ -268,7 +278,8 @@ export class PedidosComponent implements OnInit {
     this.ngxLoader.start();
     this.pedidosService.pedidoPronto(this.pedido).subscribe(res => {
       console.log(res);
-      location.reload();
+      this.ngOnInit();
+      this.displayResponsive = false;
       this.ngxLoader.stop();
   }, err => {
     this.ngxLoader.stop();
