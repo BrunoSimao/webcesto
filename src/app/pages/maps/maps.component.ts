@@ -21,6 +21,8 @@ export class MapsComponent implements OnInit {
   isSalvar: boolean = false;
   isExcluir: boolean = false;
   isAlterar: boolean = false;
+  isErrorUserName: boolean = false; 
+  isErrorSenha: boolean = false;
 
   constructor(private operadorService: OperadorService, private router: Router) { }
 
@@ -28,10 +30,12 @@ export class MapsComponent implements OnInit {
   this.isSalvar = false;
   this.isExcluir = false;
   this.isAlterar = false;
+  this.isErrorUserName = false;
+  this.isErrorSenha = false;
 
   this.operador = new Operador();
   this.operadores = new Array<Operador>();
-   this.restaurantID =  parseInt(window.sessionStorage.getItem('restaurantID'));
+  this.restaurantID =  parseInt(window.sessionStorage.getItem('restaurantID'));
   this.getOperador(this.restaurantID);
   }
 
@@ -44,30 +48,49 @@ export class MapsComponent implements OnInit {
 
   salvarOperador() {
    
-   // var strongRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})");
+    var strongRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})");
 
-    //var teste = strongRegex.test(this.operador.password);
-   // console.log(teste);
+    var verificaSenha = strongRegex.test(this.operador.password);
+    console.log(verificaSenha);
 
-    // this.operador.username = this.username;
-    // this.operador.password = this.password;
+    if (!verificaSenha) {
+      this.isErrorSenha = true;
+    }else {
+      this.isErrorSenha = false;
+    }
+    
+    var verificaEspaco = /\s/g.test(this.operador.username);
+   
+    var caracterEspecialRegex = new RegExp("@\|!#$%&/()=?»«@£§€{}.-;'<>_,");
+    var verificaUsuario = caracterEspecialRegex.test(this.operador.username);
+    console.log(verificaUsuario);
+
+    if (verificaEspaco || verificaUsuario || this.operador.username === null
+      || this.operador.username === undefined || this.operador.username === '') {
+      this.isErrorUserName = true;
+    }else {
+      this.isErrorUserName = false;
+    }
+
     this.operador.restaurantID = this.restaurantID;
 
+    if (verificaSenha && !verificaUsuario) {
     this.operadorService.salvarOperador(this.operador).subscribe( res => {
-     console.log(res);
-     this.productDialog = false;
-     
-     this.router.navigate(['/maps']);
-     this.getOperador(this.restaurantID);
-
-    });
-  }
-
+      console.log(res);
+      this.productDialog = false;
+      
+      this.router.navigate(['/maps']);
+      this.getOperador(this.restaurantID);
+ 
+     });
+    }
+   }
+   
   alterarOperador() {
     this.operadorService.alterarOperador(this.operador).subscribe( res => {
       console.log(res);
       this.productDialog = false;
-      
+     
       this.router.navigate(['/maps']);
       this.getOperador(this.restaurantID);
  
@@ -80,6 +103,8 @@ export class MapsComponent implements OnInit {
     this.isExcluir = false;
     this.isSalvar = false;
     this.isAlterar = true;
+    this.isErrorUserName = false;
+    this.isErrorSenha = false;
 }
 
 deleteProduct(operador: Operador) {
@@ -98,6 +123,8 @@ deleteProduct(operador: Operador) {
     this.isExcluir = false;
     this.isAlterar = false;
     this.productDialog = true;
+    this.isErrorUserName = false;
+    this.isErrorSenha = false;
     this.operador = new Operador();
 }
 

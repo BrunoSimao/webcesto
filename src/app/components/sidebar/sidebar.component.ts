@@ -46,39 +46,27 @@ export class SidebarComponent implements OnInit {
    });
   }
 
+  politicaPrivacidade() {
+    this.router.navigate(['/politica-privacidade'])
+  }
+
   getVerificaPedidos() {
     var restaurantID = parseInt(window.sessionStorage.getItem('restaurantID'));
     var primeiroParametro = 0
 
-    this.pedidosService.getPedidos(restaurantID.toString()).subscribe((pedidos: Order[]) => {
-      console.log(pedidos);
-
-      console.log(pedidos.length);
-
-   //Função para verificar se há pedidos novos na hora de logar.
-    // if (pedidos.filter(x => x.orderStatus.statusDescription === 'ordered')) {
-    //   var audio = new Audio('./assets/img/ding-dong-pedido.mp3');
-    //   audio.play();
-    // }
-
-   window.sessionStorage.setItem('quantidadeAtualPedido', pedidos.length.toString());
-  });
-
-    
     this.pedidosService.verificaPedidos(restaurantID, primeiroParametro).subscribe(res => {
     console.log(res);
 
     var valorAtualPedido = parseInt(window.sessionStorage.getItem('quantidadeAtualPedido'));
     console.log(valorAtualPedido);
   
-    if (!isNaN(res)) {
+    if (!isNaN(res) && !isNaN(valorAtualPedido)) {
       if (res !== valorAtualPedido) {
         var audio = new Audio('./assets/img/ding-dong-pedido.mp3');
         audio.play();
         this.router.navigate(['/tables']);
       }
     }
-   
     
   }, err => {
     console.log(err);

@@ -68,7 +68,7 @@ export class OperadorService {
       errorMessage = `Código do erro: ${error.status}, ` + `menssagem:${error.error.detail}`;
     }
     //this.notifyService.showError(errorMessage, "Erro!!!");
-    window.alert(errorMessage);
+    //window.alert(errorMessage);
     console.log(errorMessage);
     return throwError(errorMessage);
   };

@@ -123,6 +123,8 @@
           <h3 class="mb-0">Meus Pedidos</h3>
         </div>
         <div class="table-responsive">
+
+           
           <table class="table align-items-center table-flush">
             <thead class="thead-light">
               <tr>
@@ -141,7 +143,7 @@
                     <!-- <a href="javascript:void(0)" class="avatar rounded-circle mr-3">
                       <img alt="Image placeholder" src="../assets/img/theme/bootstrap.jpg">
                     </a> -->
-                    <p-avatar style="cursor:pointer" (click)="showResponsiveDialog(ped);" icon="pi pi-user" styleClass="p-mr-2" shape="circle"></p-avatar>
+                    <p-avatar  (click)="showResponsiveDialog(ped);" icon="pi pi-user" styleClass="p-mr-2" shape="circle"></p-avatar>
                     <!-- <a (click)="showResponsiveDialog(ped);" class="avatar avatar-sm" data-toggle="tooltip" data-original-title="Ryan Tompson">
                       <img  class="rounded-circle">
                     </a> -->
@@ -190,7 +192,7 @@
              
             </tbody>
           </table>
-          <ngx-ui-loader></ngx-ui-loader>
+          <!-- <ngx-ui-loader></ngx-ui-loader> -->
     <p-dialog header="Detalhes do Pedido" [(visible)]="displayResponsive" [breakpoints]="{'960px': '75vw'}" [style]="{width: '50vw'}" [baseZIndex]="10000" 
     [draggable]="false" [resizable]="false">
     <form role="form">

@@ -49,9 +49,6 @@ export class DashboardComponent implements OnInit {
   ngOnInit() {
 
     var restaurantID = window.sessionStorage.getItem('restaurantID');
-
-    
-    //this.verificaUltimoPedido(restaurantID);
   
   //  this.datasets = [
   //     [0, 20, 10, 30, 15, 40, 20, 60, 60],
@@ -146,23 +143,6 @@ export class DashboardComponent implements OnInit {
     // });
 
   }
-
-  verificaUltimoPedido(restaurantID) {
-    this.pedidosService.getPedidos(restaurantID).subscribe((pedidos: Order[]) => {
-      console.log(pedidos);
-
-      console.log(pedidos.length);
-
-   //Função para verificar se há pedidos novos na hora de logar.
-    // if (pedidos.filter(x => x.orderStatus.statusDescription === 'ordered')) {
-    //   var audio = new Audio('./assets/img/ding-dong-pedido.mp3');
-    //   audio.play();
-    // }
-
-   window.sessionStorage.setItem('quantidadeAtualPedido', pedidos.length.toString());
-  });
-}
-
 
   // public updateOptions() {
   //   this.salesChart.data.datasets[0].data = this.data;

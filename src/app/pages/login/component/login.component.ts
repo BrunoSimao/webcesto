@@ -59,7 +59,7 @@ export class LoginComponent {
       window.sessionStorage.setItem('bankDataID', this.data.bankData.bankDataID);
       window.sessionStorage.setItem("restaurant", JSON.stringify(this.data.restaurant));
 
-      //this.verificaUltimoPedido(this.data.restaurant.restaurantID);
+      this.verificaUltimoPedido(this.data.restaurant.restaurantID);
 
       this.ngxLoader.stop();
       this.router.navigate(['/dashboard']);
@@ -71,21 +71,21 @@ export class LoginComponent {
     this.owner = new AuthOwner();
   }
 
-//   verificaUltimoPedido(restaurantID) {
-//     this.pedidosService.getPedidos(restaurantID).subscribe((pedidos: Order[]) => {
-//       console.log(pedidos);
+  verificaUltimoPedido(restaurantID) {
+    this.pedidosService.getPedidos(restaurantID).subscribe((pedidos: Order[]) => {
+      console.log(pedidos);
 
-//       console.log(pedidos.length);
+      console.log(pedidos.length);
 
-//    //Função para verificar se há pedidos novos na hora de logar.
-//     // if (pedidos.filter(x => x.orderStatus.statusDescription === 'ordered')) {
-//     //   var audio = new Audio('./assets/img/ding-dong-pedido.mp3');
-//     //   audio.play();
-//     // }
+   //Função para verificar se há pedidos novos na hora de logar.
+    if (pedidos.filter(x => x.orderStatus.statusDescription === 'ordered')) {
+      var audio = new Audio('./assets/img/ding-dong-pedido.mp3');
+      audio.play();
+    }
 
-//    window.sessionStorage.setItem('quantidadeAtualPedido', pedidos.length.toString());
-//   });
-// }
+   window.sessionStorage.setItem('quantidadeAtualPedido', pedidos.length.toString());
+  });
+}
 
   CadastroParceiro(){
 
@@ -94,6 +94,5 @@ export class LoginComponent {
 
   ResetSenha() {
     this.router.navigate(['/reset-senha']);
-   
   }
 }
