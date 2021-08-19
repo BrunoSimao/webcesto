@@ -154,7 +154,7 @@ export class CadastroCardapioComponent implements OnInit, OnDestroy {
       this.imageBase64 = btoa(e.target.result);
       console.log(btoa(e.target.result));
     }
-    
+
   goBack() {
     window.history.back();
   }

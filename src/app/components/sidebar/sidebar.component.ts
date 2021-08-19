@@ -64,6 +64,8 @@ export class SidebarComponent implements OnInit {
       if (res !== valorAtualPedido) {
         var audio = new Audio('./assets/img/ding-dong-pedido.mp3');
         audio.play();
+        valorAtualPedido = res;
+        window.sessionStorage.setItem('quantidadeAtualPedido', valorAtualPedido.toString());
         this.router.navigate(['/tables']);
       }
     }

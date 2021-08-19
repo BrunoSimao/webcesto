@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
+import { element } from 'protractor';
 import { Product } from '../../pedidos/component/model/product';
 import { CardapioService } from '../service/cardapio.service';
 
@@ -17,6 +18,7 @@ export class CardapioComponent implements OnInit {
   restaurantID: string;
   filterTerm: string;
   isButtonVisible = false;
+  base64textString: string;
  
   constructor(private router: Router, 
     private cardapioService: CardapioService,
@@ -37,8 +39,9 @@ export class CardapioComponent implements OnInit {
   getProdutos() {
     this.cardapioService.getProdutos(this.restaurantID).subscribe(products => {
       console.log(products);
-      this.products = products;  
-
+      this.products = products; 
+  
+ 
       
       this.products.sort((a, b) => { 
         if (a.productCategory < b.productCategory) {
@@ -50,9 +53,27 @@ export class CardapioComponent implements OnInit {
   });
   }
 
-  EditarItem() {
-   
-  }
+  // encodeImageFileAsURL() {
+
+  //   var filesSelected = document.getElementById("inputFileToLoad").files;
+  //   if (filesSelected.length > 0) {
+  //     var fileToLoad = filesSelected[0];
+
+  //     var fileReader = new FileReader();
+
+  //     fileReader.onload = function(fileLoadedEvent) {
+  //       var srcData = fileLoadedEvent.target.result; // <--- data: base64
+
+  //       var newImage = document.createElement('img');
+  //       newImage.src = srcData;
+
+  //       document.getElementById("imgTest").innerHTML = newImage.outerHTML;
+  //       alert("Converted Base64 version is " + document.getElementById("imgTest").innerHTML);
+  //       console.log("Converted Base64 version is " + document.getElementById("imgTest").innerHTML);
+  //     }
+  //     fileReader.readAsDataURL(fileToLoad);
+  //   }
+  // }
 
 
   onClick(prod: Product) { 
@@ -60,4 +81,6 @@ export class CardapioComponent implements OnInit {
       this.router.navigate(['/detalhe-cardapio']);
       console.log('Click!', prod) 
   } 
+
 }
+
