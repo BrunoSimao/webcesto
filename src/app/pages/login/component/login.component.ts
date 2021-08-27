@@ -79,7 +79,7 @@ export class LoginComponent {
 
    //Função para verificar se há pedidos novos na hora de logar ordered.
    pedidos.forEach(element => {
-     if (element.orderStatus.statusDescription === 'rejected') {
+     if (element.orderStatus.statusDescription === 'ordered') {
       var audio = new Audio('./assets/img/ding-dong-pedido.mp3');
       audio.play();
       
