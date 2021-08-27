@@ -66,6 +66,10 @@ export class CadastroCardapioComponent implements OnInit, OnDestroy {
     this.produto.productCategories.push(this.selectedProductCategory);
     this.produto.productStatus = new ProductStatus();
 
+    if (this.description.length > 5) {
+      this.notifyService.showAlerta('Por favor a descrição deve conter mais de 5 caracteres!', 'Alerta!');
+      return;
+    }
     
     if (this.selectedProductCategory === undefined){
       this.notifyService.showAlerta('Por favor selecione a categoria!', 'Alerta!');

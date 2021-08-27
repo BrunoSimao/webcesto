@@ -33,7 +33,7 @@ export class PedidosService {
       headers: new HttpHeaders({ 'Content-Type': 'application/json',
      'Authorization': 'bearer  ' + token})
     }
-    return this.httpClient.get<Order[]>(this.url + restaurantID +'&limit=10&offset=0', this.httpOptions)
+    return this.httpClient.get<Order[]>(this.url + restaurantID +'&limit=30&offset=0', this.httpOptions)
     .pipe(map(res => res));
         // retry(2),
         // catchError(this.handleError))

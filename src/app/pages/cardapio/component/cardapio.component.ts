@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { element } from 'protractor';
@@ -12,6 +13,7 @@ import { CardapioService } from '../service/cardapio.service';
 })
 export class CardapioComponent implements OnInit {
 
+  src:string;
   productCategory: string;
   products: Product[];
   imagemPath: string;
@@ -19,10 +21,14 @@ export class CardapioComponent implements OnInit {
   filterTerm: string;
   isButtonVisible = false;
   base64textString: string;
+  base64Image: string;
+
+  @ViewChild('imgRef') img:ElementRef;
  
   constructor(private router: Router, 
     private cardapioService: CardapioService,
-    private ngxLoader: NgxUiLoaderService) { }
+    private ngxLoader: NgxUiLoaderService,
+    private sanitizer:DomSanitizer ) { }
 
   ngOnInit() {
     this.isButtonVisible = true;
@@ -36,12 +42,16 @@ export class CardapioComponent implements OnInit {
     this.router.navigate(['/cadastro-cardapio']);
   }
 
+
+
   getProdutos() {
     this.cardapioService.getProdutos(this.restaurantID).subscribe(products => {
       console.log(products);
       this.products = products; 
-  
- 
+
+      // this.products.forEach(element => {
+      //   console.log(element.imageURL);
+      // })
       
       this.products.sort((a, b) => { 
         if (a.productCategory < b.productCategory) {

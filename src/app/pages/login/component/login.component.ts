@@ -77,18 +77,22 @@ export class LoginComponent {
 
       console.log(pedidos.length);
 
-   //Função para verificar se há pedidos novos na hora de logar.
-    if (pedidos.filter(x => x.orderStatus.statusDescription === 'ordered')) {
+   //Função para verificar se há pedidos novos na hora de logar ordered.
+   pedidos.forEach(element => {
+     if (element.orderStatus.statusDescription === 'rejected') {
       var audio = new Audio('./assets/img/ding-dong-pedido.mp3');
       audio.play();
-    }
+      
+      this.router.navigate(['/tables']);
+     }
+
+   });
 
    window.sessionStorage.setItem('quantidadeAtualPedido', pedidos.length.toString());
   });
 }
 
   CadastroParceiro(){
-
     this.router.navigate(['/cadastro-parceiro']);
   }
 

@@ -125,73 +125,82 @@
         <div class="table-responsive">
 
            
-          <table class="table align-items-center table-flush">
-            <thead class="thead-light">
-              <tr>
-                <th scope="col">Usuário</th>
-                <th scope="col">ID/Mesa</th>
-                <th scope="col">Valor</th>
-                <th scope="col">Horário</th>
-                <th style="padding-left: 90px;" scope="col">Status</th>
-                <th scope="col"></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr  *ngFor="let ped of pedidos; let i=index;">
-                <th scope="row">
-                  <div class="media align-items-center">
-                    <!-- <a href="javascript:void(0)" class="avatar rounded-circle mr-3">
-                      <img alt="Image placeholder" src="../assets/img/theme/bootstrap.jpg">
-                    </a> -->
-                    <p-avatar  (click)="showResponsiveDialog(ped);" icon="pi pi-user" styleClass="p-mr-2" shape="circle"></p-avatar>
-                    <!-- <a (click)="showResponsiveDialog(ped);" class="avatar avatar-sm" data-toggle="tooltip" data-original-title="Ryan Tompson">
-                      <img  class="rounded-circle">
-                    </a> -->
-                    <div class="media-body">
-                      <span class="mb-0 text-sm">{{ped.customerName}}</span>
+          <p-table [value]="pedidos" selectionMode="single" [(selection)]="selectedProduct2" dataKey="orderID"
+          (onRowSelect)="onRowSelect($event)" (onRowUnselect)="onRowUnselect($event)"
+          [paginator]="true" [rows]="10" [showCurrentPageReport]="true" 
+          currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} pedidos" [rowsPerPageOptions]="[10,25,50]">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>Usuário</th>
+                    <th>ID/Mesa</th>
+                    <th>Valor</th>
+                    <th>Horário</th>
+                    <th style="padding-left: 90px;" scope="col">Status</th>
+                    <th scope="col"></th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-ped>
+                <tr [pSelectableRow]="ped">
+                  <th scope="row">
+                    <div class="media align-items-center">
+                      <!-- <a href="javascript:void(0)" class="avatar rounded-circle mr-3">
+                        <img alt="Image placeholder" src="../assets/img/theme/bootstrap.jpg">
+                      </a> -->
+                      <p-avatar  (click)="showResponsiveDialog(ped);" icon="pi pi-user" styleClass="p-mr-2" shape="circle"></p-avatar>
+                      <!-- <a (click)="showResponsiveDialog(ped);" class="avatar avatar-sm" data-toggle="tooltip" data-original-title="Ryan Tompson">
+                        <img  class="rounded-circle">
+                      </a> -->
+                      <div class="media-body">
+                        <span class="mb-0 text-sm">{{ped.customerName}}</span>
+                      </div>
                     </div>
-                  </div>
-                </th>        
-                <td>
-                  #{{ped.orderID}}   Balcão
-                </td>
-                <td>
-                  {{ped.amount | currency : 'BRL'}}
-                </td>
-                <td>
-                  <div class="d-flex align-items-center">
-                    <label style="color:gray;" class="text-text-primary">{{ped.createdAtFormatted}}</label>
-                    <div>
-                      <label style="color:gray;" class="ni ni-bold-right"></label>
-                      <label style="color:yellow;">{{ped.requiredAtFormatted}}</label>
-                    </div>
-                    <div>
-                      <label style="color:gray;" class="ni ni-bold-right"></label>
-                      <label style="color:green;">{{ped.readyAtFormatted}}</label>
-                    </div>
-                  </div>
-                </td>
-                <td>
-                  <span class="badge badge-dot mr-4">
-                    <i style="width: 35px;" [ngModelOptions]="{standalone: true}" name="statusColorID" class="form-control"  id="statusColorID" [ngClass]="{'bg-success': ped.orderStatus.statusDescription === 'Finalizado com Sucesso', 'bg-danger' : ped.orderStatus.statusDescription === 'Pedido Cancelado', 'bg-yellow' : ped.orderStatus.statusDescription === 'Preparando', 'bg-dark' : ped.orderStatus.statusDescription === 'Aguardando Confirmação', 'bg-blue' : ped.orderStatus.statusDescription === 'Pedido Pronto' }" ></i>{{ped.orderStatus.statusDescription}}
-                  </span>
-                </td>
-                <td class="text-right">
-                  <div ngbDropdown placement="bottom-right">
-                    <a class="btn btn-sm btn-icon-only text-light"  ngbDropdownToggle>
-                      <i class="fas fa-ellipsis-v"></i>
-                    </a>
-                    <div ngbDropdownMenu class=" dropdown-menu-right dropdown-menu-arrow">
-                      <a class="dropdown-item" [routerLink]="" (click)="showResponsiveDialog(ped);">Detalhe do Pedido</a>
-                      <!-- <a class="dropdown-item" href="javascript:void(0)">Another action</a>
-                      <a class="dropdown-item" href="javascript:void(0)">Something else here</a> -->
-                    </div>
-                  </div>
-                </td>
-              </tr>
-             
-            </tbody>
-          </table>
+                  </th>   
+                    <td>
+                      #{{ped.orderID}}   Balcão
+                    </td>
+                    <td>
+                      {{ped.amount | currency : 'BRL'}}
+                    </td>
+                    <td style="padding: 0em;">
+                      <div class="d-flex align-items-center">
+                        <label style="color:gray;" class="text-text-primary">{{ped.createdAtFormatted}}</label>
+                        <div>
+                          <label style="color:gray;" class="ni ni-bold-right"></label>
+                          <label style="color:yellow;">{{ped.requiredAtFormatted}}</label>
+                        </div>
+                        <div>
+                          <label style="color:gray;" class="ni ni-bold-right"></label>
+                          <label style="color:green;">{{ped.readyAtFormatted}}</label>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <span class="badge badge-dot mr-4">
+                        <i style="width: 35px;" [ngModelOptions]="{standalone: true}" name="statusColorID" class="form-control"  id="statusColorID" [ngClass]="{'bg-success': ped.orderStatus.statusDescription === 'Finalizado com Sucesso', 'bg-danger' : ped.orderStatus.statusDescription === 'Pedido Cancelado', 'bg-yellow' : ped.orderStatus.statusDescription === 'Preparando', 'bg-dark' : ped.orderStatus.statusDescription === 'Aguardando Confirmação', 'bg-blue' : ped.orderStatus.statusDescription === 'Pedido Pronto' }" ></i>{{ped.orderStatus.statusDescription}}
+                      </span>
+                    </td>
+                    <td>
+                      <button style="min-width: 3rem; margin-left: 50px;"  type="button" pButton pRipple icon="pi pi-search" (click)="showResponsiveDialog(ped);"></button>
+                    </td>
+                    <!-- <td class="text-right">
+                      <div ngbDropdown placement="bottom-right">
+                        <a class="btn btn-sm btn-icon-only text-light"  ngbDropdownToggle>
+                          <i class="fas fa-ellipsis-v"></i>
+                        </a> -->
+
+                        <!-- <div ngbDropdownMenu class=" dropdown-menu-right dropdown-menu-arrow"> -->
+                         
+                          <!-- <a class="dropdown-item" [routerLink]="" (click)="showResponsiveDialog(ped);">Detalhe do Pedido</a> -->
+                          <!-- <a class="dropdown-item" href="javascript:void(0)">Another action</a>
+                          <a class="dropdown-item" href="javascript:void(0)">Something else here</a> -->
+                        <!-- </div> -->
+                      <!-- </div>
+                    </td> -->
+                        
+                   
+                </tr>
+            </ng-template>
+        </p-table>
           <!-- <ngx-ui-loader></ngx-ui-loader> -->
     <p-dialog header="Detalhes do Pedido" [(visible)]="displayResponsive" [breakpoints]="{'960px': '75vw'}" [style]="{width: '50vw'}" [baseZIndex]="10000" 
     [draggable]="false" [resizable]="false">
@@ -268,6 +277,24 @@
         </ng-template>
      </p-dialog>
         </div>
+        <p-dialog header="Por favor insira a senha do pedido:" [(visible)]="displayColocarSenha" [breakpoints]="{'960px': '75vw'}" [style]="{width: '40vw'}" [baseZIndex]="10000" 
+        [draggable]="false" [resizable]="false" [ngModelOptions]="{standalone: true}">
+        <form role="form">
+          <div class="form-group mb-3">
+            <label>Senha</label>
+            <div class="input-group input-group-alternative">
+              <div class="input-group-prepend">
+               
+                <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
+              </div>
+              <input [ngModelOptions]="{standalone: true}" [(ngModel)]="senhaPedido" aria-describedby="username2-help" name="senhaPedido" placeholder="" type="text" class="ng-invalid ng-dirty form-control" pInputText >
+            </div>
+          </div>
+          <button style="margin-right:339px; width: 143px; background-color: rgb(1, 143, 180);" (click)="validarSenha()" type="button" class="btn btn-success my-4">Pronto</button>
+        </form>
+
+
+        </p-dialog>
         <!-- <div
         class="text-right">
         <pagination-controls
@@ -276,7 +303,7 @@
         previousLabel="Anterior"
         nextLabel="Próximo"></pagination-controls>
         </div> -->
-        <div class="card-footer py-4">
+        <!-- <div class="card-footer py-4">
           <nav aria-label="...">
             <ul class="pagination justify-content-end mb-0">
               <li class="page-item disabled">
@@ -300,7 +327,7 @@
               </li>
             </ul>
           </nav>
-        </div> 
+        </div>  -->
       </div>
     </div>
   </div>

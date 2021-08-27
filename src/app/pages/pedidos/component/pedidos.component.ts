@@ -3,6 +3,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { element } from 'protractor';
+import { delay } from 'rxjs/operators';
+import { NotificationService } from 'src/app/utility/notification-service';
 import { DeliveryInfo } from './model/delivery-info';
 import { DeliveryType } from './model/delivery-type';
 import { Order } from './model/order';
@@ -45,6 +47,7 @@ export class PedidosComponent implements OnInit {
   canceladoCount: number = 0;
   pedidoProntoCount: number = 0;
   displayResponsive: boolean = false;
+  displayColocarSenha: boolean = false;
   name: string = '';
   amount: number = 0;
   descricaoStatus: string = '';
@@ -60,10 +63,15 @@ export class PedidosComponent implements OnInit {
   contador : Number = 5;
   primeiraChamada: boolean = false;
   productCategory: string;
-  
+  senhaPedido: string;
+  selectedProduct2: Order;
+  soundPlayer = null;
+  ativaSom: boolean = true;
+ 
   constructor(private router: Router,
               private ngxLoader: NgxUiLoaderService,
-              private pedidosService: PedidosService) { }
+              private pedidosService: PedidosService,
+              private notifyService : NotificationService,) { }
 
   @ViewChild('myModal') myModal;
   
@@ -76,19 +84,14 @@ export class PedidosComponent implements OnInit {
     this.aguardandoConfirmacaoCount = 0;
 
     this.pedido = new Order();
+    this.pedido.orderStatus = new OrderStatus();
+    this.pedido.deliveryInfo = new DeliveryInfo();
+    this.pedido.deliveryInfo.deliveryType = new DeliveryType();
     this.isShowCancelado = false;
     var restaurantID = window.sessionStorage.getItem('restaurantID');
    
     this.pedidosService.getPedidos(restaurantID).subscribe((pedidos: Order[]) => {
       console.log(pedidos);
-
-   //Função para verificar se há pedidos novos na hora de logar.
-    // if (pedidos.filter(x => x.orderStatus.statusDescription === 'ordered')) {
-    //   var audio = new Audio('./assets/img/ding-dong-pedido.mp3');
-    //   audio.play();
-    // }
-
-
 
       var orderStatus = pedidos.map(function(item, indice){
         if (Array.isArray(item.orderStatus) != null) {
@@ -118,6 +121,7 @@ export class PedidosComponent implements OnInit {
      orderStatus.forEach(element => {
         if (element.statusDescription === 'ordered') {
            this.aguardandoConfirmacaoCount +=1;
+         
           element.statusDescription = 'Aguardando Confirmação';
         } else if (element.statusDescription === 'preparing') {
           this.emAndamentoCount += 1;
@@ -134,6 +138,17 @@ export class PedidosComponent implements OnInit {
         }
      });
 
+    //Função para verificar se há pedidos novos na hora de logar.
+    pedidos.forEach(element => {
+      if (element.orderStatus.statusDescription === 'Aguardando Confirmação') {
+        
+      this.showResponsiveDialog(element);
+
+      this.ativarDesativarSom(this.ativaSom);
+
+      }
+ 
+    });
 
      this.pedidos = pedidos;
      this.pedidosAll = pedidos;
@@ -146,22 +161,33 @@ export class PedidosComponent implements OnInit {
     this.pedidos = this.pedidosAll;
   }
 
+  ativarDesativarSom(ativaSom: boolean) {
+     
+    var sound = new Audio('./assets/img/ding-dong-pedido.mp3');
+    if (ativaSom) {
+      //sound.loop = true;
+      sound.play();
+    } else {
+      //sound.loop = false;
+    }
+   
+  }
+
   showResponsiveDialog(event: any) {
     console.log(event);
-    //this.pedido = event;
     this.pedido.orderID = event.orderID;
     this.pedido.customerID = event.customerID;
     this.pedido.restaurantID = event.restaurantID;
     this.pedido.cPayMethodID = event.cPayMethodID;
-    this.pedido.deliveryInfo = new DeliveryInfo();
+   
     this.pedido.deliveryInfo.deliveryInfoID = event.deliveryInfo.deliveryInfoID;
     this.pedido.deliveryInfo.orderID = event.deliveryInfo.orderID;
     this.pedido.deliveryInfo.tableNumber = event.deliveryInfo.tableNumber;
     this.pedido.deliveryInfo.observations = event.deliveryInfo.observations;
-    this.pedido.deliveryInfo.deliveryType = new DeliveryType();
+    
     this.pedido.deliveryInfo.deliveryType.deliveryTypeID = event.deliveryInfo.deliveryType.deliveryTypeID;
     this.pedido.deliveryInfo.deliveryType.deliveryTypeName = event.deliveryInfo.deliveryType.deliveryTypeName;
-    this.pedido.orderStatus = new OrderStatus();
+   
     this.pedido.orderStatus.orderStatusID = event.orderStatus.orderStatusID;
     this.pedido.orderStatus.statusDescription = event.orderStatus.statusDescription;
     this.pedido.orderItems = event.orderItems;
@@ -208,9 +234,6 @@ export class PedidosComponent implements OnInit {
      this.isShowCancelado = true;
    } else if (event.orderStatus.statusDescription == 'Finalizado com Sucesso') {
     this.descricaoStatus = event.orderStatus.statusDescription;
-    //Teste retirar
-    // this.isShowAceitarPedido = true;
-    // this.isShowRecusarPedido = true;
    } else if (event.orderStatus.statusDescription == 'Aguardando Confirmação') {
     this.descricaoStatus = event.orderStatus.statusDescription;
     this.isShowAceitarPedido = true;
@@ -220,12 +243,14 @@ export class PedidosComponent implements OnInit {
      this.isShowPedidoPronto = true;
    } else if (event.orderStatus.statusDescription == 'Pedido Pronto') {
      this.isShowColocarSenha = true;
-   }
 
+   }
     this.displayResponsive = true;
   }
-
+  
   aceitarPedido() {
+   //this.ativaSom = false;
+   //this.ativarDesativarSom(this.ativaSom);
     this.ngxLoader.start();
     console.log(this.pedido);
     this.pedido.orderStatus.orderStatusID = 2;
@@ -238,7 +263,6 @@ export class PedidosComponent implements OnInit {
   }, err => {
     this.ngxLoader.stop();
   });
-
   }
 
   recusarPedido() {
@@ -272,19 +296,46 @@ export class PedidosComponent implements OnInit {
   }
 
   colocarSenha() {
+    this.displayColocarSenha = true;
+  }
+
+  validarSenha() {
     console.log(this.pedido);
     this.pedido.orderStatus.orderStatusID = 6;
     this.pedido.orderStatus.statusDescription = 'done'; 
-    this.ngxLoader.start();
-    this.pedidosService.pedidoPronto(this.pedido).subscribe(res => {
-      console.log(res);
-      this.ngOnInit();
-      this.displayResponsive = false;
+    if (this.pedido.orderSecretKey === this.senhaPedido) {
+      this.ngxLoader.start();
+      this.pedidosService.pedidoPronto(this.pedido).subscribe(res => {
+        console.log(res);
+        this.ngOnInit();
+        this.displayResponsive = false;
+        this.displayColocarSenha = false;
+        this.ngxLoader.stop();
+    }, err => {
       this.ngxLoader.stop();
-  }, err => {
-    this.ngxLoader.stop();
-  });
+    });
+    }else {
+      this.notifyService.showAlerta('As senhas não são iguais, por favor digite a senha correta!', 'Alerta!');
+    }
   }
+
+  selectProduct(product: Product) {
+    console.log(product);
+}
+
+  onRowSelect(event) {
+    this.pedido = event.data;
+    this.showResponsiveDialog(this.pedido);
+    console.log(event);
+   // this.messageService.add({severity:'info', summary:'Product Selected', detail: event.data.name});
+}
+
+onRowUnselect(event) {
+  console.log(event);
+    //this.messageService.add({severity:'info', summary:'Product Unselected',  detail: event.data.name});
+}
+
+
 
   openModel() {
     this.myModal.nativeElement.className = 'modal fade show';
