@@ -244,6 +244,7 @@ export class PedidosComponent implements OnInit {
      this.descricaoStatus = event.orderStatus.statusDescription;
      this.isShowPedidoPronto = true;
    } else if (event.orderStatus.statusDescription == 'Pedido Pronto') {
+    this.descricaoStatus = event.orderStatus.statusDescription;
      this.isShowColocarSenha = true;
    }
     this.displayResponsive = true;
