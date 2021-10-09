@@ -34,6 +34,7 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { AlterarDadosBancarioComponent } from 'src/app/pages/alterar-dados-bancario/component/alterar-dados-bancario.component';
 import { CadastroCardapioComponent } from 'src/app/pages/cadastro-cardapio/component/cadastro-cardapio.component';
 import {SelectButtonModule} from 'primeng/selectbutton';
+import {InputNumberModule} from 'primeng/inputnumber';
 
 @NgModule({
   imports: [
@@ -59,6 +60,7 @@ import {SelectButtonModule} from 'primeng/selectbutton';
     PasswordModule,
     Ng2SearchPipeModule,
     SelectButtonModule,
+    InputNumberModule,
     ClipboardModule
   ],
   declarations: [

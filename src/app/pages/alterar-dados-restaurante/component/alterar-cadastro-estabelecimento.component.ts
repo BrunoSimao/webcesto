@@ -2,7 +2,7 @@ import { Input } from '@angular/core';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router'; 
 import { NgxUiLoaderService } from 'ngx-ui-loader';
-import { MessageService } from 'primeng/api';
+import { MessageService, PrimeNGConfig, SelectItem } from 'primeng/api';
 import { NotificationService } from 'src/app/utility/notification-service';
 import { Address } from '../../cadastro-estabelecimento/model/address';
 import { Rating } from '../../cadastro-estabelecimento/model/rating';
@@ -25,6 +25,7 @@ export class AlterarCadastroEstComponent implements OnInit, OnDestroy {
   restaurantCategories: RestaurantCategories[] = [];
   selectedRestaurantCategory: RestaurantCategories;
   restaurant: Restaurant;
+  selectedRest: string;
   restaurantID: number;
   companyName: string;
   phoneNumber: string;
@@ -35,15 +36,21 @@ export class AlterarCadastroEstComponent implements OnInit, OnDestroy {
   restaurantModel: RestaurantModel;
   address: Address;
   categoryRestaurant: string;
-  selectedCars: string[] = [];
+  selectedCities3: any[] = [];
+  countries: any[] = [];
+  //items: SelectItem[];
  
   constructor(private router: Router, private restaurantService: RestaurantService,
     private ngxLoader: NgxUiLoaderService,private messageService: MessageService,
     private userProfileService: UserProfileService,
-    private notifyService : NotificationService){
+    private notifyService : NotificationService,
+    private primengConfig: PrimeNGConfig
+    ){
+      //this.items = [];
   }
 
   ngOnInit() {
+    this.primengConfig.ripple = true;
     this.getRestaurantCategory();
     this.getRestaurant();
   }
@@ -54,27 +61,38 @@ export class AlterarCadastroEstComponent implements OnInit, OnDestroy {
     console.log(prod);
  
     this.restaurant = JSON.parse(prod);
-    console.log( this.restaurant);
+    console.log(this.restaurant);
 
   var restaurantID = window.sessionStorage.getItem('restaurantID')
   this.restaurantModel = new RestaurantModel();
 
 
-  this.restaurantModel.restaurantCategories = this.restaurant.restaurantCategories;
-  this.selectedRestaurantCategory = this.restaurantModel.restaurantCategories;
+  //this.restaurantModel.restaurantCategories = this.restaurant.restaurantCategories;
+  
+   
  
+  //this.selectedCities3.push(this.selectedRestaurantCategory);
 
   this.userProfileService.getRestaurant(parseInt(restaurantID)).subscribe((res: RestaurantModel) => {
+
+    res.restaurantCategories = this.restaurant.restaurantCategories;
     console.log(res);
   
-     this.restaurantModel.restaurantID = res.restaurantID;
-     this.restaurantModel.companyName = res.companyName;
-     this.restaurantModel.tradingName = res.tradingName;
-     this.restaurantModel.phoneNumber = res.phoneNumber;
-     this.restaurantModel.cnpj = res.cnpj;
-     this.restaurantModel.imageURL = res.imageURL;
+    //  this.restaurantModel.restaurantID = res.restaurantID;
+    //  this.restaurantModel.companyName = res.companyName;
+    //  this.restaurantModel.tradingName = res.tradingName;
+    //  this.restaurantModel.phoneNumber = res.phoneNumber;
+    //  this.restaurantModel.cnpj = res.cnpj;
+    //  this.restaurantModel.imageURL = res.imageURL;
     
      this.restaurantModel = res;
+     this.restaurantModel.restaurantCategories = this.restaurant.restaurantCategories;
+
+    //  this.countries.push(this.restaurantModel.restaurantCategories);
+    //  this.items = this.countries;
+     
+     this.selectedRestaurantCategory =  this.restaurantModel.restaurantCategories;
+     console.log(this.selectedRestaurantCategory);
 
     if (res.onlyForTake) {
     this.pedidoRetiradaBalcao = true;

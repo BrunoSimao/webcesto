@@ -59,6 +59,7 @@ export class PedidosComponent implements OnInit {
   isShowPedidoPronto: boolean = false;
   isShowColocarSenha: boolean = false;
   isShowCancelado: boolean = false;
+  isMotivoCancel: boolean = false;
   pag : Number = 1 ;
   contador : Number = 5;
   primeiraChamada: boolean = false;
@@ -67,11 +68,12 @@ export class PedidosComponent implements OnInit {
   selectedProduct2: Order;
   soundPlayer = null;
   ativaSom: boolean = true;
+  cancelReason: string;
  
   constructor(private router: Router,
               private ngxLoader: NgxUiLoaderService,
               private pedidosService: PedidosService,
-              private notifyService : NotificationService,) { }
+              private notifyService : NotificationService) { }
 
   @ViewChild('myModal') myModal;
   
@@ -243,14 +245,11 @@ export class PedidosComponent implements OnInit {
      this.isShowPedidoPronto = true;
    } else if (event.orderStatus.statusDescription == 'Pedido Pronto') {
      this.isShowColocarSenha = true;
-
    }
     this.displayResponsive = true;
   }
   
   aceitarPedido() {
-   //this.ativaSom = false;
-   //this.ativarDesativarSom(this.ativaSom);
     this.ngxLoader.start();
     console.log(this.pedido);
     this.pedido.orderStatus.orderStatusID = 2;
@@ -266,10 +265,15 @@ export class PedidosComponent implements OnInit {
   }
 
   recusarPedido() {
-    console.log(this.pedido);
     this.pedido.orderStatus.orderStatusID = 4;
     this.pedido.orderStatus.statusDescription = 'rejected';
-    this.ngxLoader.start();
+    this.displayResponsive = false;
+    this.isMotivoCancel = true;
+}
+
+salvarCancelarPedido() {
+  console.log(this.pedido);
+  this.ngxLoader.start();
     this.pedidosService.recusarPedido(this.pedido).subscribe(res => {
       console.log(res);
       this.ngOnInit();

@@ -10,6 +10,7 @@ import {TableModule} from 'primeng/table';
 import {ButtonModule} from 'primeng/button';
 import {RatingModule} from 'primeng/rating';
 import { NgxUiLoaderModule } from 'ngx-ui-loader';
+import {InputNumberModule} from 'primeng/inputnumber';
 
 @NgModule({
   imports: [
@@ -18,6 +19,7 @@ import { NgxUiLoaderModule } from 'ngx-ui-loader';
     ButtonModule,
     RatingModule,
     NgxUiLoaderModule,
+    InputNumberModule,
     RouterModule.forChild(AuthLayoutRoutes),
     FormsModule
   ],

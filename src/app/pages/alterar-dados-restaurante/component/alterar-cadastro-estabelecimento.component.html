@@ -62,8 +62,42 @@
             </div>
             <div class="input-group-prepend">
               <span class="input-group-text"><i class="ni ni-single-copy-04"></i></span>
-              <p-multiSelect [style]="{'width': '310px'}" [options]="restaurantCategories" [(ngModel)]="selectedRestaurantCategory" optionLabel="categoryDescription" selectedItemsLabel="{0} itens selecionados" [ngModelOptions]="{standalone: true}"></p-multiSelect>
-              <!-- <p-dropdown  [style]="{'width': '310px'}" [options]="restaurantCategories" [(ngModel)]="selectedRestaurantCategory" [placeholder]="restaurantModel.productCategory" placeholder="Tipo de Cozinha" optionLabel="categoryDescription" [showClear]="true" [ngModelOptions]="{standalone: true}"></p-dropdown> -->
+              
+
+
+            <p-multiSelect [style]="{'width': '310px'}" [options]="restaurantCategories" [(ngModel)]="selectedRestaurantCategory" optionLabel="categoryDescription"
+          	class="multiselect-custom"  [ngModelOptions]="{standalone: true}">
+            <ng-template let-value pTemplate="selectedItems">
+		        <div class="country-item country-item-value" *ngFor="let option of selectedRestaurantCategory">
+		       	<div>{{option.categoryDescription}}</div>
+		        </div>
+	        	<div *ngIf="!selectedRestaurantCategory || selectedRestaurantCategory.length === 0" class="country-placeholder">
+	       		Selecione a categoria
+	        	</div>
+          	</ng-template>
+	          <ng-template let-country pTemplate="item">
+        		<div class="country-item">
+	      		<div>{{country.categoryDescription}}</div>
+		       </div>
+	         </ng-template>
+           </p-multiSelect>
+<!-- 
+            <p-multiSelect [style]="{'width': '310px'}" [options]="restaurantCategories" [showToggleAll]="false" [(ngModel)]="selectedRestaurantCategory" optionLabel="categoryDescription" [virtualScroll]="true" [filter]="true" [itemSize]="34" class="multiselect-custom-virtual-scroll">
+              <ng-template let-country pTemplate="item">
+                  <div class="country-item">
+                      <img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" />
+                      <div>{{country.categoryDescription}}</div>
+                  </div>
+              </ng-template>
+          </p-multiSelect> -->
+
+
+
+
+
+
+
+              <!-- <p-multiSelect [style]="{'width': '310px'}" [options]="restaurantCategories" [(ngModel)]="selectedRestaurantCategory" optionLabel="categoryDescription" display="chip" [ngModelOptions]="{standalone: true}"></p-multiSelect>             -->
             </div>
             <!-- Default switch -->
             <br>

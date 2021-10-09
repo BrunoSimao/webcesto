@@ -77,7 +77,7 @@
                   <div class="input-group-prepend">
                     <span class="input-group-text"><i class="ni ni-money-coins"></i></span>
                   </div>
-                  <input class="form-control" [(ngModel)]="produto.price" name="produto.price" type="number">
+                  <p-inputNumber  [style]="{'width': '405px'}" [(ngModel)]="produto.price"  name="produto.price" inputId="locale-user" [minFractionDigits]="2" [maxFractionDigits]="2"> </p-inputNumber> 
                 </div>
               </div>
             </div>

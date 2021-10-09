@@ -3,7 +3,15 @@
   <span class="mask bg-gradient opacity-8" style="background-color: rgb(1, 143, 180)"></span>
   <div class="container-fluid">
     <div class="header-body">
-      <p-table [value]="orderReports" styleClass="p-datatable-striped">
+      <p-table  #dt [columns]="cols" [value]="orderReports" styleClass="p-datatable-striped">
+        <ng-template pTemplate="caption">
+          <div class="p-d-flex">
+              <!-- <button type="button" pButton pRipple icon="pi pi-file-o" (click)="dt.exportCSV()" class="p-mr-2" pTooltip="CSV" tooltipPosition="bottom"></button>  -->
+              <button type="button" pButton pRipple icon="pi pi-file-excel" (click)="exportExcel()" class="p-button-success p-mr-2"  pTooltip="XLS" tooltipPosition="bottom"></button>
+              <!-- <button type="button" pButton pRipple icon="pi pi-file-pdf" (click)="exportPdf()" class="p-button-warning p-mr-2" pTooltip="PDF" tooltipPosition="bottom"></button>  -->
+               <!-- <button type="button" pButton pRipple icon="pi pi-filter" (click)="dt.exportCSV({selectionOnly:true})" class="p-button-info p-ml-auto" pTooltip="Selection Only" tooltipPosition="bottom"></button> -->
+          </div>
+      </ng-template>
         <ng-template pTemplate="header">
             <tr>
                 <th>Usuário</th>
@@ -25,6 +33,30 @@
           Valor:  R${{report.amount}}
       </ng-template>
     </p-table>
+
+    <!-- <p-table #dt [columns]="cols" [value]="orderReports" selectionMode="multiple" [(selection)]="selectedProducts">
+      <ng-template pTemplate="caption">
+        <div class="p-d-flex">
+          <button type="button" pButton pRipple icon="pi pi-file-o" (click)="dt.exportCSV()" class="p-mr-2" pTooltip="CSV" tooltipPosition="bottom"></button>
+          <button type="button" pButton pRipple icon="pi pi-file-excel" (click)="exportExcel()" class="p-button-success p-mr-2"  pTooltip="XLS" tooltipPosition="bottom"></button>
+          <button type="button" pButton pRipple icon="pi pi-filter" (click)="dt.exportCSV({selectionOnly:true})" class="p-button-info p-ml-auto" pTooltip="Selection Only" tooltipPosition="bottom"></button>
+        </div>
+      </ng-template>
+      <ng-template pTemplate="header" let-columns>
+        <tr>
+          <th *ngFor="let col of columns">
+            {{col.header}}
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-rowData let-columns="columns">
+        <tr [pSelectableRow]="rowData">
+          <td *ngFor="let col of columns">
+            {{rowData[col.field]}}
+          </td>
+        </tr>
+      </ng-template>
+    </p-table> -->
       
       </div>
     </div>

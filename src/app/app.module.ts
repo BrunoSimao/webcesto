@@ -54,11 +54,13 @@ import {DialogModule} from 'primeng/dialog';
 import {InputTextModule} from 'primeng/inputtext';
 import {CheckboxModule} from 'primeng/checkbox';
 import {InputTextareaModule} from 'primeng/inputtextarea';
+import { NgxMaskModule, IConfig } from 'ngx-mask'
 
 import { AlterarEnderecoEstComponent } from './pages/alterar-endereco-estabelecimento/component/alterar-endereco-estabelecimento.component';
 import { CardapioComponent } from './pages/cardapio/component/cardapio.component';
 
 
+export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
 @NgModule({
   imports: [
     BrowserModule,
@@ -91,6 +93,7 @@ import { CardapioComponent } from './pages/cardapio/component/cardapio.component
     NgxPaginationModule,
     Ng2SearchPipeModule,
     AppRoutingModule,
+    NgxMaskModule,
     ToastrModule.forRoot()
   ],
   declarations: [
@@ -108,7 +111,6 @@ import { CardapioComponent } from './pages/cardapio/component/cardapio.component
     CardapioComponent,
     AdminLayoutComponent,
     AuthLayoutComponent,
-   
   ],
     
     providers: [AuthGuard],
