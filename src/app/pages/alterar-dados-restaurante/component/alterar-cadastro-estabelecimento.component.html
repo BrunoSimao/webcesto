@@ -59,9 +59,8 @@
                 <input class="form-control" [(ngModel)]="restaurantModel.phoneNumber" name="restaurantModel.phoneNumber" value="{{restaurantModel.phoneNumber}}" type="text">
               </div>
             </div>
-            <!-- <div class="input-group-prepend"> -->
-              <!-- <span class="input-group-text"><i class="ni ni-single-copy-04"></i></span> -->
-
+           
+            
               <ng-multiselect-dropdown  [ngModelOptions]="{standalone: true}"
   [placeholder]="'Selecione a categoria'"
   [settings]="dropdownSettings"
@@ -72,7 +71,8 @@
 >
              </ng-multiselect-dropdown>
 
-            <!-- </div> -->
+           
+             
             <!-- Default switch -->
             <br>
             <p-inputSwitch [(ngModel)]="pedidoRetiradaBalcao" [ngModelOptions]="{standalone: true}"></p-inputSwitch>            
