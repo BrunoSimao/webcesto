@@ -35,6 +35,7 @@ import { AlterarDadosBancarioComponent } from 'src/app/pages/alterar-dados-banca
 import { CadastroCardapioComponent } from 'src/app/pages/cadastro-cardapio/component/cadastro-cardapio.component';
 import {SelectButtonModule} from 'primeng/selectbutton';
 import {InputNumberModule} from 'primeng/inputnumber';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 
 @NgModule({
   imports: [
@@ -61,7 +62,8 @@ import {InputNumberModule} from 'primeng/inputnumber';
     Ng2SearchPipeModule,
     SelectButtonModule,
     InputNumberModule,
-    ClipboardModule
+    ClipboardModule,
+    NgMultiSelectDropDownModule
   ],
   declarations: [
     DashboardComponent,

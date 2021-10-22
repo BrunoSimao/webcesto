@@ -58,7 +58,9 @@ import { NgxMaskModule, IConfig } from 'ngx-mask'
 
 import { AlterarEnderecoEstComponent } from './pages/alterar-endereco-estabelecimento/component/alterar-endereco-estabelecimento.component';
 import { CardapioComponent } from './pages/cardapio/component/cardapio.component';
-
+import { SafeHtml } from './utility/safehtml-pipe';
+import {MultiSelectModule} from 'primeng/multiselect';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
 @NgModule({
@@ -94,6 +96,8 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
     Ng2SearchPipeModule,
     AppRoutingModule,
     NgxMaskModule,
+    MultiSelectModule,
+    NgMultiSelectDropDownModule,
     ToastrModule.forRoot()
   ],
   declarations: [
@@ -111,6 +115,7 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
     CardapioComponent,
     AdminLayoutComponent,
     AuthLayoutComponent,
+    SafeHtml,
   ],
     
     providers: [AuthGuard],

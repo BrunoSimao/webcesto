@@ -11,6 +11,7 @@ import {ButtonModule} from 'primeng/button';
 import {RatingModule} from 'primeng/rating';
 import { NgxUiLoaderModule } from 'ngx-ui-loader';
 import {InputNumberModule} from 'primeng/inputnumber';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 
 @NgModule({
   imports: [
@@ -20,6 +21,7 @@ import {InputNumberModule} from 'primeng/inputnumber';
     RatingModule,
     NgxUiLoaderModule,
     InputNumberModule,
+    NgMultiSelectDropDownModule,
     RouterModule.forChild(AuthLayoutRoutes),
     FormsModule
   ],

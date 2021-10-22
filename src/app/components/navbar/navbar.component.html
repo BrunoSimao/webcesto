@@ -10,12 +10,14 @@
         <a class="nav-link pr-0" role="button" ngbDropdownToggle>
           <div class="media align-items-center">
             <span class="avatar avatar-sm rounded-circle">
-              <!-- <img alt="" src={{imageURL}}> -->
+               <img  [src]=imageURL>
+               <!-- <img src="U3lzdGVtLkJ5dGVbXQ==" /> -->
             </span>
             <div class="media-body ml-2 d-none d-lg-block">
               <span class="mb-0 text-sm  font-weight-bold">{{nomeRestaurante}}</span>
             </div>
           </div>
+          
         </a>
         <div class="dropdown-menu-arrow dropdown-menu-right" ngbDropdownMenu>
           <div class=" dropdown-header noti-title">

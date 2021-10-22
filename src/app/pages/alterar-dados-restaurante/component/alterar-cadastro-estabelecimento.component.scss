@@ -33,3 +33,9 @@
         }
     }
 }
+
+:host ::ng-deep {
+    .multiselect-dropdown {
+      background: white;
+    }
+  }

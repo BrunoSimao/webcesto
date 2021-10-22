@@ -1,6 +1,7 @@
 import { Input } from '@angular/core';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router'; 
+import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { MessageService, PrimeNGConfig, SelectItem } from 'primeng/api';
 import { NotificationService } from 'src/app/utility/notification-service';
@@ -38,7 +39,8 @@ export class AlterarCadastroEstComponent implements OnInit, OnDestroy {
   categoryRestaurant: string;
   selectedCities3: any[] = [];
   countries: any[] = [];
-  //items: SelectItem[];
+  selectedItem: any = [];
+  dropdownSettings = {};
  
   constructor(private router: Router, private restaurantService: RestaurantService,
     private ngxLoader: NgxUiLoaderService,private messageService: MessageService,
@@ -50,11 +52,30 @@ export class AlterarCadastroEstComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.dropdownSettings = {
+      singleSelection: false,
+      idField: 'restaurantCategoryID',
+      textField: 'categoryDescription',
+      selectAllText: 'Selecione Todos',
+      unSelectAllText: 'Desmarque Todos',
+      itemsShowLimit: 3,
+      allowSearchFilter: false,
+      enableCheckAll: false
+    };
+
+    
     this.primengConfig.ripple = true;
     this.getRestaurantCategory();
     this.getRestaurant();
   }
 
+  onItemSelect(item: RestaurantCategories) {
+    console.log(item);
+  }
+  onSelectAll(items: RestaurantCategories) {
+    console.log(items);
+  }
+  
   getRestaurant() {
 
     var prod = window.sessionStorage.getItem('restaurant');

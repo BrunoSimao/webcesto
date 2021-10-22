@@ -2,6 +2,7 @@ import { Component, OnInit, ElementRef } from '@angular/core';
 import { ROUTES } from '../sidebar/sidebar.component';
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { Router } from '@angular/router';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-navbar',
@@ -14,8 +15,10 @@ export class NavbarComponent implements OnInit {
   public location: Location;
   public nomeRestaurante: string;
   private isButtonVisible = false;
+  imageURL: SafeUrl;
+  image: string;
   
-  constructor(location: Location,  private element: ElementRef, private router: Router) {
+  constructor(location: Location,  private element: ElementRef, private router: Router, private sanitizer:DomSanitizer ) {
     this.location = location;
   }
 
@@ -23,6 +26,16 @@ export class NavbarComponent implements OnInit {
     this.isButtonVisible = false;
     this.listTitles = ROUTES.filter(listTitle => listTitle);
     this.nomeRestaurante = window.sessionStorage.getItem('nomeRestaurante');
+
+    this.image = window.sessionStorage.getItem('imagemRestaurantURL');
+    console.log(this.image);
+
+    //var imageData = btoa(this.image);
+   
+    //this.imageURL = this.sanitizer.bypassSecurityTrustResourceUrl("data:image/jpg;base64,"+imageData);
+    this.imageURL =  (this.sanitizer.bypassSecurityTrustResourceUrl(this.image) as any).changingThisBreaksApplicationSecurity;
+      console.log(this.imageURL);
+
   }
   getTitle(){
     var titlee = this.location.prepareExternalUrl(this.location.path());
