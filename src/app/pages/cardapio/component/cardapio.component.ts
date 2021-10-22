@@ -13,8 +13,6 @@ import { CardapioService } from '../service/cardapio.service';
   styleUrls: ['./cardapio.component.scss']
 })
 
-@Pipe({ name: 'safe' })
-
 export class CardapioComponent implements OnInit {
 
   src:string;
@@ -29,9 +27,7 @@ export class CardapioComponent implements OnInit {
   imagem: SafeUrl;
   //genuineURL: SafeUrl;
   currVerifiedLoanOfficerPhoto: string;
-  
 
-  @ViewChild('imgRef') img:ElementRef;
  
   constructor(private router: Router, 
     private cardapioService: CardapioService,
