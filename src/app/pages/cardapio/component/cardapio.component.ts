@@ -18,13 +18,14 @@ export class CardapioComponent implements OnInit {
   src:string;
   productCategory: string;
   products: Product[];
+  produto: Product;
   imagemPath: string;
   restaurantID: string;
   filterTerm: string;
   isButtonVisible = false;
   base64textString: string;
   base64Image: string;
-  imagem: SafeUrl;
+  imagem: string;
   //genuineURL: SafeUrl;
   currVerifiedLoanOfficerPhoto: string;
 
@@ -49,6 +50,7 @@ export class CardapioComponent implements OnInit {
     this.ngxLoader.start();
     this.getProdutos();
     this.ngxLoader.stop();
+    this.produto = new Product();
   }
 
   cadastroCardapio() {
@@ -58,15 +60,16 @@ export class CardapioComponent implements OnInit {
 
 
   getProdutos() {
-    this.cardapioService.getProdutos(this.restaurantID).subscribe(products => {
-      console.log(products);
-      this.products = products; 
+    this.cardapioService.getProdutos(this.restaurantID).subscribe(prod => {
+      console.log(prod);
+      this.products = prod; 
       
       this.products.forEach(element => {
+        //console.log(element.imageURL);
         console.log(element.imageURL);
-
+       // this.produto.imageURL = element.imageURL;
        
-     
+       element.imageURL = this.b64DecodeUnicode(element.imageURL);
         //  this.sanitizer.bypassSecurityTrustUrl('data:image/jpg;base64,' 
         // +  element.imageURL);
         //this.imagem = btoa(element.imageURL); //element.imageURL;
@@ -77,8 +80,8 @@ export class CardapioComponent implements OnInit {
 
         //var imageData = btoa(element.imageURL);
         //console.log("Base64 Image: ",imageData);
-        this.imagem = this.sanitizer.bypassSecurityTrustUrl("data:image/*;base64,"+element.imageURL);
-
+        //this.imagem = this.sanitizer.bypassSecurityTrustUrl("data:image/png;base64,"+ this.imagem );
+       
         //this.imagem = this.sanitizer.bypassSecurityTrustUrl(element.imageURL);
         //this.imagem =  (this.sanitizer.bypassSecurityTrustUrl(element.imageURL) as any).changingThisBreaksApplicationSecurity;
       
@@ -86,11 +89,9 @@ export class CardapioComponent implements OnInit {
         // this.genuineURL = this.sanitizer.bypassSecurityTrustUrl(this.imagem); 
         // this.currVerifiedLoanOfficerPhoto = 'data:image/jpg;base64,' + (this.sanitizer.bypassSecurityTrustResourceUrl(element.imageURL) as any).changingThisBreaksApplicationSecurity;
         //this.transform(this.imagem);
-        console.log(this.imagem);
+      
       })
 
-      
-      
       this.products.sort((a, b) => { 
         if (a.productCategory < b.productCategory) {
           return -1;
@@ -101,36 +102,17 @@ export class CardapioComponent implements OnInit {
   });
   }
 
+ b64DecodeUnicode(str) {
+   return decodeURIComponent(atob(str));
+ }
+
   transform(url) {
     return this.sanitizer.bypassSecurityTrustResourceUrl(url);
      }
 
-  // encodeImageFileAsURL() {
-
-  //   var filesSelected = document.getElementById("inputFileToLoad").files;
-  //   if (filesSelected.length > 0) {
-  //     var fileToLoad = filesSelected[0];
-
-  //     var fileReader = new FileReader();
-
-  //     fileReader.onload = function(fileLoadedEvent) {
-  //       var srcData = fileLoadedEvent.target.result; // <--- data: base64
-
-  //       var newImage = document.createElement('img');
-  //       newImage.src = srcData;
-
-  //       document.getElementById("imgTest").innerHTML = newImage.outerHTML;
-  //       alert("Converted Base64 version is " + document.getElementById("imgTest").innerHTML);
-  //       console.log("Converted Base64 version is " + document.getElementById("imgTest").innerHTML);
-  //     }
-  //     fileReader.readAsDataURL(fileToLoad);
-  //   }
-  // }
-
-
   onClick(prod: Product) { 
       window.sessionStorage.setItem("produto", JSON.stringify(prod));
-      this.router.navigate(['/detalhe-cardapio']);
+      this.router.navigate(['/detalhe-cardapio', prod.prodID]);
       console.log('Click!', prod) 
   } 
 

@@ -12,7 +12,8 @@ import { ProductCategory } from '../model/product-category';
 export class DetalheCardapioService {
  
   urlProductCategoryAll = 'https://cesto.azurewebsites.net/api/ProductCategory/FindAllByName';
-  url = 'https://cesto.azurewebsites.net/api/Product'
+  url = 'https://cesto.azurewebsites.net/api/Product';
+  urlByID = 'https://cesto.azurewebsites.net/api/Product/';
   
   // injetando o HttpClient
   constructor(private httpClient: HttpClient, private notifyService : NotificationService,) { }
@@ -32,8 +33,13 @@ export class DetalheCardapioService {
         // catchError(this.handleError))
   }
 
-  alterarProduto(produto: Product){
-    return this.httpClient.put(this.url, JSON.stringify(produto), this.httpOptions)
+  getProdutoByID(restaurantID: number): Observable<Product> {
+    return this.httpClient.get<Product>(this.urlByID + restaurantID, this.httpOptions)
+    .pipe(map(res => res));
+  }
+
+  alterarProduto(produto: Product) : Observable<Product>{
+    return this.httpClient.put<Product>(this.url, JSON.stringify(produto), this.httpOptions)
       .pipe(
         retry(2),
         catchError(this.handleError)

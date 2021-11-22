@@ -77,7 +77,7 @@ export class LoginComponent {
 
       console.log(pedidos.length);
 
-   //Função para verificar se há pedidos novos na hora de logar ordered.
+   //Função para verificar se há pedidos novos na hora de lnogar ordered.
    pedidos.forEach(element => {
      if (element.orderStatus.statusDescription === 'ordered') {
       var audio = new Audio('./assets/img/ding-dong-pedido.mp3');

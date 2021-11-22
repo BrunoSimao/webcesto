@@ -46,7 +46,7 @@ export class UserProfileService {
   }
 
   getRestaurant(restaurantID: number) {
-    return this.httpClient.get<any>(this.urlRestaurant + restaurantID ,this.httpOptions)
+    return this.httpClient.get<Restaurant>(this.urlRestaurant + restaurantID ,this.httpOptions)
     .pipe(
       retry(2),
       catchError(this.handleError)
@@ -61,8 +61,8 @@ export class UserProfileService {
     )
   }
 
-  alterarRestaurant(restaurant: RestaurantModel){
-    return this.httpClient.put<any>(this.urlAlterarRestaurant, JSON.stringify(restaurant), this.httpOptions)
+  alterarRestaurant(restaurant: Restaurant){
+    return this.httpClient.put<Restaurant>(this.urlAlterarRestaurant, JSON.stringify(restaurant), this.httpOptions)
     .pipe(
       retry(2),
       catchError(this.handleError)

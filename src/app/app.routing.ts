@@ -94,7 +94,7 @@ const routes: Routes =[
     component: CardapioComponent,
     canActivate: [AuthGuard]
   },  {
-    path: 'detalhe-cardapio',
+    path: 'detalhe-cardapio/:id',
     component: DetalheCardapioComponent,
     canActivate: [AuthGuard]
   },

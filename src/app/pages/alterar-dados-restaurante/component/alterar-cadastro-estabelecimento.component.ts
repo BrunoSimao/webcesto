@@ -24,7 +24,7 @@ export class AlterarCadastroEstComponent implements OnInit, OnDestroy {
   
   uploadedFiles: any[] = [];
   restaurantCategories: RestaurantCategories[] = [];
-  selectedRestaurantCategory: RestaurantCategories;
+  selectedRestaurantCategory: RestaurantCategories[] = [];
   restaurant: Restaurant;
   selectedRest: string;
   restaurantID: number;
@@ -34,7 +34,7 @@ export class AlterarCadastroEstComponent implements OnInit, OnDestroy {
   token: any
   imageBase64: string;
   pedidoRetiradaBalcao: boolean = false;
-  restaurantModel: RestaurantModel;
+  restaurantModel: Restaurant;
   address: Address;
   categoryRestaurant: string;
   selectedCities3: any[] = [];
@@ -84,8 +84,28 @@ export class AlterarCadastroEstComponent implements OnInit, OnDestroy {
     this.restaurant = JSON.parse(prod);
     console.log(this.restaurant);
 
-  var restaurantID = window.sessionStorage.getItem('restaurantID')
-  this.restaurantModel = new RestaurantModel();
+    //res.restaurantCategories = this.restaurant.restaurantCategories;
+    //console.log(res);
+    
+     //this.restaurantModel = res;
+    // this.restaurantModel.restaurantCategories = this.restaurant.restaurantCategories;
+
+    //  this.countries.push(this.restaurantModel.restaurantCategories);
+    //  this.items = this.countries;
+     
+     this.selectedRestaurantCategory =  this.restaurant.restaurantCategories;
+     console.log(this.selectedRestaurantCategory);
+
+    // if (restaurant.onlyForTake) {
+    // this.pedidoRetiradaBalcao = true;
+    // }else {
+    //   this.pedidoRetiradaBalcao = false;
+    // }
+
+    console.log(this.restaurant);
+
+  //var restaurantID = window.sessionStorage.getItem('restaurantID')
+  //this.restaurantModel = new Restaurant();
 
 
   //this.restaurantModel.restaurantCategories = this.restaurant.restaurantCategories;
@@ -94,35 +114,28 @@ export class AlterarCadastroEstComponent implements OnInit, OnDestroy {
  
   //this.selectedCities3.push(this.selectedRestaurantCategory);
 
-  this.userProfileService.getRestaurant(parseInt(restaurantID)).subscribe((res: RestaurantModel) => {
+//   this.userProfileService.getRestaurant(parseInt(restaurantID)).subscribe((res: Restaurant) => {
 
-    res.restaurantCategories = this.restaurant.restaurantCategories;
-    console.log(res);
-  
-    //  this.restaurantModel.restaurantID = res.restaurantID;
-    //  this.restaurantModel.companyName = res.companyName;
-    //  this.restaurantModel.tradingName = res.tradingName;
-    //  this.restaurantModel.phoneNumber = res.phoneNumber;
-    //  this.restaurantModel.cnpj = res.cnpj;
-    //  this.restaurantModel.imageURL = res.imageURL;
+//     // res.restaurantCategories = this.restaurant.restaurantCategories;
+//     // console.log(res);
     
-     this.restaurantModel = res;
-     this.restaurantModel.restaurantCategories = this.restaurant.restaurantCategories;
+//     //  this.restaurantModel = res;
+//     //  this.restaurantModel.restaurantCategories = this.restaurant.restaurantCategories;
 
-    //  this.countries.push(this.restaurantModel.restaurantCategories);
-    //  this.items = this.countries;
+//     // //  this.countries.push(this.restaurantModel.restaurantCategories);
+//     // //  this.items = this.countries;
      
-     this.selectedRestaurantCategory =  this.restaurantModel.restaurantCategories;
-     console.log(this.selectedRestaurantCategory);
+//     //  this.selectedRestaurantCategory =  this.restaurantModel.restaurantCategories;
+//     //  console.log(this.selectedRestaurantCategory);
 
-    if (res.onlyForTake) {
-    this.pedidoRetiradaBalcao = true;
-    }else {
-      this.pedidoRetiradaBalcao = false;
-    }
+//     // if (res.onlyForTake) {
+//     // this.pedidoRetiradaBalcao = true;
+//     // }else {
+//     //   this.pedidoRetiradaBalcao = false;
+//     // }
 
-    console.log(this.restaurantModel);
-});
+//     // console.log(this.restaurantModel);
+// });
 
     }
   
@@ -136,27 +149,28 @@ export class AlterarCadastroEstComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
   }
 
-  alterarEstabelecimento(restaurantModel) {
+  alterarEstabelecimento(restaurant) {
 
     if (this.pedidoRetiradaBalcao) {
-      this.restaurantModel.onlyForTake = true;
+      this.restaurant.onlyForTake = true;
     } else {
-      this.restaurantModel.onlyForTake = false;
+      this.restaurant.onlyForTake = false;
     }
 
   if (this.selectedRestaurantCategory === undefined) {
-    this.restaurantModel.restaurantCategories = this.restaurant.restaurantCategories;
+    this.restaurant.restaurantCategories = this.restaurant.restaurantCategories;
   } else {
-     this.restaurantModel.restaurantCategories = this.selectedRestaurantCategory;
+     this.restaurant.restaurantCategories = this.selectedRestaurantCategory;
   }
   
-  console.log(this.restaurantModel);
+  console.log(this.restaurant);
 
   this.ngxLoader.start();
-  this.userProfileService.alterarRestaurant(this.restaurantModel).subscribe((res: RestaurantModel) => {
+  this.userProfileService.alterarRestaurant(this.restaurant).subscribe((res: Restaurant) => {
     console.log(res);
-    window.sessionStorage.setItem("restaurant", JSON.stringify(this.restaurantModel));
-    window.sessionStorage.setItem("nomeRestaurante", this.restaurantModel.companyName);
+   
+    window.sessionStorage.setItem("restaurant", JSON.stringify(res));
+    window.sessionStorage.setItem("nomeRestaurante", this.restaurant.companyName);
     this.notifyService.showSuccess('Dados do estabelecimento alterado!', 'Sucesso!');
     this.router.navigate(['/user-profile']);
     this.ngxLoader.stop();

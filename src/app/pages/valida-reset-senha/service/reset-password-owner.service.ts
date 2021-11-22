@@ -9,7 +9,7 @@ import { ResetPasswordOwner } from '../model/reset-password-owner';
 })
 export class ResetPasswordOwnerService {
 
-  url = 'ttps://cesto.azurewebsites.net/api/AppAuth/ResetPasswordOwner';
+  url = 'https://cesto.azurewebsites.net/api/AppAuth/ResetPasswordOwner';
 
   // injetando o HttpClient
   constructor(private httpClient: HttpClient) { }

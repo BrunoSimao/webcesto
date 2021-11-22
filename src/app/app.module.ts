@@ -61,6 +61,7 @@ import { CardapioComponent } from './pages/cardapio/component/cardapio.component
 import { SafeHtml } from './utility/safehtml-pipe';
 import {MultiSelectModule} from 'primeng/multiselect';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+import {NgxImageCompressService} from 'ngx-image-compress';
 
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
 @NgModule({
@@ -118,7 +119,7 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
     SafeHtml,
   ],
     
-    providers: [AuthGuard],
+    providers: [AuthGuard, NgxImageCompressService],
   bootstrap: [AppComponent],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

@@ -16,6 +16,11 @@
     </svg>
   </div>
 </div>
+<!-- <div>
+  <button (click)="compressFile()">Upload and compress Image</button>
+  <img *ngIf="imgResultBeforeCompress" [src]="imgResultBeforeCompress" alt=""> 
+  <img *ngIf="imgResultAfterCompress" [src]="imgResultAfterCompress" alt="">
+</div> -->
 <!-- Page content -->
 <div class="container mt--8 pb-5">
   <div class="row justify-content-center">
@@ -28,14 +33,22 @@
            <!-- <img style="margin-left: 235px;" src= "data:image/png;charset=utf-8;base64,{{produto.imageURL}}"> -->
         </div>
         <p-fileUpload previewWidth="80"[showUploadButton]="false" chooseLabel="Escolher Imagem"
-        [showCancelButton]="false"  name="demo[]" url="./upload.php" (onSelect)="onUpload($event)"
-         accept="image/*" maxFileSize="1000000">
+        [showCancelButton]="false" invalidFileSizeMessageDetail="O tamanho máximo de upload é {0}." 
+         name="demo[]" url="./upload.php" (onSelect)="onUpload($event)" invalidFileSizeMessageSummary="{0}: Tamanho de arquivo inválido, "
+         accept="image/*" maxFileSize="9000">
         <ng-template pTemplate="content">
             <ul *ngIf="uploadedFiles.length">
                 <li *ngFor="let file of uploadedFiles"></li>
             </ul>
         </ng-template>
        </p-fileUpload>
+<!-- 
+       <input type="file" (change)="onChange($event)" />
+
+<div *ngIf="myimage">
+  <img [src]="myimage | async" alt="" />
+</div> -->
+
         <div class="card-body px-lg-5 py-lg-5">
           <form role="form">
             <div class="form-group mb-3">

@@ -15,7 +15,7 @@ export class NavbarComponent implements OnInit {
   public location: Location;
   public nomeRestaurante: string;
   private isButtonVisible = false;
-  imageURL: SafeUrl;
+  imageURL: string;
   image: string;
   
   constructor(location: Location,  private element: ElementRef, private router: Router, private sanitizer:DomSanitizer ) {
@@ -29,14 +29,53 @@ export class NavbarComponent implements OnInit {
 
     this.image = window.sessionStorage.getItem('imagemRestaurantURL');
     console.log(this.image);
-
-    //var imageData = btoa(this.image);
+    
+    this.imageURL = this.b64DecodeUnicode(this.image);
    
-    //this.imageURL = this.sanitizer.bypassSecurityTrustResourceUrl("data:image/jpg;base64,"+imageData);
-    this.imageURL =  (this.sanitizer.bypassSecurityTrustResourceUrl(this.image) as any).changingThisBreaksApplicationSecurity;
-      console.log(this.imageURL);
+    console.log(this.imageURL);
+
+ 
+    //this.adicionarImg(this.image);
+    //this.imageURL = btoa(this.image);
+    //this.imageURL = this.b64DecodeUnicode(this.image);
+    //var imageData = btoa(this.image);
+    //this.imageURL = btoa(unescape(encodeURIComponent(this.image)));
+    //this.imageURL = this.sanitizer.bypassSecurityTrustResourceUrl("data:image/png;base64,"+this.image);
+    //this.imageURL =  (this.sanitizer.bypassSecurityTrustResourceUrl(this.image) as any).changingThisBreaksApplicationSecurity;
+   
+      //this.handleReaderLoaded(this);
 
   }
+
+  adicionarImg(imagem) {
+   document.querySelector('img').src = "data:image/png;base64, "+ imagem;
+
+  //  var imagee = document.querySelector('img');
+  //  imagee.src = "data:image/png;base64,"+ imagem;
+
+  //  imagee.width=100;
+  //  imagee.height=100;
+  //  imagee.alt="here should be some image";
+    
+  //  document.body.appendChild(imagee);
+   
+ }
+
+  
+ b64DecodeUnicode(str) {
+  // Going backwards: from bytestream, to percent-encoding, to original string.
+  return decodeURIComponent(atob(str).split('').map(function(c) {
+      return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+  }).join(''));
+}
+  
+
+  handleReaderLoaded(e) {
+    //this.uploadedFiles.push(btoa(e.target.result));
+    this.imageURL = btoa(e.image);
+    console.log(btoa(e.image));
+  }
+
   getTitle(){
     var titlee = this.location.prepareExternalUrl(this.location.path());
     if(titlee.charAt(0) === '#'){

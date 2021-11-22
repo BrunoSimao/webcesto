@@ -8,7 +8,7 @@ export class Restaurant {
     ownerID: number;
     addressID: number;
     address: Address;
-    restaurantCategories: RestaurantCategories;
+    restaurantCategories: RestaurantCategories[];
     companyName: string;
     tradingName: string;
     phoneNumber: string;
