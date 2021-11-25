@@ -34,14 +34,6 @@ export class CardapioComponent implements OnInit {
     private cardapioService: CardapioService,
     private ngxLoader: NgxUiLoaderService,
     private sanitizer:DomSanitizer ) { 
-
-    
-
-// const mediaType = 'data:image/png;base64,';
-// const blob = new Blob([this.products[0].imageURL],  { type: mediaType });
-// const unsafeImg = URL.createObjectURL(blob);
-// this.genuineURL = this.sanitizer.bypassSecurityTrustResourceUrl(unsafeImg);
-
     }
 
   ngOnInit() {
@@ -80,7 +72,7 @@ export class CardapioComponent implements OnInit {
 
         //var imageData = btoa(element.imageURL);
         //console.log("Base64 Image: ",imageData);
-        //this.imagem = this.sanitizer.bypassSecurityTrustUrl("data:image/png;base64,"+ this.imagem );
+         this.sanitizer.bypassSecurityTrustUrl("data:image/png;base64,"+ element.imageURL);
        
         //this.imagem = this.sanitizer.bypassSecurityTrustUrl(element.imageURL);
         //this.imagem =  (this.sanitizer.bypassSecurityTrustUrl(element.imageURL) as any).changingThisBreaksApplicationSecurity;

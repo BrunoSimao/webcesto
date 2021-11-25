@@ -1,8 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router'; 
 import { Base64 } from 'js-base64';
 import { NgxImageCompressService } from 'ngx-image-compress';
-import { NgxUiLoaderService } from 'ngx-ui-loader';import { observable, Observable, Subscriber } from 'rxjs';
+import { NgxUiLoaderService } from 'ngx-ui-loader';import { FileUpload } from 'primeng/fileupload';
+import { observable, Observable, Subscriber } from 'rxjs';
 ;
 import { NotificationService } from 'src/app/utility/notification-service';
 import { Product } from '../../pedidos/component/model/product';
@@ -14,6 +16,7 @@ import { DetalheCardapioService } from '../service/detalhe-cardapio.service';
   templateUrl: './detalhe-cardapio.component.html',
   styleUrls: ['./detalhe-cardapio.component.scss']
 })
+
 export class DetalheCardapioComponent implements OnInit, OnDestroy {
 
   uploadedFiles: any[] = [];
@@ -29,20 +32,17 @@ export class DetalheCardapioComponent implements OnInit, OnDestroy {
   checked1: boolean = false;
   imgResultBeforeCompress:string;
   imgResultAfterCompress:string;
-
-  file: any;
-localUrl: any;
-localCompressedURl:any;
-sizeOfOriginalImage:number;
-sizeOFCompressedImage:number;
-
+  decodeUrl: string;
+  isExcluirImagem: boolean = false;
+  yourCondition: boolean = false;
+  isExcluirButton: boolean = false;
   myimage: Observable<any>;
 
   constructor(private router: Router,
     private detalheCardapioService: DetalheCardapioService,
     private notifyService : NotificationService,
     private ngxLoader: NgxUiLoaderService,
-    private route: ActivatedRoute, private imageCompress: NgxImageCompressService){
+    private route: ActivatedRoute, private sanitizer:DomSanitizer,){
 
     this.discountOptions = [
       {name: '3%', value: 3},
@@ -55,7 +55,9 @@ sizeOFCompressedImage:number;
   }
 
   ngOnInit() {
-
+   this.isExcluirImagem = true;
+   this.yourCondition = true;
+   this.isExcluirButton = true;
     this.getProductCategory();
     
     this.route.params.subscribe( parametros => {
@@ -73,13 +75,19 @@ sizeOFCompressedImage:number;
   
   }
 
+
   getProductByID(prodID: string) {
     this.detalheCardapioService.getProdutoByID(parseInt(prodID)).subscribe((product) => {
      
      this.produto = product;
      this.produto.productCategory = this.produto.productCategories[0].categoryDescription;
-     console.log(product);
-     
+
+     this.decodeUrl = decodeURIComponent(atob(this.produto.imageURL));
+     this.decodeUrl = 'data:image/jpeg;base64,' +  this.decodeUrl;
+     console.log(this.decodeUrl);
+     this.produto.imageURL = this.decodeUrl.replace(/^data:image\/(png|jpg|jpeg);base64,/, '');;
+
+      console.log(product);
     });
   }
 
@@ -118,12 +126,8 @@ sizeOFCompressedImage:number;
       this.produto.stockLevel = 2;
     }
 
-   // this.imageBase64 = this.myimage;
-    
-    this.produto.imageURL = this.imageBase64; //=== undefined ? this.produto.imageURL : this.imageBase64;
-
     console.log(this.produto.imageURL);
-  
+    
     this.ngxLoader.start();
     console.log(this.value);
 
@@ -133,6 +137,11 @@ sizeOFCompressedImage:number;
       this.produto.discount = ((this.value * this.produto.price / 100));
     }
    console.log(this.produto.imageURL);
+
+   if (this.produto.imageURL === undefined || this.produto.imageURL === '') {
+    this.notifyService.showAlerta('Por favor escolha uma imagem para o cardápio!', 'Alerta!');
+    return;
+   }
     this.detalheCardapioService.alterarProduto(this.produto).subscribe(response => {
        console.log(response);
       this.notifyService.showSuccess('Produto alterado!', 'Sucesso!');
@@ -145,34 +154,20 @@ sizeOFCompressedImage:number;
      }
   }
 
-  // ReadAsBase64(file): Promise<any> {
-  //   const reader = new FileReader();
-  //   const fileValue = new Promise((resolve, reject) => {
-  //     reader.addEventListener('load', () => {
-  //       const result = reader.result as DOMString;
-  //       if (!result) reject('Cannot read variable');
-  //       if (result.length * 2  > 2**21) reject('File exceeds the maximum size'); // Note: 2*2**20 = 2**21 
-  //       resolve(reader.result);
-  //     });
-
-  //     reader.addEventListener('error', event => {
-  //       reject(event);
-  //     });
-
-  //     reader.readAsDataURL(file);
-  //   });
-
-  //   return fileValue;
-  // }
-
   onChange($event: Event) {
     const file = ($event.target as HTMLInputElement).files[0];
-     
     this.convertToBase64(file);
 }
 
+ExcluirImagem() {
+  this.decodeUrl = '';
+  this.produto.imageURL = '';
+  this.isExcluirImagem = false;
+  this.yourCondition = false;
+  this.isExcluirButton = false;
+}
+
   convertToBase64(file: File) {
-   
     this.myimage = new Observable((subscriber: Subscriber<any>) => {
       console.log(this.myimage);
       
@@ -180,9 +175,11 @@ sizeOFCompressedImage:number;
     });
     this.myimage.subscribe((d) => {
      console.log(d);
+
      d = d.replace(/^data:image\/(png|jpg|jpeg);base64,/, '');
-     this.imageBase64 = d;
-    console.log(this.imageBase64)
+     
+     this.produto.imageURL = d;
+    console.log(this.produto.imageURL)
     })
   }
 
@@ -231,18 +228,9 @@ sizeOFCompressedImage:number;
 
   onUpload(event) {
     const file = event.files[0];
-    // if (file) {
-    //   const reader = new FileReader();
-    //   reader.onload = this.handleReaderLoaded.bind(this);
-    //   reader.readAsArrayBuffer(file);
-    // }
     this.convertToBase64(file);
+
   }
-    handleReaderLoaded(e) {
-      this.uploadedFiles.push(btoa(e.target.result));
-      this.imageBase64 = btoa(encodeURIComponent((e.target.result))); //btoa(e.target.result);
-      console.log(btoa(e.target.result));
-    }
     
   goBack() {
     window.history.back();

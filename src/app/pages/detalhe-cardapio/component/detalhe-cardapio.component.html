@@ -32,16 +32,22 @@
            <div class="text-muted text-center mt-2 mb-3"><label>Imagem do Produto</label></div>
            <!-- <img style="margin-left: 235px;" src= "data:image/png;charset=utf-8;base64,{{produto.imageURL}}"> -->
         </div>
-        <p-fileUpload previewWidth="80"[showUploadButton]="false" chooseLabel="Escolher Imagem"
+        
+
+        <p-fileUpload [disabled] ="yourCondition" previewWidth="80" [showUploadButton]="false" chooseLabel="Escolher Imagem"
         [showCancelButton]="false" invalidFileSizeMessageDetail="O tamanho máximo de upload é {0}." 
-         name="demo[]" url="./upload.php" (onSelect)="onUpload($event)" invalidFileSizeMessageSummary="{0}: Tamanho de arquivo inválido, "
+         name="myfile[]" url="./upload.php" (onSelect)="onUpload($event)" invalidFileSizeMessageSummary="{0}: Tamanho de arquivo inválido, "
          accept="image/*" maxFileSize="9000">
-        <ng-template pTemplate="content">
-            <ul *ngIf="uploadedFiles.length">
+         <ng-template pTemplate="content">
+          <img *ngIf="isExcluirImagem" src="{{decodeUrl}}" width="80px" height="80px" alt="" /> 
+            <!-- <ul *ngIf="uploadedFiles.length">
+              
                 <li *ngFor="let file of uploadedFiles"></li>
-            </ul>
+            </ul> -->
         </ng-template>
        </p-fileUpload>
+      <br>
+       <button *ngIf="isExcluirButton" style="width: 193px;" type="button" class="btn btn-danger" (click)="ExcluirImagem()" >Exluir Imagem</button>
 <!-- 
        <input type="file" (change)="onChange($event)" />
 

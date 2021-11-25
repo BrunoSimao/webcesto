@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router'; 
-import { NgxUiLoaderService } from 'ngx-ui-loader';;
+import { NgxUiLoaderService } from 'ngx-ui-loader';import { Observable, Subscriber } from 'rxjs';
+;
 import { NotificationService } from 'src/app/utility/notification-service';
 import { ProductCategory } from '../../detalhe-cardapio/model/product-category';
 import { DetalheCardapioService } from '../../detalhe-cardapio/service/detalhe-cardapio.service';
@@ -33,7 +34,8 @@ export class CadastroCardapioComponent implements OnInit, OnDestroy {
   name: string;
   description: string;
   price: number;
-
+  myimage: Observable<any>;
+  
   constructor(private router: Router,
     private cadastroCardapioService: CadastroCardapioService,
     private detalheCardapioService: DetalheCardapioService,
@@ -56,12 +58,12 @@ export class CadastroCardapioComponent implements OnInit, OnDestroy {
   
    this.produto = JSON.parse(prod);
    console.log( this.produto);
-
+   this.produto = new ProdutoModel();
    this.getProductCategory();
   }
 
   salvarCardapio() {
-    this.produto = new ProdutoModel();
+   
     this.produto.productCategories = new Array<ProductCategory>();
     this.produto.productCategories.push(this.selectedProductCategory);
     this.produto.productStatus = new ProductStatus();
@@ -85,8 +87,6 @@ export class CadastroCardapioComponent implements OnInit, OnDestroy {
         this.produto.stockLevel = 2;
       }
 
-
-
     if(this.name === undefined ||
       this.description === undefined || 
       this.price === undefined || 
@@ -109,11 +109,9 @@ export class CadastroCardapioComponent implements OnInit, OnDestroy {
     this.produto.description = this.description;
     this.produto.price = this.price;
 
-    if (this.imageBase64 === undefined) {
+    if (this.produto.imageURL === undefined) {
       this.notifyService.showAlerta('Por favor escolha uma imagem para o cardápio!', 'Alerta!');
       return;
-    }else {
-      this.produto.imageURL = this.imageBase64;
     }
 
     this.ngxLoader.start();
@@ -145,14 +143,48 @@ export class CadastroCardapioComponent implements OnInit, OnDestroy {
     const file = event.target.files[0]
   }
 
+  removerFoto(event: Event) {
+    console.log(event);
+  
+  }
+
   onUpload(event) {
     const file = event.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = this.handleReaderLoaded.bind(this);
-      reader.readAsArrayBuffer(file);
-    }
+   
+    this.convertToBase64(file);
   }
+
+  convertToBase64(file: File) {
+    this.myimage = new Observable((subscriber: Subscriber<any>) => {
+      console.log(this.myimage);
+      
+      this.readFile(file, subscriber);
+    });
+    this.myimage.subscribe((d) => {
+     console.log(d);
+
+     d = d.replace(/^data:image\/(png|jpg|jpeg);base64,/, '');
+     
+     this.produto.imageURL = d;
+    console.log(this.produto.imageURL)
+    })
+  }
+
+  
+  readFile(file: File, subscriber: Subscriber<any>) {
+    const filereader = new FileReader();
+    filereader.readAsDataURL(file);
+
+    filereader.onload = () => {
+      subscriber.next(filereader.result);
+      subscriber.complete();
+    };
+    filereader.onerror = (error) => {
+      subscriber.error(error);
+      subscriber.complete();
+    };
+  }
+
     handleReaderLoaded(e) {
       this.uploadedFiles.push(btoa(e.target.result));
       this.imageBase64 = btoa(e.target.result);

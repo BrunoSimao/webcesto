@@ -28,8 +28,9 @@
            <div class="text-muted text-center mt-2 mb-3"><label>Imagem do Produto</label></div>
         </div>
         <p-fileUpload previewWidth="80"[showUploadButton]="false" chooseLabel="Escolher Imagem"
-        [showCancelButton]="false"  name="demo[]" url="./upload.php" (onSelect)="onUpload($event)"
-         accept="image/*" maxFileSize="1000000">
+        [styleClass]= ""  [showCancelButton]="false"  name="demo[]" url="./upload.php" (onSelect)="onUpload($event)"
+        invalidFileSizeMessageSummary="{0}: Tamanho de arquivo inválido, " invalidFileSizeMessageDetail="O tamanho máximo de upload é {0}." 
+         accept="image/*" maxFileSize="9000">
         <ng-template pTemplate="content">
             <ul *ngIf="uploadedFiles.length">
                 <li *ngFor="let file of uploadedFiles"></li>
