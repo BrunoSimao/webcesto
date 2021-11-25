@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { MessageService, PrimeNGConfig, SelectItem } from 'primeng/api';
+import { Observable, Subscriber } from 'rxjs';
 import { NotificationService } from 'src/app/utility/notification-service';
 import { Address } from '../../cadastro-estabelecimento/model/address';
 import { Rating } from '../../cadastro-estabelecimento/model/rating';
@@ -41,6 +42,7 @@ export class AlterarCadastroEstComponent implements OnInit, OnDestroy {
   countries: any[] = [];
   selectedItem: any = [];
   dropdownSettings = {};
+  myimage: Observable<any>;
  
   constructor(private router: Router, private restaurantService: RestaurantService,
     private ngxLoader: NgxUiLoaderService,private messageService: MessageService,
@@ -171,6 +173,7 @@ export class AlterarCadastroEstComponent implements OnInit, OnDestroy {
    
     window.sessionStorage.setItem("restaurant", JSON.stringify(res));
     window.sessionStorage.setItem("nomeRestaurante", this.restaurant.companyName);
+    window.sessionStorage.setItem("imagemRestaurantURL", this.restaurant.imageURL);
     this.notifyService.showSuccess('Dados do estabelecimento alterado!', 'Sucesso!');
     this.router.navigate(['/user-profile']);
     this.ngxLoader.stop();
@@ -180,19 +183,42 @@ export class AlterarCadastroEstComponent implements OnInit, OnDestroy {
   }
 
   onUpload(event) {
-  const file = event.files[0];
-  if (file) {
-    const reader = new FileReader();
-    reader.onload = this.handleReaderLoaded.bind(this);
-    reader.readAsArrayBuffer(file);
+    const file = event.files[0];
+   
+    this.convertToBase64(file);
   }
-}
 
-  handleReaderLoaded(e) {
-    this.uploadedFiles.push(btoa(e.target.result));
-    this.imageBase64 = btoa(e.target.result);
-    console.log(btoa(e.target.result));
+  convertToBase64(file: File) {
+    this.myimage = new Observable((subscriber: Subscriber<any>) => {
+      console.log(this.myimage);
+      
+      this.readFile(file, subscriber);
+    });
+    this.myimage.subscribe((d) => {
+     console.log(d);
+
+     d = d.replace(/^data:image\/(png|jpg|jpeg);base64,/, '');
+     
+     this.restaurant.imageURL = d;
+    console.log(this.restaurant.imageURL)
+    })
   }
+
+  
+  readFile(file: File, subscriber: Subscriber<any>) {
+    const filereader = new FileReader();
+    filereader.readAsDataURL(file);
+
+    filereader.onload = () => {
+      subscriber.next(filereader.result);
+      subscriber.complete();
+    };
+    filereader.onerror = (error) => {
+      subscriber.error(error);
+      subscriber.complete();
+    };
+  }
+
   
   goBack() {
     window.history.back();

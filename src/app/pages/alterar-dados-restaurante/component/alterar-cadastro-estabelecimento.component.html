@@ -28,15 +28,16 @@
         <div class="text-center text-muted mb-4">
           <small>Clique para inserir ou alterar o banner.</small>
         </div>
-        <!-- <p-fileUpload previewWidth="80"[showUploadButton]="false" chooseLabel="Escolher Arquivo"
+        <p-fileUpload previewWidth="80"[showUploadButton]="false" chooseLabel="Escolher Arquivo"
         [showCancelButton]="false"  name="demo[]" url="./upload.php" (onSelect)="onUpload($event)"
-         accept="image/*" maxFileSize="1000000">
+         accept="image/*" maxFileSize="9000">
         <ng-template pTemplate="content">
             <ul *ngIf="uploadedFiles.length">
                 <li *ngFor="let file of uploadedFiles"></li>
             </ul>
         </ng-template>
-       </p-fileUpload> -->
+       </p-fileUpload>
+       <img src="data:image/jpeg;base64,{{restaurant.imageURL}}">
        <!-- <img src="data:image;base64,restaurant.imageURL" /> -->
         <div class="card-body px-lg-5 py-lg-5">
           <div class="text-center text-muted mb-4">

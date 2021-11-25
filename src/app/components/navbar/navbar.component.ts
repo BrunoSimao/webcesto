@@ -3,6 +3,8 @@ import { ROUTES } from '../sidebar/sidebar.component';
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { Router } from '@angular/router';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { UserProfileService } from 'src/app/pages/user-profile/service/owner.service';
+import { Restaurant } from 'src/app/pages/cadastro-estabelecimento/model/restaurant';
 
 @Component({
   selector: 'app-navbar',
@@ -18,7 +20,7 @@ export class NavbarComponent implements OnInit {
   imageURL: string;
   image: string;
   
-  constructor(location: Location,  private element: ElementRef, private router: Router, private sanitizer:DomSanitizer ) {
+  constructor(location: Location,  private userProfileService: UserProfileService, private element: ElementRef, private router: Router, private sanitizer:DomSanitizer ) {
     this.location = location;
   }
 
@@ -28,23 +30,24 @@ export class NavbarComponent implements OnInit {
     this.nomeRestaurante = window.sessionStorage.getItem('nomeRestaurante');
 
     this.image = window.sessionStorage.getItem('imagemRestaurantURL');
-    console.log(this.image);
+    //this.getRestaurant();
     
-    this.imageURL = this.b64DecodeUnicode(this.image);
-   
+    //this.imageURL  = this.b64DecodeUnicode(this.image);
+    this.sanitizer.bypassSecurityTrustUrl(this.image);
     console.log(this.imageURL);
 
- 
-    //this.adicionarImg(this.image);
-    //this.imageURL = btoa(this.image);
-    //this.imageURL = this.b64DecodeUnicode(this.image);
-    //var imageData = btoa(this.image);
-    //this.imageURL = btoa(unescape(encodeURIComponent(this.image)));
-    //this.imageURL = this.sanitizer.bypassSecurityTrustResourceUrl("data:image/png;base64,"+this.image);
-    //this.imageURL =  (this.sanitizer.bypassSecurityTrustResourceUrl(this.image) as any).changingThisBreaksApplicationSecurity;
-   
-      //this.handleReaderLoaded(this);
+  }
 
+  getRestaurant() {
+
+    var restaurantID =window.sessionStorage.getItem('restaurantID')
+    //this.restaurantModel = new RestaurantModel();
+  
+      this.userProfileService.getRestaurant(parseInt(restaurantID)).subscribe(res => {
+        console.log(res);
+     
+     });
+  
   }
 
   adicionarImg(imagem) {
