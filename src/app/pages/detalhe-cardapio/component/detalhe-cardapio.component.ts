@@ -85,7 +85,7 @@ export class DetalheCardapioComponent implements OnInit, OnDestroy {
      this.decodeUrl = decodeURIComponent(atob(this.produto.imageURL));
      this.decodeUrl = 'data:image/jpeg;base64,' +  this.decodeUrl;
      console.log(this.decodeUrl);
-     this.produto.imageURL = this.decodeUrl.replace(/^data:image\/(png|jpg|jpeg);base64,/, '');;
+     this.produto.imageURL = this.decodeUrl.replace(/^data:image\/(png|jpg|jpeg);base64,/, '');
 
       console.log(product);
     });

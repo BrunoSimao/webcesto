@@ -27,13 +27,14 @@ export class NavbarComponent implements OnInit {
   ngOnInit() {
     this.isButtonVisible = false;
     this.listTitles = ROUTES.filter(listTitle => listTitle);
+    
     this.nomeRestaurante = window.sessionStorage.getItem('nomeRestaurante');
 
     this.image = window.sessionStorage.getItem('imagemRestaurantURL');
     //this.getRestaurant();
-    
     //this.imageURL  = this.b64DecodeUnicode(this.image);
-    this.sanitizer.bypassSecurityTrustUrl(this.image);
+    this.imageURL  =  this.image; //this.b64DecodeUnicode(this.image);
+    this.sanitizer.bypassSecurityTrustUrl(this.imageURL);
     console.log(this.imageURL);
 
   }
@@ -41,11 +42,10 @@ export class NavbarComponent implements OnInit {
   getRestaurant() {
 
     var restaurantID =window.sessionStorage.getItem('restaurantID')
-    //this.restaurantModel = new RestaurantModel();
   
       this.userProfileService.getRestaurant(parseInt(restaurantID)).subscribe(res => {
         console.log(res);
-     
+        this.imageURL  = this.b64DecodeUnicode(res.imageURL);
      });
   
   }
@@ -64,12 +64,8 @@ export class NavbarComponent implements OnInit {
    
  }
 
-  
  b64DecodeUnicode(str) {
-  // Going backwards: from bytestream, to percent-encoding, to original string.
-  return decodeURIComponent(atob(str).split('').map(function(c) {
-      return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-  }).join(''));
+  return decodeURIComponent(atob(str));
 }
   
 

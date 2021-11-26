@@ -50,8 +50,12 @@ export class LoginComponent {
       console.log(this.data.owner.token)
       console.log(res);
     
+      window.sessionStorage.setItem('owner', this.data.owner);
       window.sessionStorage.setItem('token', this.data.owner.token);
       window.sessionStorage.setItem('ownerID', this.data.owner.ownerID);
+
+      this.data.restaurant.imageURL  = this.b64DecodeUnicode(this.data.restaurant.imageURL);
+
       window.sessionStorage.setItem('imagemRestaurantURL', this.data.restaurant.imageURL);
       window.sessionStorage.setItem('nomeRestaurante', this.data.restaurant.companyName);
       window.sessionStorage.setItem('restaurantID', this.data.restaurant.restaurantID);
@@ -71,6 +75,10 @@ export class LoginComponent {
     this.owner = new AuthOwner();
   }
 
+  b64DecodeUnicode(str) {
+    return decodeURIComponent(atob(str));
+  }
+  
   verificaUltimoPedido(restaurantID) {
     this.pedidosService.getPedidos(restaurantID).subscribe((pedidos: Order[]) => {
       console.log(pedidos);

@@ -11,6 +11,8 @@ import { Rating } from '../../cadastro-estabelecimento/model/rating';
 import { Restaurant } from '../../cadastro-estabelecimento/model/restaurant';
 import { RestaurantCategories } from '../../cadastro-estabelecimento/model/restaurantcategories';
 import { RestaurantService } from '../../cadastro-estabelecimento/service/restaurante-service';
+import { AuthOwner } from '../../login/model/AuthOwner';
+import { LoginService } from '../../login/service/LoginService';
 import { UserProfileService } from '../../user-profile/service/owner.service';
 import { RestaurantModel } from '../model/alterar-estabelecimento.model';
 
@@ -43,17 +45,29 @@ export class AlterarCadastroEstComponent implements OnInit, OnDestroy {
   selectedItem: any = [];
   dropdownSettings = {};
   myimage: Observable<any>;
+  isExcluirImagem: boolean = false;
+  yourCondition: boolean = false;
+  isExcluirButton: boolean = false;
+  decodeUrl: string;
+  owner: AuthOwner;
+  data: any;
  
   constructor(private router: Router, private restaurantService: RestaurantService,
     private ngxLoader: NgxUiLoaderService,private messageService: MessageService,
     private userProfileService: UserProfileService,
     private notifyService : NotificationService,
-    private primengConfig: PrimeNGConfig
+    private primengConfig: PrimeNGConfig,
+    private ownerService: LoginService,
     ){
       //this.items = [];
   }
 
   ngOnInit() {
+
+    this.isExcluirImagem = true;
+    this.yourCondition = true;
+    this.isExcluirButton = true;
+
     this.dropdownSettings = {
       singleSelection: false,
       idField: 'restaurantCategoryID',
@@ -71,6 +85,14 @@ export class AlterarCadastroEstComponent implements OnInit, OnDestroy {
     this.getRestaurant();
   }
 
+  ExcluirImagem() {
+    this.decodeUrl = '';
+    this.restaurant.imageURL = '';
+    this.isExcluirImagem = false;
+    this.yourCondition = false;
+    this.isExcluirButton = false;
+  }
+
   onItemSelect(item: RestaurantCategories) {
     console.log(item);
   }
@@ -86,58 +108,16 @@ export class AlterarCadastroEstComponent implements OnInit, OnDestroy {
     this.restaurant = JSON.parse(prod);
     console.log(this.restaurant);
 
-    //res.restaurantCategories = this.restaurant.restaurantCategories;
-    //console.log(res);
-    
-     //this.restaurantModel = res;
-    // this.restaurantModel.restaurantCategories = this.restaurant.restaurantCategories;
-
-    //  this.countries.push(this.restaurantModel.restaurantCategories);
-    //  this.items = this.countries;
      
      this.selectedRestaurantCategory =  this.restaurant.restaurantCategories;
      console.log(this.selectedRestaurantCategory);
 
-    // if (restaurant.onlyForTake) {
-    // this.pedidoRetiradaBalcao = true;
-    // }else {
-    //   this.pedidoRetiradaBalcao = false;
-    // }
-
     console.log(this.restaurant);
 
-  //var restaurantID = window.sessionStorage.getItem('restaurantID')
-  //this.restaurantModel = new Restaurant();
-
-
-  //this.restaurantModel.restaurantCategories = this.restaurant.restaurantCategories;
-  
-   
- 
-  //this.selectedCities3.push(this.selectedRestaurantCategory);
-
-//   this.userProfileService.getRestaurant(parseInt(restaurantID)).subscribe((res: Restaurant) => {
-
-//     // res.restaurantCategories = this.restaurant.restaurantCategories;
-//     // console.log(res);
-    
-//     //  this.restaurantModel = res;
-//     //  this.restaurantModel.restaurantCategories = this.restaurant.restaurantCategories;
-
-//     // //  this.countries.push(this.restaurantModel.restaurantCategories);
-//     // //  this.items = this.countries;
-     
-//     //  this.selectedRestaurantCategory =  this.restaurantModel.restaurantCategories;
-//     //  console.log(this.selectedRestaurantCategory);
-
-//     // if (res.onlyForTake) {
-//     // this.pedidoRetiradaBalcao = true;
-//     // }else {
-//     //   this.pedidoRetiradaBalcao = false;
-//     // }
-
-//     // console.log(this.restaurantModel);
-// });
+    this.decodeUrl = decodeURIComponent(atob(this.restaurant.imageURL));
+    this.decodeUrl = 'data:image/jpeg;base64,' +  this.decodeUrl;
+    console.log(this.decodeUrl);
+    this.restaurant.imageURL = this.decodeUrl.replace(/^data:image\/(png|jpg|jpeg);base64,/, '');
 
     }
   
@@ -173,14 +153,15 @@ export class AlterarCadastroEstComponent implements OnInit, OnDestroy {
    
     window.sessionStorage.setItem("restaurant", JSON.stringify(res));
     window.sessionStorage.setItem("nomeRestaurante", this.restaurant.companyName);
-    window.sessionStorage.setItem("imagemRestaurantURL", this.restaurant.imageURL);
+    window.sessionStorage.setItem("imagemRestaurantURL", res.imageURL);
     this.notifyService.showSuccess('Dados do estabelecimento alterado!', 'Sucesso!');
     this.router.navigate(['/user-profile']);
     this.ngxLoader.stop();
 }, err => {
   this.ngxLoader.stop();
 });
-  }
+}
+  
 
   onUpload(event) {
     const file = event.files[0];

@@ -28,17 +28,18 @@
         <div class="text-center text-muted mb-4">
           <small>Clique para inserir ou alterar o banner.</small>
         </div>
-        <p-fileUpload previewWidth="80"[showUploadButton]="false" chooseLabel="Escolher Arquivo"
+        <p-fileUpload  [disabled] ="yourCondition" previewWidth="80"[showUploadButton]="false" chooseLabel="Escolher Arquivo"
         [showCancelButton]="false"  name="demo[]" url="./upload.php" (onSelect)="onUpload($event)"
          accept="image/*" maxFileSize="9000">
         <ng-template pTemplate="content">
+          <img *ngIf="isExcluirImagem" src="data:image/jpeg;base64,{{restaurant.imageURL}}" width="80px" height="80px">
             <ul *ngIf="uploadedFiles.length">
                 <li *ngFor="let file of uploadedFiles"></li>
             </ul>
         </ng-template>
        </p-fileUpload>
-       <img src="data:image/jpeg;base64,{{restaurant.imageURL}}">
        <!-- <img src="data:image;base64,restaurant.imageURL" /> -->
+       <button *ngIf="isExcluirButton" style="width: 193px;" type="button" class="btn btn-danger" (click)="ExcluirImagem()" >Exluir Imagem</button>
         <div class="card-body px-lg-5 py-lg-5">
           <div class="text-center text-muted mb-4">
             <small>Alterar estabelecimento.</small>
