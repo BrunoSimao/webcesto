@@ -1,0 +1,175 @@
+<div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center" style="min-height: 300px; background-image: url(assets/img/theme/profile-cover.jpg); background-size: cover; background-position: center top;">
+  <!-- Mask -->
+  <span class="mask bg-gradient opacity-8" style="background-color: rgb(1, 143, 180)"></span>
+  <!-- Header container -->
+  <div class="container-fluid d-flex align-items-center">
+    <div class="row">
+      <div class="col-lg-7 col-md-10">
+        <h5 class="display-3 text-white">Olá {{ownerModel.name}}</h5>
+        <p class="text-white mt-0 mb-5">Esta é a sua página de perfil. Você pode ver o progresso que fez com seu trabalho e gerenciar seus projetos ou tarefas atribuídas</p>
+        <!-- <a href="#!" class="btn btn-info">Editar Perfil</a> -->
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container-fluid mt--7">
+  <div class="row">
+    <div class="col-xl-4 order-xl-2 mb-5 mb-xl-0">
+      <div class="card card-profile shadow">
+        <div class="row justify-content-center">
+          <div class="col-lg-3 order-lg-2">
+            <div class="card-profile-image">
+              <a href="javascript:void(0)">
+              <!-- <img src="https://static.wixstatic.com/media/29d8bb_465742e685cb489e805d5e04faf1cf26~mv2.png/v1/fill/w_92,h_80,al_c,q_85,usm_0.66_1.00_0.01/logo%20sem%20fundo%20cesto.webp" class="rounded-circle"> -->
+                <img src="assets/img/brand/estabelecimento.PNG" class="rounded-circle">
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="card-header text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
+          <!-- <div class="d-flex justify-content-between">
+            <a href="javascript:void(0)" class="btn btn-sm btn-info mr-4">Connect</a>
+            <a href="javascript:void(0)" class="btn btn-sm btn-default float-right">Message</a>
+          </div> -->
+        </div>
+        <div class="card-body pt-0 pt-md-4">
+          <div class="row">
+            <div class="col">
+              <div class="card-profile-stats d-flex justify-content-center mt-md-5">
+                <!-- <div>
+                  <span class="heading">20.000</span>
+                  <span class="description">Filiais</span>
+                </div> -->
+                <div>
+                  <span class="heading">Dados Estabelecimento</span>
+                  <span class="description">Restaurante</span>
+                </div>
+                <!-- <div>
+                  <span class="heading">79</span>
+                  <span class="description">Países</span>
+                </div> -->
+              </div>
+            </div>
+          </div>
+          <div class="text-center">
+            <h3>
+              {{companyName}}<span class="font-weight-light">, {{street}}</span>
+            </h3>
+            <div class="h5 font-weight-300">
+              <i class="ni location_pin mr-2"></i>{{city}}, {{sublocality}}
+            </div>
+            <div class="h5 mt-4">
+              <h4>
+                Telefone<span class="font-weight-light">: {{phoneNumber}}</span>
+              </h4>
+            </div>
+            <div>
+              <i class="ni education_hat mr-2"></i>{{city}}, {{state}} - {{country}}
+            </div>
+            <hr class="my-4" />
+            <!-- <p>A empresa começou em 1953 com o nome Insta-Burger King, uma cadeia de restaurantes com sede em Jacksonville</p> -->
+            <!-- <a href="javascript:void(0)">Show more</a> -->
+          </div>
+        </div>
+      </div>
+    </div>
+     
+    <div class="col-xl-8 order-xl-1">
+      <div class="card bg-secondary shadow">
+        <div class="card-header bg-white border-0">
+          <div class="row align-items-center">
+            <div class="col-8">
+              <h3 class="mb-0">Meus Dados</h3>
+            </div>
+            <div class="col-4 text-right">
+              <!-- <a href="/cadastro-parceiro" class="btn btn-sm btn-primary">Editar Meus Dados</a> -->
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          
+          <form>
+            <h6 class="heading-small text-muted mb-4">Informações do Proprietário</h6>
+            <div class="pl-lg-4">
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-username">Nome Usuário</label>
+                    <input disabled type="text" id="input-username" class="form-control form-control-alternative" value="ownerModel.name" [(ngModel)]="ownerModel.name" name="ownerModel.name">
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-email">Email</label>
+                    <input disabled type="email" id="input-email" class="form-control form-control-alternative"  value="ownerModel.email" [(ngModel)]="ownerModel.email" name="ownerModel.email">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-first-name">Celular</label>
+                    <input disabled type="number" id="input-first-name" class="form-control form-control-alternative" value="ownerModel.phoneNumber" [(ngModel)]="ownerModel.phoneNumber" name="ownerModel.phoneNumber">
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-last-name">CPF</label>
+                    <input disabled type="number" id="input-last-name" class="form-control form-control-alternative" value="ownerModel.cpf" [(ngModel)]="ownerModel.cpf" name="ownerModel.cpf">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <hr class="my-4" />
+            <!-- Address -->
+            <h6 class="heading-small text-muted mb-4">Endereço do Estabelecimento</h6>
+            <div class="pl-lg-4">
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-address">Logradouro</label>
+                    <input disabled id="input-address" class="form-control form-control-alternative" value="addressModel.street" [(ngModel)]="addressModel.street" name="addressModel.street" type="text">
+                  </div>
+                </div>
+                <div class="col-lg-2">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-city">Número</label>
+                    <input disabled type="text" id="input-city" class="form-control form-control-alternative" value="addressModel.number" [(ngModel)]="addressModel.number" name="addressModel.number" >
+                  </div>
+                  </div>
+                  <div class="col-lg-4">
+                    <div class="form-group">
+                      <label class="form-control-label" for="input-city">Complemento</label>
+                      <input disabled type="text" id="input-city" class="form-control form-control-alternative" placeholder="Casa/Apto" value="Casa">
+                    </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-4">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-city">Bairro</label>
+                    <input disabled type="text" id="input-city" class="form-control form-control-alternative"  value="addressModel.sublocality" [(ngModel)]="addressModel.sublocality" name="addressModel.sublocality">
+                  </div>
+                </div>
+                <div class="col-lg-5">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-country">Cidade</label>
+                    <input disabled type="text" id="input-country" class="form-control form-control-alternative" value="addressModel.city" [(ngModel)]="addressModel.city" name="addressModel.city">
+                  </div>
+                </div>
+                <div class="col-lg-3">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-country">CEP</label>
+                    <input disabled  type="number" id="input-postal-code" class="form-control form-control-alternative"value="addressModel.zipCode" [(ngModel)]="addressModel.zipCode" name="addressModel.zipCode">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <hr class="my-4" />
+            <!-- Description -->
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

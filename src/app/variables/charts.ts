@@ -1,4 +1,4 @@
-import Chart from 'chart.js';
+  import Chart from 'chart.js';
 //
 // Chart extension for making the bars rounded
 // Code from: https://codepen.io/jedtrow/full/ygRYgo
@@ -299,10 +299,10 @@ export const chartExample1 = {
     }
   },
   data: {
-    labels: ['May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+    labels: ['Jan','Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
     datasets: [{
       label: 'Performance',
-      data: [0, 20, 10, 30, 15, 40, 20, 60, 60]
+      data: []
     }]
   }
 }

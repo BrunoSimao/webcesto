@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import Chart from 'chart.js';
+import { element } from 'protractor';
+import { delay } from 'rxjs/operators';
+import { threadId } from 'worker_threads';
 
 // core components
 import {
@@ -8,6 +11,11 @@ import {
   chartExample1,
   chartExample2
 } from "../../variables/charts";
+import { Order } from '../pedidos/component/model/order';
+import { PedidosService } from '../pedidos/component/service/pedidos.service';
+import { Report } from './model/relatorio';
+import { Transaction } from './model/transaction';
+import { OrderReportService } from './service/report.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -21,40 +29,37 @@ export class DashboardComponent implements OnInit {
   public salesChart;
   public clicked: boolean = true;
   public clicked1: boolean = false;
+  percentualVendas: number = 0;
+  amount: number = 0;
+  ordersCount: number = 0;
+  qtdUsuarios: number = 0;
+  basicData: any;
+  basicOptions: any;
+  arrayValoresVenda: any[];
+  dataNumber: number[];
+  datapr: any;
+  valoresGrafico: number[] = [];
+  
+  
+  report: Report;
+
+  constructor(private orderReportService: OrderReportService,
+              private pedidosService: PedidosService){}
 
   ngOnInit() {
 
-    this.datasets = [
-      [0, 20, 10, 30, 15, 40, 20, 60, 60],
-      [0, 20, 5, 25, 10, 30, 15, 40, 40]
-    ];
-    this.data = this.datasets[0];
+  var restaurantID = window.sessionStorage.getItem('restaurantID');
 
+  this.orderReportService.getOrderReport(parseInt(restaurantID)).subscribe(report => {
+      this.percentualVendas = report.amount / 100;
+      this.amount = report.amount;
+      this.ordersCount = report.ordersCount;
 
-    var chartOrders = document.getElementById('chart-orders');
+      this.report = report;
 
-    parseOptions(Chart, chartOptions());
+      this.qtdUsuarios = report.orderReports.filter(x => x.name === x.name).length;
 
+  });
 
-    var ordersChart = new Chart(chartOrders, {
-      type: 'bar',
-      options: chartExample2.options,
-      data: chartExample2.data
-    });
-
-    var chartSales = document.getElementById('chart-sales');
-
-    this.salesChart = new Chart(chartSales, {
-			type: 'line',
-			options: chartExample1.options,
-			data: chartExample1.data
-		});
   }
-
-
-  public updateOptions() {
-    this.salesChart.data.datasets[0].data = this.data;
-    this.salesChart.update();
-  }
-
 }

@@ -1,0 +1,109 @@
+<div class="header py-4 py-lg-5" style="background-color: rgb(1, 143, 180)">
+  <div class="container">
+    <div class="header-body text-center mb-7">
+      <img src="https://static.wixstatic.com/media/29d8bb_465742e685cb489e805d5e04faf1cf26~mv2.png/v1/fill/w_92,h_80,al_c,q_85,usm_0.66_1.00_0.01/logo%20sem%20fundo%20cesto.webp">
+      <div class="text-muted text-center mt-2 mb-3"></div>
+      <div class="row justify-content-center">
+        <div class="col-lg-5 col-md-6">
+           <h1 class="text-white">Cadastro Produto</h1>    
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="separator separator-bottom separator-skew zindex-100">
+    <svg x="0" y="0" viewBox="0 0 2560 100" preserveAspectRatio="none" version="1.1" xmlns="http://www.w3.org/2000/svg">
+      <polygon class="fill-default" points="2560 0 2560 100 0 100"></polygon>
+    </svg>
+  </div>
+</div>
+<ngx-ui-loader></ngx-ui-loader>
+<!-- Page content -->
+<div class="container mt--8 pb-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-6 col-md-7">
+      <div class="card bg-secondary shadow border-0">
+        <div class="card-header bg-transparent pb-5">
+          <i class="ni ni-bold-left"></i>
+          <button type="button" (click)="goBack()" class="btn btn-secondary btn-sm">Voltar</button>
+           <div class="text-muted text-center mt-2 mb-3"><label>Imagem do Produto</label></div>
+        </div>
+        <p-fileUpload previewWidth="80"[showUploadButton]="false" chooseLabel="Escolher Imagem"
+        [styleClass]= ""  [showCancelButton]="false"  name="demo[]" url="./upload.php" (onSelect)="onUpload($event)"
+        invalidFileSizeMessageSummary="{0}: Tamanho de arquivo inválido, " invalidFileSizeMessageDetail="O tamanho máximo de upload é {0}." 
+         accept="image/*" maxFileSize="9000">
+        <ng-template pTemplate="content">
+            <ul *ngIf="uploadedFiles.length">
+                <li *ngFor="let file of uploadedFiles"></li>
+            </ul>
+        </ng-template>
+       </p-fileUpload>
+        <div class="card-body px-lg-5 py-lg-5">
+          <form role="form">
+            <div class="form-group mb-3">
+            
+              <label>Nome do prato</label> 
+              <div class="form-group mb-3">
+                <div class="input-group input-group-alternative">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="ni ni-ungroup"></i></span>
+                  </div>
+                  <input class="form-control" [(ngModel)]="name" name="name" type="text">
+                </div>
+              </div>
+            </div>
+            <div class="form-group mb-3">
+              <label>Descrição</label> 
+              <div class="form-group mb-3 ">
+                <div class="input-group input-group-alternative">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="ni ni-bullet-list-67"></i></span>
+                  </div>
+                  <textarea minlength="5" class="form-control" [(ngModel)]="description" name="description" type="text" id="exampleFormControlTextarea1" rows="3"></textarea>
+                </div>
+              </div>
+            </div>
+            <div class="form-group mb-3">
+              <label>Categoria</label> 
+              <div class="form-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="ni ni-single-copy-04"></i></span>
+                  <p-dropdown [style]="{'width': '405px'}" [options]="productsCategories" [(ngModel)]="selectedProductCategory" placeholder="Selecione a categoria"  optionLabel="categoryDescription" [showClear]="true" [ngModelOptions]="{standalone: true}"></p-dropdown>
+                </div>
+              </div>
+            </div>
+            <div class="form-group mb-3">
+              <label>Preço</label> 
+              <div class="form-group mb-3">
+                <div class="input-group input-group-alternative">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="ni ni-money-coins"></i></span>
+                    <p-inputNumber  [style]="{'width': '405px'}" [(ngModel)]="price"  name="price" inputId="locale-user" [minFractionDigits]="2" [maxFractionDigits]="2"> </p-inputNumber> 
+                  </div>
+                </div>
+              </div>
+              
+            </div>
+            <div class="form-group mb-3">
+              <label>Desconto</label> 
+              <div class="form-group mb-3">
+                <div class="input-group input-group-alternative">
+                  <div class="input-group-prepend">
+              <p-selectButton   [options]="discountOptions" [(ngModel)]="value" optionLabel="name" optionValue="value" [ngModelOptions]="{standalone: true}"></p-selectButton>
+            </div>
+          </div>
+        </div>
+      </div>
+              <br>
+                <p-inputSwitch [(ngModel)]="produtoDisponivel" [ngModelOptions]="{standalone: true}"></p-inputSwitch>            
+                <label style="font-size:15px; margin-left: 15px;">Produto disponível</label>
+            <div class="row">
+              <div class="col-sm-12 text-center">
+                <button style="width: 143px; background-color: rgb(1, 143, 180);" (click)="salvarCardapio()" type="button" class="btn btn-success my-4">Salvar</button>
+               </div>
+          </div>
+         </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

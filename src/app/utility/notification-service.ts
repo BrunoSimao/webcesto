@@ -12,6 +12,14 @@ export class NotificationService {
   	this.toastr.success(message, title)
   }
 
+  showError(message, title){
+  	this.toastr.error(message, title)
+  }
+
+  showAlerta(message, title){
+  	this.toastr.warning(message, title)
+  }
+
   showSuccessWithTimeout(message, title, timespan){
     this.toastr.success(message, title ,{
       timeOut : timespan
